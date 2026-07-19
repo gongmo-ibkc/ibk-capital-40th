@@ -364,6 +364,39 @@
   .biz-card h3{font-size:17px;font-weight:700;letter-spacing:-.01em}
   .biz-card p{font-size:13.5px;color:rgba(255,255,255,.68);margin-top:7px}
 
+  /* ---------- Cheers (employee messages) ---------- */
+  .cheers{background:var(--navy-950);color:#fff}
+  .cheers .kicker{color:var(--gold-300)}
+  .cheers .sec-desc{color:rgba(255,255,255,.66)}
+  .cheer-cta{
+    display:inline-flex;align-items:center;gap:9px;margin-top:22px;
+    padding:13px 28px;border-radius:999px;font-size:15px;font-weight:700;text-decoration:none;
+    background:linear-gradient(135deg,var(--gold-300),var(--gold-500));color:var(--navy-900);
+    transition:transform .2s,box-shadow .2s;
+  }
+  .cheer-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(201,162,39,.35)}
+  .cheer-rows{margin-top:40px;display:flex;flex-direction:column;gap:16px}
+  .cheer-row{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .cheer-track{display:flex;gap:14px;width:max-content;animation:cheerflow var(--dur,40s) linear infinite}
+  .cheer-row.rev .cheer-track{animation-direction:reverse}
+  .cheer-row:hover .cheer-track{animation-play-state:paused}
+  @keyframes cheerflow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .cheer-card{
+    flex:none;max-width:360px;min-width:220px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.11);
+    border-radius:14px;padding:15px 19px;transition:background .25s,border-color .25s;
+  }
+  .cheer-card:hover{background:rgba(255,255,255,.09);border-color:rgba(227,200,104,.4)}
+  .cheer-card .cc-msg{font-size:14px;line-height:1.65;color:rgba(255,255,255,.88);word-break:keep-all}
+  .cheer-card .cc-meta{font-size:12px;color:var(--gold-300);margin-top:8px;font-weight:600}
+  .cheer-empty{
+    margin-top:10px;padding:34px 26px;border:1px dashed rgba(255,255,255,.25);border-radius:16px;
+    text-align:center;color:rgba(255,255,255,.65);font-size:15px;line-height:1.7;
+  }
+  .cheer-note{margin-top:14px;font-size:11.5px;color:rgba(255,255,255,.35)}
+  @media (prefers-reduced-motion:reduce){.cheer-track{animation:none}}
+  @media(max-width:640px){.cheer-card{max-width:280px;padding:12px 14px}.cheer-card .cc-msg{font-size:13px}}
+
   /* ---------- Vision ---------- */
   .vision{text-align:center;background:var(--surface)}
   .vision blockquote{
@@ -662,9 +695,22 @@
   </div>
 </section>
 
-<!-- P13. Vision + footer -->
-<section class="page vision" id="vision" data-dot="비전">
+<!-- P13. Cheers -->
+<section class="page cheers" id="cheers" data-dot="축하 한마디">
   <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#0C2650"/></svg></div>
+  <div class="wrap">
+    <div class="kicker reveal">Messages · 함께 띄우는 물결</div>
+    <h2 class="sec-title reveal">임직원 축하 한마디</h2>
+    <p class="sec-desc reveal">40년의 항해를 함께해 온 사람들의 마음이 파도가 되어 흐릅니다. 여러분의 한마디를 띄워주세요.</p>
+    <a class="cheer-cta reveal" href="https://docs.google.com/forms/d/e/1FAIpQLSfdI1b_u09dVdLS6_BsxALwVDJM1DRuU6StX5EGJwMv8qTw7A/viewform" target="_blank" rel="noopener">🖋 축하 한마디 남기기</a>
+    <div class="cheer-rows" id="cheerRows"><div class="cheer-empty">메시지를 불러오는 중입니다…</div></div>
+    <div class="cheer-note reveal">남겨주신 메시지는 잠시 후 이 물결 위에 표시됩니다. (새로고침 기준 수 분 이내)</div>
+  </div>
+</section>
+
+<!-- P14. Vision + footer -->
+<section class="page vision" id="vision" data-dot="비전">
+  <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#050F26"/></svg></div>
   <div class="wrap">
     <div class="kicker reveal" style="text-align:center">Next 40 Years</div>
     <blockquote class="reveal">
@@ -1135,6 +1181,79 @@
     sagaAudio.addEventListener('play',update);
   })();
 
+  /* ================= Employee cheers (Google Sheet CSV) ================= */
+  (function(){
+    const CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vSbfliVbFpswn_dgwpwdgl8tsCPJ_sQKmGl0XhgJj0p47-dlaVLA1lwA93MFSj1SaRIEUtAVulQip3M/pub?gid=1065972532&single=true&output=csv';
+    const box=document.getElementById('cheerRows');
+    if(!box) return;
+    // RFC4180 CSV 파서 (따옴표·줄바꿈 처리)
+    function parseCSV(text){
+      const rows=[];let row=[],cur='',q=false;
+      for(let i=0;i<text.length;i++){
+        const c=text[i];
+        if(q){
+          if(c==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else q=false; }
+          else cur+=c;
+        }else{
+          if(c==='"') q=true;
+          else if(c===','){ row.push(cur);cur=''; }
+          else if(c==='\n'||c==='\r'){ if(c==='\r'&&text[i+1]==='\n')i++; row.push(cur);cur=''; if(row.some(x=>x!=='')) rows.push(row); row=[]; }
+          else cur+=c;
+        }
+      }
+      if(cur!==''||row.length){ row.push(cur); if(row.some(x=>x!=='')) rows.push(row); }
+      return rows;
+    }
+    function fmtDate(ts){
+      const m=ts.match(/(\d{4})[.\/\-]\s?(\d{1,2})[.\/\-]\s?(\d{1,2})/);
+      return m? `${m[1]}.${String(m[2]).padStart(2,'0')}.${String(m[3]).padStart(2,'0')}` : '';
+    }
+    function render(msgs){
+      box.innerHTML='';
+      if(!msgs.length){
+        const d=document.createElement('div');
+        d.className='cheer-empty';
+        d.innerHTML='아직 첫 메시지가 없습니다.<br>위의 <b style="color:var(--gold-300)">축하 한마디 남기기</b> 버튼을 눌러 첫 번째 파도를 띄워주세요 🌊';
+        box.appendChild(d);
+        return;
+      }
+      const nRows=msgs.length>10?3:(msgs.length>4?2:1);
+      for(let r=0;r<nRows;r++){
+        const rowMsgs=msgs.filter((_,i)=>i%nRows===r);
+        if(!rowMsgs.length) continue;
+        const rowEl=document.createElement('div');
+        rowEl.className='cheer-row'+(r%2?' rev':'');
+        const track=document.createElement('div');
+        track.className='cheer-track';
+        track.style.setProperty('--dur',Math.max(28,rowMsgs.length*9)+'s');
+        for(let dup=0;dup<2;dup++){
+          rowMsgs.forEach(m=>{
+            const card=document.createElement('div');card.className='cheer-card';
+            const msg=document.createElement('div');msg.className='cc-msg';msg.textContent=m.text; // textContent = XSS 안전
+            card.appendChild(msg);
+            const metaTxt=[m.name,m.date].filter(Boolean).join(' · ');
+            if(metaTxt){ const meta=document.createElement('div');meta.className='cc-meta';meta.textContent='— '+metaTxt;card.appendChild(meta); }
+            track.appendChild(card);
+          });
+        }
+        rowEl.appendChild(track);
+        box.appendChild(rowEl);
+      }
+    }
+    fetch(CSV_URL,{cache:'no-store'}).then(r=>{ if(!r.ok) throw 0; return r.text(); }).then(t=>{
+      const rows=parseCSV(t);
+      const head=rows.shift()||[];
+      const msgIdx=head.findIndex(h=>!/타임스탬프|timestamp/i.test(h));
+      const nameIdx=head.findIndex(h=>/이름|성함|name/i.test(h));
+      const msgs=rows.map(r=>({
+        text:(r[msgIdx]||'').trim().slice(0,160),
+        name:nameIdx>=0?(r[nameIdx]||'').trim().slice(0,20):'',
+        date:fmtDate(r[0]||'')
+      })).filter(m=>m.text).reverse(); // 최신 메시지 먼저
+      render(msgs);
+    }).catch(()=>render([]));
+  })();
+
   /* ================= Nav dots ================= */
   (function(){
     const pages=[...document.querySelectorAll('.page')];
@@ -1147,7 +1266,7 @@
       dots.appendChild(a);
       map.set(p,a);
     });
-    const darkPages=new Set(['home','story1','story2','story3','story4','business']);
+    const darkPages=new Set(['home','story1','story2','story3','story4','business','cheers']);
     const io3=new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(!e.isIntersecting) return;
