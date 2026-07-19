@@ -368,13 +368,28 @@
   .cheers{background:var(--navy-950);color:#fff}
   .cheers .kicker{color:var(--gold-300)}
   .cheers .sec-desc{color:rgba(255,255,255,.66)}
-  .cheer-cta{
-    display:inline-flex;align-items:center;gap:9px;margin-top:22px;
-    padding:13px 28px;border-radius:999px;font-size:15px;font-weight:700;text-decoration:none;
-    background:linear-gradient(135deg,var(--gold-300),var(--gold-500));color:var(--navy-900);
-    transition:transform .2s,box-shadow .2s;
+  .cheer-form{
+    margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;align-items:stretch;max-width:760px;
   }
-  .cheer-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(201,162,39,.35)}
+  .cheer-form input,.cheer-form textarea{
+    font:inherit;color:#fff;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:12px 16px;
+    outline:none;transition:border-color .2s,background .2s;
+  }
+  .cheer-form input:focus,.cheer-form textarea:focus{border-color:var(--gold-300);background:rgba(255,255,255,.09)}
+  .cheer-form input::placeholder,.cheer-form textarea::placeholder{color:rgba(255,255,255,.35)}
+  .cheer-form .cf-name{width:150px;flex:none}
+  .cheer-form .cf-msg{flex:1;min-width:240px;resize:none;height:48px;line-height:1.4}
+  .cheer-form .cf-send{
+    flex:none;border:0;cursor:pointer;font:inherit;font-size:14.5px;font-weight:700;
+    padding:0 26px;border-radius:12px;
+    background:linear-gradient(135deg,var(--gold-300),var(--gold-500));color:var(--navy-900);
+    transition:transform .2s,box-shadow .2s,opacity .2s;
+  }
+  .cheer-form .cf-send:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(201,162,39,.35)}
+  .cheer-form .cf-send:disabled{opacity:.55;cursor:default;transform:none;box-shadow:none}
+  .cheer-status{margin-top:10px;font-size:13px;color:var(--gold-300);min-height:20px}
+  @media(max-width:640px){.cheer-form .cf-name{width:100%}.cheer-form .cf-send{width:100%;padding:12px 0}}
   .cheer-rows{margin-top:40px;display:flex;flex-direction:column;gap:16px}
   .cheer-row{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
   .cheer-track{display:flex;gap:14px;width:max-content;animation:cheerflow var(--dur,40s) linear infinite}
@@ -701,10 +716,14 @@
   <div class="wrap">
     <div class="kicker reveal">Messages · 함께 띄우는 물결</div>
     <h2 class="sec-title reveal">임직원 축하 한마디</h2>
-    <p class="sec-desc reveal">40년의 항해를 함께해 온 사람들의 마음이 파도가 되어 흐릅니다. 여러분의 한마디를 띄워주세요.</p>
-    <a class="cheer-cta reveal" href="https://docs.google.com/forms/d/e/1FAIpQLSfdI1b_u09dVdLS6_BsxALwVDJM1DRuU6StX5EGJwMv8qTw7A/viewform" target="_blank" rel="noopener">🖋 축하 한마디 남기기</a>
+    <p class="sec-desc reveal">40년의 항해를 함께해 온 사람들의 마음이 파도가 되어 흐릅니다. 여러분의 한마디를 지금 바로 띄워주세요.</p>
+    <div class="cheer-form reveal">
+      <input class="cf-name" id="cheerName" maxlength="20" placeholder="이름 (선택)">
+      <textarea class="cf-msg" id="cheerMsg" maxlength="160" rows="1" placeholder="축하 한마디를 남겨주세요 (160자 이내)"></textarea>
+      <button class="cf-send" id="cheerSend" type="button">🌊 파도에 띄우기</button>
+    </div>
+    <div class="cheer-status" id="cheerStatus"></div>
     <div class="cheer-rows" id="cheerRows"><div class="cheer-empty">메시지를 불러오는 중입니다…</div></div>
-    <div class="cheer-note reveal">남겨주신 메시지는 잠시 후 이 물결 위에 표시됩니다. (새로고침 기준 수 분 이내)</div>
   </div>
 </section>
 
@@ -1181,39 +1200,71 @@
     sagaAudio.addEventListener('play',update);
   })();
 
-  /* ================= Employee cheers (Google Sheet CSV) ================= */
+  /* ================= Nav dots ================= */
   (function(){
-    const CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vSbfliVbFpswn_dgwpwdgl8tsCPJ_sQKmGl0XhgJj0p47-dlaVLA1lwA93MFSj1SaRIEUtAVulQip3M/pub?gid=1065972532&single=true&output=csv';
-    const box=document.getElementById('cheerRows');
-    if(!box) return;
-    // RFC4180 CSV 파서 (따옴표·줄바꿈 처리)
-    function parseCSV(text){
-      const rows=[];let row=[],cur='',q=false;
-      for(let i=0;i<text.length;i++){
-        const c=text[i];
-        if(q){
-          if(c==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else q=false; }
-          else cur+=c;
-        }else{
-          if(c==='"') q=true;
-          else if(c===','){ row.push(cur);cur=''; }
-          else if(c==='\n'||c==='\r'){ if(c==='\r'&&text[i+1]==='\n')i++; row.push(cur);cur=''; if(row.some(x=>x!=='')) rows.push(row); row=[]; }
-          else cur+=c;
-        }
-      }
-      if(cur!==''||row.length){ row.push(cur); if(row.some(x=>x!=='')) rows.push(row); }
-      return rows;
-    }
-    function fmtDate(ts){
-      const m=ts.match(/(\d{4})[.\/\-]\s?(\d{1,2})[.\/\-]\s?(\d{1,2})/);
-      return m? `${m[1]}.${String(m[2]).padStart(2,'0')}.${String(m[3]).padStart(2,'0')}` : '';
-    }
+    const pages=[...document.querySelectorAll('.page')];
+    const dots=document.getElementById('dots');
+    const map=new Map();
+    pages.forEach(p=>{
+      const a=document.createElement('a');
+      a.href='#'+p.id;
+      a.title=p.dataset.dot||p.id;
+      dots.appendChild(a);
+      map.set(p,a);
+    });
+    const darkPages=new Set(['home','story1','story2','story3','story4','business','cheers']);
+    const io3=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting) return;
+        map.forEach(a=>a.classList.remove('on'));
+        const a=map.get(e.target);
+        if(a) a.classList.add('on');
+        dots.classList.toggle('on-dark',darkPages.has(e.target.id));
+      });
+    },{threshold:.55});
+    pages.forEach(p=>io3.observe(p));
+  })();
+</script>
+
+<!-- ================= 임직원 축하 한마디: Firebase Firestore 실시간 연동 ================= -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp }
+    from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAh2M2maHqzpN-eQFjM0LLeTWqt413zE80",
+    authDomain: "ibk-40th.firebaseapp.com",
+    projectId: "ibk-40th",
+    storageBucket: "ibk-40th.firebasestorage.app",
+    messagingSenderId: "272027867262",
+    appId: "1:272027867262:web:74f18275a5d905ec81602f"
+  };
+
+  const box=document.getElementById('cheerRows');
+  const nameEl=document.getElementById('cheerName');
+  const msgEl=document.getElementById('cheerMsg');
+  const sendBtn=document.getElementById('cheerSend');
+  const statusEl=document.getElementById('cheerStatus');
+  if(box && sendBtn){
+    let db=null;
+    try{
+      const app=initializeApp(firebaseConfig);
+      db=getFirestore(app);
+    }catch(e){ box.innerHTML='<div class="cheer-empty">메시지 서비스에 연결할 수 없습니다.</div>'; }
+
+    const fmtDate=(ts)=>{
+      try{ const d=ts&&ts.toDate?ts.toDate():null;
+        return d? `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}` : ''; }
+      catch(e){ return ''; }
+    };
+
     function render(msgs){
       box.innerHTML='';
       if(!msgs.length){
         const d=document.createElement('div');
         d.className='cheer-empty';
-        d.innerHTML='아직 첫 메시지가 없습니다.<br>위의 <b style="color:var(--gold-300)">축하 한마디 남기기</b> 버튼을 눌러 첫 번째 파도를 띄워주세요 🌊';
+        d.innerHTML='아직 첫 메시지가 없습니다.<br>지금 <b style="color:var(--gold-300)">첫 번째 파도</b>를 띄워주세요 🌊';
         box.appendChild(d);
         return;
       }
@@ -1240,44 +1291,42 @@
         box.appendChild(rowEl);
       }
     }
-    fetch(CSV_URL,{cache:'no-store'}).then(r=>{ if(!r.ok) throw 0; return r.text(); }).then(t=>{
-      const rows=parseCSV(t);
-      const head=rows.shift()||[];
-      const msgIdx=head.findIndex(h=>!/타임스탬프|timestamp/i.test(h));
-      const nameIdx=head.findIndex(h=>/이름|성함|name/i.test(h));
-      const msgs=rows.map(r=>({
-        text:(r[msgIdx]||'').trim().slice(0,160),
-        name:nameIdx>=0?(r[nameIdx]||'').trim().slice(0,20):'',
-        date:fmtDate(r[0]||'')
-      })).filter(m=>m.text).reverse(); // 최신 메시지 먼저
-      render(msgs);
-    }).catch(()=>render([]));
-  })();
 
-  /* ================= Nav dots ================= */
-  (function(){
-    const pages=[...document.querySelectorAll('.page')];
-    const dots=document.getElementById('dots');
-    const map=new Map();
-    pages.forEach(p=>{
-      const a=document.createElement('a');
-      a.href='#'+p.id;
-      a.title=p.dataset.dot||p.id;
-      dots.appendChild(a);
-      map.set(p,a);
-    });
-    const darkPages=new Set(['home','story1','story2','story3','story4','business','cheers']);
-    const io3=new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(!e.isIntersecting) return;
-        map.forEach(a=>a.classList.remove('on'));
-        const a=map.get(e.target);
-        if(a) a.classList.add('on');
-        dots.classList.toggle('on-dark',darkPages.has(e.target.id));
-      });
-    },{threshold:.55});
-    pages.forEach(p=>io3.observe(p));
-  })();
+    if(db){
+      // 실시간 구독 (최신 100개)
+      onSnapshot(query(collection(db,'cheers'),orderBy('ts','desc'),limit(100)),(snap)=>{
+        const msgs=[];
+        snap.forEach(doc=>{
+          const d=doc.data();
+          if(d && typeof d.msg==='string' && d.msg.trim())
+            msgs.push({text:d.msg.trim().slice(0,160),name:(d.name||'').slice(0,20),date:fmtDate(d.ts)});
+        });
+        render(msgs);
+      },()=>{ box.innerHTML='<div class="cheer-empty">메시지를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</div>'; });
+
+      // 제출 (1분당 1회 제한)
+      const submit=async()=>{
+        const msg=(msgEl.value||'').trim();
+        const name=(nameEl.value||'').trim();
+        if(!msg){ statusEl.textContent='한마디를 입력해 주세요!'; msgEl.focus(); return; }
+        let last=0; try{ last=+localStorage.getItem('cheerLast')||0; }catch(e){}
+        if(Date.now()-last<60000){ statusEl.textContent='잠시 후 다시 띄울 수 있어요 (1분에 한 번씩)'; return; }
+        sendBtn.disabled=true; statusEl.textContent='파도에 띄우는 중…';
+        try{
+          await addDoc(collection(db,'cheers'),{name:name.slice(0,20),msg:msg.slice(0,160),ts:serverTimestamp()});
+          try{ localStorage.setItem('cheerLast',String(Date.now())); }catch(e){}
+          msgEl.value='';
+          statusEl.textContent='🌊 축하의 파도가 띄워졌습니다!';
+          setTimeout(()=>{ statusEl.textContent=''; },4000);
+        }catch(e){
+          statusEl.textContent='전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+        }
+        sendBtn.disabled=false;
+      };
+      sendBtn.addEventListener('click',submit);
+      msgEl.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); submit(); } });
+    }
+  }
 </script>
 </body>
 </html>
