@@ -10,9 +10,11 @@
 ## 파일 구조 (이 키트)
 - `src.html` — **편집용 소스** (최신). 오디오 자리에 `__SAGA_SRC__`, 로고 자리에 `__LOGO_SRC__` 플레이스홀더. 모든 수정은 이 파일에서.
 - `saga.mp3` — 40주년 헌정곡 「혁신의 파도」 (128kbps, 2:13.8)
-- `logo.png` — IBK캐피탈 공식 로고 (500×112 투명 PNG, 14KB). 헤더·푸터에 base64 내장.
-  헤더(어두운 배경)는 CSS `filter:brightness(0) invert(1)`로 흰색 처리, 푸터(밝은 배경)는 원본 컬러.
-- `build.py` — src.html + saga.mp3 + logo.png → index.html 생성 (플레이스홀더 2개 치환)
+- `logo.png` — IBK캐피탈 공식 로고 (500×112 투명 PNG, 14KB). 푸터(밝은 배경)에 원본 컬러로 사용.
+- `logo-white.png` — 헤더용 리버스 버전. 심볼은 원본 컬러 유지, 글자만 흰색
+  (logo.png에서 x≥128 영역의 불투명 픽셀을 흰색으로 치환해 생성. 전체 흰색 필터를 쓰면 심볼 디테일이 사라지므로 금지).
+- `build.py` — src.html + saga.mp3 + logo.png + logo-white.png → index.html 생성
+  (플레이스홀더 3개 치환: `__SAGA_SRC__`, `__LOGO_SRC__`, `__LOGO_W_SRC__`)
 - `og-image.png` — 공유 카드 (1200x630, 저장소에 함께 배포)
 - `index.html` — 빌드 결과물 (직접 편집 금지)
 
