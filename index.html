@@ -1056,38 +1056,37 @@
 
   /* ================= Saga lyrics captions ================= */
   (function(){
-    const LYRICS=[
-      "사십 년의 무게, 그 이상의 가치 (그 이상의 가치)",
-      "IBK캐피탈, 새로운 시대를 위한 돛을 달고",
-      "흔들림 없는 신뢰, 우리의 base (우리의 base)",
-      "미래를 향한 투자, 가슴 뛰는 pace",
-      "지금부터 시작이야, the second chapter",
-      "사십 년의 비전, 우리의 이름 IBK캐피탈!",
-      "함께 만들어 온 빛나는 역사, let's keep it going!",
-      "혁신의 파도 위로, 더 높이 비상해",
-      "우리의 내일은 오늘보다 더 빛나 (오늘보다 더 빛나)!",
-      "숫자로 증명된 시간, 40 years strong",
-      "변화에 발맞춰, 우린 멈추지 않아 (멈추지 않아)",
-      "Corporate partner, venture flow",
-      "금융의 새 지평을 열어, watch us grow",
-      "세련된 감각으로, the capital of future",
-      "사십 년의 비전, 우리의 이름 IBK캐피탈!",
-      "함께 만들어 온 빛나는 역사, let's keep it going!",
-      "혁신의 파도 위로, 더 높이 비상해",
-      "우리의 내일은 오늘보다 더 빛나 (오늘보다 더 빛나)!",
-      "과거와 현재, 그 사이의 연결고리",
-      "우리의 legacy, 영원히 흐르리",
-      "Beyond the limit, beyond the dream",
-      "가장 빛나는 순간을 향해",
-      "사십 년의 비전, 우리의 이름 IBK캐피탈!",
-      "함께 만들어 온 빛나는 역사, let's keep it going!",
-      "혁신의 파도 위로, 더 높이 비상해",
-      "우리의 내일은 오늘보다 더 빛나 (오늘보다 더 빛나)!",
-      "IBK캐피탈, 사십 년 그 이상의 도약",
-      "We are the future. (IBK Capital.)"
+    // [시작시각(초), 가사] — 음원 에너지 분석 기반 구간별 타임코드 (벌스/코러스/브리지)
+    const CUES=[
+      [10.5,"사십 년의 무게, 그 이상의 가치 (그 이상의 가치)"],
+      [14.5,"IBK캐피탈, 새로운 시대를 위한 돛을 달고"],
+      [18.5,"흔들림 없는 신뢰, 우리의 base (우리의 base)"],
+      [22.5,"미래를 향한 투자, 가슴 뛰는 pace"],
+      [25.5,"지금부터 시작이야, the second chapter"],
+      [28.5,"사십 년의 비전, 우리의 이름 IBK캐피탈!"],
+      [33.2,"함께 만들어 온 빛나는 역사, let's keep it going!"],
+      [37.9,"혁신의 파도 위로, 더 높이 비상해"],
+      [42.6,"우리의 내일은 오늘보다 더 빛나 (오늘보다 더 빛나)!"],
+      [47.5,"숫자로 증명된 시간, 40 years strong"],
+      [51.6,"변화에 발맞춰, 우린 멈추지 않아 (멈추지 않아)"],
+      [55.7,"Corporate partner, venture flow"],
+      [59.8,"금융의 새 지평을 열어, watch us grow"],
+      [63.9,"세련된 감각으로, the capital of future"],
+      [68.5,"사십 년의 비전, 우리의 이름 IBK캐피탈!"],
+      [72.5,"함께 만들어 온 빛나는 역사, let's keep it going!"],
+      [76.5,"혁신의 파도 위로, 더 높이 비상해"],
+      [80.5,"우리의 내일은 오늘보다 더 빛나 (오늘보다 더 빛나)!"],
+      [85.0,"과거와 현재, 그 사이의 연결고리"],
+      [88.4,"우리의 legacy, 영원히 흐르리"],
+      [91.8,"Beyond the limit, beyond the dream"],
+      [95.2,"가장 빛나는 순간을 향해"],
+      [98.5,"사십 년의 비전, 우리의 이름 IBK캐피탈!"],
+      [103.4,"함께 만들어 온 빛나는 역사, let's keep it going!"],
+      [108.3,"혁신의 파도 위로, 더 높이 비상해"],
+      [113.2,"우리의 내일은 오늘보다 더 빛나 (오늘보다 더 빛나)!"],
+      [118.5,"IBK캐피탈, 사십 년 그 이상의 도약"],
+      [124.0,"We are the future. (IBK Capital.)"]
     ];
-    const INTRO=8, OUTRO_END=130; // 보컬 구간(초) — 균등 배분 근사
-    const stepT=(OUTRO_END-INTRO)/LYRICS.length;
     const bar=document.getElementById('lyricBar');
     const now=document.getElementById('lyricNow');
     const next=document.getElementById('lyricNext');
@@ -1095,13 +1094,12 @@
     const update=()=>{
       if(sagaAudio.paused){ bar.classList.remove('show'); lastIdx=-2; return; }
       const t=sagaAudio.currentTime;
-      let idx=Math.floor((t-INTRO)/stepT);
-      if(t<INTRO) idx=-1;
-      if(idx>=LYRICS.length) idx=LYRICS.length-1;
+      let idx=-1;
+      for(let i=0;i<CUES.length;i++){ if(t>=CUES[i][0]) idx=i; else break; }
       if(idx===lastIdx) return;
       lastIdx=idx;
-      if(idx<0){ now.textContent='♪ 혁신의 파도 — IBK캐피탈 40주년 헌정곡'; next.textContent=LYRICS[0]; }
-      else{ now.textContent=LYRICS[idx]; next.textContent=LYRICS[idx+1]||'♪'; }
+      if(idx<0){ now.textContent='♪ 혁신의 파도 — IBK캐피탈 40주년 헌정곡'; next.textContent=CUES[0][1]; }
+      else{ now.textContent=CUES[idx][1]; next.textContent=CUES[idx+1]?CUES[idx+1][1]:'♪'; }
       bar.classList.add('show');
       document.body.classList.add('lyrics-on');
     };
