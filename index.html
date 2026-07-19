@@ -181,13 +181,7 @@
   .cp-value{font-size:clamp(26px,3.2vw,36px);font-weight:700;letter-spacing:-.02em;color:var(--blue-600)}
   .cp-value .unit{font-size:.5em;font-weight:600;color:var(--ink-secondary);margin-left:3px}
   .cp-delta{font-size:13px;font-weight:700;color:#0B6E4F;background:#E7F5EF;padding:4px 12px;border-radius:999px}
-  .scale-toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-left:auto}
-  .scale-toggle button{
-    font:inherit;font-size:12px;font-weight:700;padding:5px 14px;border:0;cursor:pointer;
-    background:transparent;color:var(--ink-muted);transition:background .2s,color .2s;
-  }
-  .scale-toggle button.on{background:var(--blue-600);color:#fff}
-  .scale-note{font-size:11.5px;color:var(--ink-muted);margin-top:6px}
+  .axis-note{font-size:11.5px;color:var(--ink-muted);margin-top:6px}
   .cp-sub{margin-top:8px;color:var(--ink-secondary);font-size:15px}
   .cp-plot{margin-top:26px}
   .cp-plot svg{display:block;width:100%;height:auto}
@@ -746,41 +740,33 @@
     const W=860,H=330,m={t:24,r:20,b:34,l:56};
     const iw=W-m.l-m.r, ih=H-m.t-m.b;
     const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':c.label+' 연도별 추이'});
-    const logMode = c.scale==='log' && c.type==='line';
-    let ySc, baseline;
-    if(logMode){
+    let ySc;
+    const drawTick=(v,y)=>{
+      svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,class:'grid-ln'}));
+      const t=el('text',{x:m.l-9,y:y+4,'text-anchor':'end',class:'axis-txt'});
+      t.textContent=c.dec>0? (Math.round(v*10)/10) : Math.round(v).toLocaleString('ko-KR');
+      svg.appendChild(t);
+    };
+    if(c.type==='line'){
+      // 확대 축: 데이터 범위에 맞춰 최소~최대만 보여줌 (변화 폭 강조)
       const vmin=Math.min(...c.data.map(d=>d.v)), vmaxr=Math.max(...c.data.map(d=>d.v));
-      const lo=vmin/1.25, hi=vmaxr*1.15;
-      const lgLo=Math.log10(lo), lgHi=Math.log10(hi);
-      ySc=v=>m.t+ih-((Math.log10(v)-lgLo)/(lgHi-lgLo))*ih;
-      baseline=m.t+ih;
-      // ticks: 1/2/5 × 10^k within [lo,hi]
-      let ticks=[];
-      for(let k=Math.floor(lgLo)-1;k<=Math.ceil(lgHi);k++){
-        [1,2,5].forEach(s=>{const v=s*Math.pow(10,k); if(v>=lo&&v<=hi) ticks.push(v);});
-      }
-      while(ticks.length>5) ticks=ticks.filter((_,i)=>i%2===0 || i===ticks.length-1);
-      ticks.forEach(v=>{
-        const y=ySc(v);
-        svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,class:'grid-ln'}));
-        const t=el('text',{x:m.l-9,y:y+4,'text-anchor':'end',class:'axis-txt'});
-        t.textContent=c.dec>0? (Math.round(v*10)/10) : Math.round(v).toLocaleString('ko-KR');
-        svg.appendChild(t);
-      });
+      const range=(vmaxr-vmin)||Math.abs(vmaxr)*.1||1;
+      const rawStep=range/4;
+      const pow=Math.pow(10,Math.floor(Math.log10(rawStep)));
+      const step=[1,2,2.5,5,10].map(s=>s*pow).find(s=>s>=rawStep);
+      let lo=Math.floor((vmin-range*.06)/step)*step;
+      if(vmin>=0 && lo<0) lo=0;
+      let hi=lo+step*Math.ceil(((vmaxr+range*.10)-lo)/step);
+      ySc=v=>m.t+ih-((v-lo)/(hi-lo))*ih;
+      for(let v=lo; v<=hi+step*.01; v+=step) drawTick(v,ySc(v));
     }else{
+      // 막대: 항상 0 기준 (길이 왜곡 방지)
       const rawStep=Math.max(...c.data.map(d=>d.v))*1.08/3;
       const pow=Math.pow(10,Math.floor(Math.log10(rawStep)));
       const step=[1,2,2.5,5,10].map(s=>s*pow).find(s=>s>=rawStep);
       const vmax=step*3;
       ySc=v=>m.t+ih-(v/vmax)*ih;
-      baseline=m.t+ih;
-      for(let i=0;i<=3;i++){
-        const v=step*i, y=ySc(v);
-        svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,class:'grid-ln'}));
-        const t=el('text',{x:m.l-9,y:y+4,'text-anchor':'end',class:'axis-txt'});
-        t.textContent=c.dec>0? (Math.round(v*10)/10) : Math.round(v).toLocaleString('ko-KR');
-        svg.appendChild(t);
-      }
+      for(let i=0;i<=3;i++) drawTick(step*i,ySc(step*i));
     }
 
     const y0=c.data[0].y, y1=c.data[c.data.length-1].y, span=Math.max(1,y1-y0);
@@ -849,11 +835,6 @@
         <div class="gn-big">2.2조 &rarr; 12.1조, <em>15년 만에 5.4배</em></div>
         <div class="gn-txt">2010년 총자산 2.2조 원이던 IBK캐피탈은 2017년 금융자산 5조, 2022년 10조 원 이정표를 지나 2025년 총자산 12조 원 시대를 열었습니다. 자기자본 6.3배, 임직원 2.7배 — 모든 물결이 같은 방향으로 흘렀습니다.</div>
       </div>` : '';
-    const toggleHTML = c.type==='line' ? `
-          <span class="scale-toggle" role="group" aria-label="축 스케일 선택">
-            <button type="button" data-scale="linear" class="on">선형</button>
-            <button type="button" data-scale="log">로그</button>
-          </span>` : '';
     sec.innerHTML=`
       <div class="wrap">
         <div class="cp-step reveal">${c.step} · Growth Tracking</div>
@@ -861,11 +842,10 @@
           <div class="cp-title">${c.label}</div>
           <div class="cp-value">${c.current}<span class="unit">${c.unit}</span></div>
           <span class="cp-delta">${c.delta}</span>
-          ${toggleHTML}
         </div>
         <p class="cp-sub reveal">${c.sub}</p>
         <div class="cp-plot reveal"></div>
-        ${c.type==='line'?'<div class="scale-note" data-role="scale-note" hidden>로그 스케일: 세로 간격이 같으면 성장률(%)이 같다는 뜻입니다. 초기의 빠른 성장률을 비교하기에 좋습니다.</div>':''}
+        ${c.type==='line'?'<div class="axis-note">※ 세로축은 변화 폭이 잘 보이도록 데이터 범위에 맞춰 확대되어 있습니다 (0부터 시작하지 않음).</div>':''}
         <details class="reveal"><summary>표로 보기</summary>
           <table><thead><tr><th>연도</th><th>${c.label}(${c.unit})</th><th>변화</th></tr></thead><tbody>
           ${c.data.map((d,i)=>{
@@ -879,22 +859,6 @@
         ${noteHTML}
       </div>`;
     sec.querySelector('.cp-plot').appendChild(renderChart(c));
-    // scale toggle (line charts only)
-    const tg=sec.querySelector('.scale-toggle');
-    if(tg){
-      tg.querySelectorAll('button').forEach(b=>{
-        b.addEventListener('click',()=>{
-          if(c.scale===b.dataset.scale) return;
-          c.scale=b.dataset.scale;
-          tg.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
-          const plot=sec.querySelector('.cp-plot');
-          plot.innerHTML='';
-          plot.appendChild(renderChart(c));
-          const note=sec.querySelector('[data-role="scale-note"]');
-          if(note) note.hidden = c.scale!=='log';
-        });
-      });
-    }
     sec.querySelectorAll('.reveal').forEach(n=>io.observe(n));
   });
 
