@@ -740,18 +740,35 @@
   (function(){
     let userPaused=false;
     sagaAudio.addEventListener('pause',()=>{ userPaused=true; });
-    const kickEvents=['pointerdown','keydown','touchstart','wheel','scroll'];
-    const kick=(ev)=>{
-      if(ev && ev.target && ev.target.closest && ev.target.closest('#sagaBtn')) return;
-      kickEvents.forEach(e=>removeEventListener(e,kick));
-      ensureAnalyser();
-      if(!userPaused && sagaAudio.paused) sagaAudio.play().catch(()=>{});
+    // 진짜 사용자 제스처(클릭/키/터치)와 소프트 이벤트(휠/스크롤)를 구분:
+    // 재생이 실제로 시작될 때까지 리스너를 유지한다 (실패해도 제거하지 않음)
+    const gestureEvents=['pointerdown','keydown','touchstart'];
+    const softEvents=['wheel','scroll'];
+    let armed=false;
+    const cleanup=()=>{
+      if(!armed) return; armed=false;
+      gestureEvents.forEach(e=>removeEventListener(e,onGesture));
+      softEvents.forEach(e=>removeEventListener(e,onSoft));
     };
+    const tryPlay=(withAnalyser)=>{
+      if(userPaused){ cleanup(); return; }
+      if(!sagaAudio.paused){ cleanup(); return; }
+      if(withAnalyser) ensureAnalyser(); // 제스처 문맥에서만 오디오 컨텍스트 생성
+      sagaAudio.play().then(()=>cleanup()).catch(()=>{/* 다음 이벤트에서 재시도 */});
+    };
+    const onGesture=(ev)=>{
+      if(ev.target && ev.target.closest && ev.target.closest('#sagaBtn')) return; // 버튼은 자체 처리
+      tryPlay(true);
+    };
+    const onSoft=()=>{ tryPlay(false); };
     sagaAudio.play().catch(()=>{
-      kickEvents.forEach(e=>addEventListener(e,kick,{passive:true}));
+      armed=true;
+      gestureEvents.forEach(e=>addEventListener(e,onGesture,{passive:true}));
+      softEvents.forEach(e=>addEventListener(e,onSoft,{passive:true}));
     });
-    const up=()=>{ ensureAnalyser(); ['pointerdown','keydown','touchstart'].forEach(e=>removeEventListener(e,up)); };
-    ['pointerdown','keydown','touchstart'].forEach(e=>addEventListener(e,up,{passive:true}));
+    // 이미 자동재생 중이어도 첫 제스처에서 파형 분석기로 업그레이드
+    const up=()=>{ ensureAnalyser(); gestureEvents.forEach(e=>removeEventListener(e,up)); };
+    gestureEvents.forEach(e=>addEventListener(e,up,{passive:true}));
   })();
 
   /* ================= Audio analyser ================= */
