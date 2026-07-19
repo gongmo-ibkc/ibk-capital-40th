@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBK캐피탈 창립 40주년 — 혁신의 파도</title>
+<meta name="description" content="고객과 함께한 40년, 미래를 여는 금융. IBK캐피탈 창립 40주년(1986-2026) 기념 페이지 — 40년의 항해와 성장의 기록, 헌정곡 「혁신의 파도」.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="IBK캐피탈 창립 40주년 — 혁신의 파도">
+<meta property="og:description" content="고객과 함께한 40년, 미래를 여는 금융. 40년의 항해와 성장의 기록, 그리고 헌정곡 「혁신의 파도」.">
+<meta property="og:url" content="https://gongmo-ibkc.github.io/ibk-capital-40th/">
+<meta property="og:image" content="https://gongmo-ibkc.github.io/ibk-capital-40th/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IBK캐피탈 창립 40주년 — 혁신의 파도">
+<meta name="twitter:description" content="고객과 함께한 40년, 미래를 여는 금융. 40년의 항해와 성장의 기록.">
+<meta name="twitter:image" content="https://gongmo-ibkc.github.io/ibk-capital-40th/og-image.png">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="%23081A38" stroke="%23C9A227" stroke-width="3"/><text x="32" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="800" fill="%23E3C868">40</text><path d="M16 45c4-4 8-4 12 0s8 4 12 0 8-4 8 0" fill="none" stroke="%235B94DB" stroke-width="2.5" stroke-linecap="round"/></svg>'>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root{
+    --navy-950:#050F26;
+    --navy-900:#081A38;
+    --navy-800:#0C2650;
+    --navy-700:#123468;
+    --blue-600:#0B4DA2;
+    --blue-500:#1565C6;
+    --blue-300:#5B94DB;
+    --blue-100:#E3EDF9;
+    --gold-500:#C9A227;
+    --gold-300:#E3C868;
+    --ink-primary:#141B26;
+    --ink-secondary:#4A5568;
+    --ink-muted:#8A94A3;
+    --surface:#FFFFFF;
+    --surface-alt:#F5F8FC;
+    --line:#E2E8F1;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+  body{
+    font-family:'Pretendard Variable','Pretendard','Apple SD Gothic Neo','Malgun Gothic','Segoe UI',sans-serif;
+    color:var(--ink-primary);background:var(--surface);line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+
+  /* ---------- Pages (scroll snap) ---------- */
+  .page{
+    min-height:100vh;position:relative;
+    scroll-snap-align:start;scroll-snap-stop:always;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:92px clamp(20px,6vw,72px) 48px;
+    overflow:hidden;
+  }
+  .page .wrap{max-width:1080px;margin:0 auto;width:100%}
+  .page-wave{position:absolute;top:-1px;left:0;right:0;height:60px;pointer-events:none}
+  .page-wave svg{display:block;width:100%;height:100%}
+
+  /* ---------- Nav dots ---------- */
+  .dots{
+    position:fixed;right:clamp(10px,2vw,26px);top:50%;transform:translateY(-50%);
+    z-index:90;display:flex;flex-direction:column;gap:10px;
+  }
+  .dots a{
+    width:9px;height:9px;border-radius:50%;background:rgba(120,140,170,.4);
+    transition:all .25s;display:block;
+  }
+  .dots a.on{background:var(--gold-500);transform:scale(1.45);box-shadow:0 0 0 4px rgba(201,162,39,.18)}
+  .dots.on-dark a{background:rgba(255,255,255,.3)}
+  .dots.on-dark a.on{background:var(--gold-300)}
+  @media(max-width:640px){.dots{display:none}}
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 clamp(20px,5vw,64px);height:64px;
+    background:rgba(5,15,38,.78);backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:18px;letter-spacing:-.01em}
+  .brand .em{color:var(--gold-300);font-weight:600;font-size:12.5px;letter-spacing:.14em}
+  .emblem{width:34px;height:34px;flex:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))}
+  @media(max-width:640px){.brand .em{display:none}}
+
+  /* ---------- D-day chip ---------- */
+  .dday{
+    margin-top:18px;display:inline-flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,.07);border:1px solid rgba(227,200,104,.35);
+    border-radius:999px;padding:8px 18px;font-size:13.5px;color:rgba(255,255,255,.8);
+  }
+  .dday b{color:var(--gold-300);font-weight:800;font-size:16px;letter-spacing:.02em}
+
+  /* ---------- Lyrics caption ---------- */
+  .lyric-bar{
+    position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);
+    z-index:95;max-width:min(860px,94vw);width:max-content;
+    background:rgba(5,15,38,.82);backdrop-filter:blur(14px);
+    border:1px solid rgba(227,200,104,.32);border-radius:16px;
+    padding:14px 32px;text-align:center;opacity:0;pointer-events:none;
+    box-shadow:0 8px 30px rgba(5,15,38,.35);
+    transition:opacity .5s,transform .5s;
+  }
+  .lyric-bar.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .lyric-bar .l-now{font-size:20px;font-weight:700;color:var(--gold-300);letter-spacing:-.01em;line-height:1.5;text-shadow:0 2px 12px rgba(201,162,39,.25)}
+  .lyric-bar .l-next{font-size:13px;color:rgba(255,255,255,.45);margin-top:4px;line-height:1.4}
+  @media(max-width:640px){.lyric-bar{bottom:10px;padding:10px 18px}.lyric-bar .l-now{font-size:15px}.lyric-bar .l-next{display:none}}
+  body.lyrics-on .scroll-hint{opacity:0;transition:opacity .4s}
+  @media(max-width:640px){
+    header{padding:0 14px}
+    .saga-btn{font-size:12px;padding:7px 12px;gap:6px}
+    .brand{font-size:16px;gap:7px}
+    .emblem{width:28px;height:28px}
+  }
+  .hdr-right{display:flex;align-items:center;gap:24px}
+  nav{display:flex;gap:24px}
+  nav a{color:rgba(255,255,255,.72);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+  nav a:hover{color:#fff}
+  @media(max-width:820px){nav{display:none}}
+
+  .saga-btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:8px 16px 8px 12px;border-radius:999px;border:1px solid rgba(227,200,104,.5);
+    background:rgba(201,162,39,.12);color:var(--gold-300);
+    font:inherit;font-size:13.5px;font-weight:700;letter-spacing:-.01em;
+    cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;
+  }
+  .saga-btn:hover{background:rgba(201,162,39,.22);transform:translateY(-1px)}
+  .saga-btn.playing{background:linear-gradient(135deg,var(--gold-300),var(--gold-500));color:var(--navy-900);border-color:transparent;box-shadow:0 4px 14px rgba(201,162,39,.35)}
+  .saga-btn .s-icon{width:16px;height:16px;flex:none}
+  .saga-btn .s-icon path{fill:currentColor}
+  .saga-eq{display:none;align-items:flex-end;gap:2px;height:14px;flex:none}
+  .saga-btn.playing .saga-eq{display:inline-flex}
+  .saga-btn.playing .s-icon{display:none}
+  .saga-eq i{width:3px;border-radius:2px;background:currentColor;animation:eq 1s ease-in-out infinite}
+  .saga-eq i:nth-child(1){height:60%;animation-delay:0s}
+  .saga-eq i:nth-child(2){height:100%;animation-delay:.25s}
+  .saga-eq i:nth-child(3){height:45%;animation-delay:.5s}
+  .saga-eq i:nth-child(4){height:80%;animation-delay:.12s}
+  @keyframes eq{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
+  @media (prefers-reduced-motion:reduce){.saga-eq i{animation:none}}
+  @media(max-width:640px){.saga-btn .s-txt-full{display:none}}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    text-align:center;align-items:center;
+    padding-bottom:170px;
+    background:
+      radial-gradient(1100px 520px at 78% -10%, rgba(21,101,198,.35), transparent 60%),
+      radial-gradient(900px 500px at 10% 110%, rgba(201,162,39,.14), transparent 55%),
+      linear-gradient(180deg,var(--navy-950) 0%,var(--navy-900) 55%,var(--navy-800) 100%);
+    color:#fff;
+  }
+  #waveCanvas{position:absolute;left:0;right:0;bottom:0;width:100%;height:42%;pointer-events:none}
+  .hero-inner{position:relative;z-index:2}
+  .hero .years{
+    display:inline-flex;align-items:center;gap:14px;
+    font-size:13.5px;letter-spacing:.34em;font-weight:600;color:var(--gold-300);
+    text-transform:uppercase;margin-bottom:24px;
+  }
+  .hero .years::before,.hero .years::after{content:"";width:44px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-300))}
+  .hero .years::after{background:linear-gradient(90deg,var(--gold-300),transparent)}
+  .hero .big40{
+    font-size:clamp(100px,20vw,200px);font-weight:800;line-height:.9;letter-spacing:-.045em;
+    background:linear-gradient(160deg,#FFFFFF 18%,#BBD2F2 52%,var(--gold-300) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 12px 40px rgba(11,77,162,.35));
+  }
+  .hero .big40 small{
+    font-size:clamp(20px,3.4vw,34px);font-weight:700;letter-spacing:.02em;vertical-align:super;
+    background:inherit;-webkit-background-clip:text;background-clip:text;
+  }
+  .hero h1{font-size:clamp(22px,3vw,32px);font-weight:800;margin-top:26px;letter-spacing:-.02em}
+  .hero .song-tag{
+    margin-top:12px;display:inline-flex;align-items:center;gap:8px;
+    font-size:13.5px;color:rgba(255,255,255,.62);letter-spacing:.02em;transition:opacity .4s;
+  }
+  .hero .song-tag b{color:var(--gold-300);font-weight:700}
+  .hero p.sub{margin-top:14px;font-size:clamp(15px,1.7vw,17px);color:rgba(255,255,255,.72);max-width:600px;margin-left:auto;margin-right:auto}
+  .hero .cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .btn{
+    display:inline-block;padding:13px 30px;border-radius:999px;font-size:15px;font-weight:600;
+    text-decoration:none;transition:transform .2s,box-shadow .2s;
+  }
+  .btn-gold{background:linear-gradient(135deg,var(--gold-300),var(--gold-500));color:var(--navy-900)}
+  .btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.28)}
+  .scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.24em;z-index:2}
+  .scroll-hint::after{content:"";display:block;width:1px;height:30px;margin:7px auto 0;background:linear-gradient(180deg,rgba(255,255,255,.55),transparent);animation:drop 1.8s infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* ---------- Common section text ---------- */
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.26em;color:var(--blue-600);text-transform:uppercase;margin-bottom:12px}
+  .sec-title{font-size:clamp(24px,3.2vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.25}
+  .sec-desc{margin-top:12px;color:var(--ink-secondary);font-size:15.5px;max-width:660px}
+
+  /* ---------- Stats page ---------- */
+  .stats{background:var(--surface-alt)}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:34px}
+  .tile{
+    background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;position:relative;overflow:hidden;
+  }
+  .tile::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue-600),var(--gold-500))}
+  .tile .label{font-size:13px;color:var(--ink-secondary);font-weight:500}
+  .tile .value{font-size:clamp(26px,2.8vw,34px);font-weight:700;letter-spacing:-.02em;color:var(--navy-800);margin-top:4px;line-height:1.1}
+  .tile .value .unit{font-size:.5em;font-weight:600;color:var(--ink-secondary);margin-left:3px}
+  .tile .note{font-size:11.5px;color:var(--ink-muted);margin-top:7px;line-height:1.5}
+  .fact-strip{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+  .fact{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--surface);border:1px solid var(--line);border-radius:999px;
+    padding:8px 16px;font-size:12.5px;font-weight:600;color:var(--ink-secondary);
+  }
+  .fact b{color:var(--blue-600);font-weight:700}
+  .fact .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-500);flex:none}
+  .stats-foot{margin-top:18px;font-size:11.5px;color:var(--ink-muted)}
+
+  /* ---------- Chart pages ---------- */
+  .chart-page{background:var(--surface)}
+  .chart-page:nth-of-type(even){background:var(--surface-alt)}
+  .chart-page .wrap{max-width:880px}
+  .cp-step{font-size:12.5px;font-weight:700;letter-spacing:.24em;color:var(--gold-500);text-transform:uppercase}
+  .cp-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:10px}
+  .cp-title{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.02em}
+  .cp-value{font-size:clamp(26px,3.2vw,36px);font-weight:700;letter-spacing:-.02em;color:var(--blue-600)}
+  .cp-value .unit{font-size:.5em;font-weight:600;color:var(--ink-secondary);margin-left:3px}
+  .cp-delta{font-size:13px;font-weight:700;color:#0B6E4F;background:#E7F5EF;padding:4px 12px;border-radius:999px}
+  .axis-note{font-size:11.5px;color:var(--ink-muted);margin-top:6px}
+
+  /* ---------- Chart drawing animation ---------- */
+  .cp-plot .draw-line{stroke-dasharray:1;stroke-dashoffset:1}
+  .cp-plot .draw-area,.cp-plot .draw-dot,.cp-plot .mark-lbl{opacity:0}
+  .chart-in .cp-plot .draw-line{animation:drawline 1.8s cubic-bezier(.4,0,.2,1) forwards}
+  .chart-in .cp-plot .draw-area{animation:fadein .8s ease 1.4s forwards}
+  .chart-in .cp-plot .draw-dot{animation:fadein .4s ease forwards;animation-delay:var(--dly,0s)}
+  .chart-in .cp-plot .mark-lbl{animation:fadein .5s ease 1.7s forwards}
+  .cp-plot .bar{transform-box:fill-box;transform-origin:center bottom;transform:scaleY(0)}
+  .chart-in .cp-plot .bar{animation:growbar .9s cubic-bezier(.2,.8,.3,1) forwards;animation-delay:var(--dly,0s)}
+  @keyframes drawline{to{stroke-dashoffset:0}}
+  @keyframes fadein{to{opacity:1}}
+  @keyframes growbar{to{transform:scaleY(1)}}
+  @media (prefers-reduced-motion:reduce){
+    .cp-plot .draw-line{stroke-dasharray:none;stroke-dashoffset:0}
+    .cp-plot .draw-area,.cp-plot .draw-dot,.cp-plot .mark-lbl{opacity:1}
+    .cp-plot .bar{transform:none}
+    .chart-in .cp-plot *{animation:none !important}
+  }
+
+  /* ---------- Chapter era backdrops ---------- */
+  .era-bg{
+    position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none;
+    opacity:.10;
+  }
+  .era-bg svg{display:block;width:100%;height:100%}
+
+  /* ---------- Mobile refinements ---------- */
+  @media(max-width:640px), (max-height:700px){
+    html{scroll-snap-type:y proximity}
+  }
+  @media(max-width:640px){
+    .page{padding:84px 18px 40px}
+    .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+    .tile{padding:14px 14px}
+    .tile .value{font-size:24px}
+    .tile .note{font-size:10.5px}
+    .fact-strip{gap:7px}
+    .fact{padding:6px 12px;font-size:11px}
+    .cp-head{gap:8px}
+    .cp-title{font-size:22px}
+    .cp-value{font-size:22px}
+    .cp-delta{font-size:11px;padding:3px 9px}
+    .ch-num{font-size:80px;top:74px;right:8px}
+    .ch-title{font-size:24px}
+    .ch-narr{font-size:14px;line-height:1.8}
+    .ch-events{grid-template-columns:1fr 1fr;gap:9px}
+    .ev{padding:12px 13px}
+    .ev .ev-d{display:none}
+    .biz-grid{grid-template-columns:1fr 1fr;gap:10px}
+    .biz-card{padding:16px 15px}
+    .biz-card p{font-size:12px}
+    .growth-note{padding:16px 18px;gap:10px}
+    .growth-note .gn-big{font-size:17px}
+    .growth-note .gn-txt{font-size:12px}
+    .hero .cta .btn{padding:11px 22px;font-size:13.5px}
+    .dday{font-size:12px;padding:6px 13px}
+    .vision-footer{flex-direction:column}
+    .vision-footer [style*="right"]{text-align:left !important}
+    .chart-page table{font-size:11px}
+  }
+  .cp-sub{margin-top:8px;color:var(--ink-secondary);font-size:15px}
+  .cp-plot{margin-top:26px}
+  .cp-plot svg{display:block;width:100%;height:auto}
+  .axis-txt{font-size:11px;fill:var(--ink-muted)}
+  .grid-ln{stroke:var(--line);stroke-width:1}
+  .bar{transition:opacity .15s}
+  .mark-lbl{font-size:12px;font-weight:700;fill:var(--ink-secondary)}
+  .cp-foot{font-size:11.5px;color:var(--ink-muted);margin-top:16px;line-height:1.6;max-width:760px}
+  .chart-page details{margin-top:10px}
+  .chart-page summary{font-size:12.5px;color:var(--blue-600);cursor:pointer;user-select:none}
+  .chart-page table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px;max-width:640px}
+  .chart-page th,.chart-page td{padding:5px 8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+  .chart-page th:first-child,.chart-page td:first-child{text-align:left}
+  .chart-page th{color:var(--ink-secondary);font-weight:600}
+  .cv-tip{
+    position:fixed;z-index:200;pointer-events:none;opacity:0;transition:opacity .12s;
+    background:var(--navy-900);color:#fff;border-radius:10px;padding:10px 13px;
+    font-size:12.5px;line-height:1.5;box-shadow:0 8px 24px rgba(8,26,56,.35);max-width:240px;
+  }
+  .cv-tip .t-year{font-weight:700;color:var(--gold-300)}
+  .cv-tip .t-yoy{color:#9FD9BE}
+  .cv-tip .t-yoy.down{color:#F2B8C0}
+  .growth-note{
+    margin-top:28px;background:linear-gradient(135deg,var(--navy-800),var(--navy-700));
+    color:#fff;border-radius:16px;padding:22px 28px;display:flex;gap:22px;flex-wrap:wrap;align-items:center;
+  }
+  .growth-note .gn-big{font-size:22px;font-weight:800;letter-spacing:-.02em}
+  .growth-note .gn-big em{font-style:normal;color:var(--gold-300)}
+  .growth-note .gn-txt{font-size:13.5px;color:rgba(255,255,255,.75);flex:1;min-width:240px}
+
+  /* ---------- Story pages ---------- */
+  .story-page{background:var(--navy-950);color:#fff}
+  .story-page .kicker{color:var(--gold-300)}
+  .story-page .wrap{max-width:960px}
+  .ch-era{font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--blue-300)}
+  .ch-title{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.02em;margin-top:8px}
+  .ch-title em{font-style:normal;color:var(--gold-300)}
+  .ch-narr{margin-top:18px;font-size:15.5px;line-height:1.9;color:rgba(255,255,255,.78);max-width:680px}
+  .ch-num{
+    position:absolute;right:clamp(10px,4vw,60px);top:90px;font-size:clamp(90px,14vw,160px);font-weight:800;
+    color:rgba(255,255,255,.05);line-height:1;letter-spacing:-.05em;user-select:none;pointer-events:none;
+  }
+  .ch-wavemark{width:56px;height:24px;margin-bottom:14px}
+  .ch-wavemark path{fill:none;stroke:var(--gold-300);stroke-width:2;stroke-linecap:round}
+  .ch-events{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .ev{
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
+    border-radius:14px;padding:16px 18px;transition:background .25s,transform .25s;
+  }
+  .ev:hover{background:rgba(255,255,255,.08);transform:translateY(-3px)}
+  .ev .ev-y{font-size:13px;font-weight:700;color:var(--gold-300);letter-spacing:.04em}
+  .ev .ev-t{font-size:14.5px;font-weight:700;margin-top:4px;letter-spacing:-.01em}
+  .ev .ev-d{font-size:12.5px;color:rgba(255,255,255,.6);margin-top:5px;line-height:1.55}
+  .ch-progress{display:flex;gap:8px;margin-top:34px}
+  .ch-progress span{height:4px;border-radius:2px;flex:1;max-width:70px;background:rgba(255,255,255,.12)}
+  .ch-progress span.done{background:linear-gradient(90deg,var(--blue-500),var(--gold-500))}
+
+  /* ---------- Business ---------- */
+  .biz{background:linear-gradient(180deg,var(--navy-900),var(--navy-800));color:#fff}
+  .biz .kicker{color:var(--gold-300)}
+  .biz .sec-desc{color:rgba(255,255,255,.7)}
+  .biz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:40px}
+  .biz-card{
+    border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:26px 24px;
+    background:rgba(255,255,255,.04);transition:transform .25s,background .25s;
+  }
+  .biz-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.07)}
+  .biz-card .icon{
+    width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--blue-500),var(--blue-600));margin-bottom:16px;
+  }
+  .biz-card .icon svg{width:23px;height:23px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .biz-card h3{font-size:17px;font-weight:700;letter-spacing:-.01em}
+  .biz-card p{font-size:13.5px;color:rgba(255,255,255,.68);margin-top:7px}
+
+  /* ---------- Cheers (employee messages) ---------- */
+  .cheers{background:var(--navy-950);color:#fff}
+  .cheers .kicker{color:var(--gold-300)}
+  .cheers .sec-desc{color:rgba(255,255,255,.66)}
+  .cheer-form{
+    margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;align-items:stretch;max-width:760px;
+  }
+  .cheer-form input,.cheer-form textarea{
+    font:inherit;color:#fff;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:12px 16px;
+    outline:none;transition:border-color .2s,background .2s;
+  }
+  .cheer-form input:focus,.cheer-form textarea:focus{border-color:var(--gold-300);background:rgba(255,255,255,.09)}
+  .cheer-form input::placeholder,.cheer-form textarea::placeholder{color:rgba(255,255,255,.35)}
+  .cheer-form .cf-name{width:150px;flex:none}
+  .cheer-form .cf-msg{flex:1;min-width:240px;resize:none;height:48px;line-height:1.4}
+  .cheer-form .cf-send{
+    flex:none;border:0;cursor:pointer;font:inherit;font-size:14.5px;font-weight:700;
+    padding:0 26px;border-radius:12px;
+    background:linear-gradient(135deg,var(--gold-300),var(--gold-500));color:var(--navy-900);
+    transition:transform .2s,box-shadow .2s,opacity .2s;
+  }
+  .cheer-form .cf-send:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(201,162,39,.35)}
+  .cheer-form .cf-send:disabled{opacity:.55;cursor:default;transform:none;box-shadow:none}
+  .cheer-status{margin-top:10px;font-size:13px;color:var(--gold-300);min-height:20px}
+  @media(max-width:640px){.cheer-form .cf-name{width:100%}.cheer-form .cf-send{width:100%;padding:12px 0}}
+  .cheer-rows{margin-top:40px;display:flex;flex-direction:column;gap:16px}
+  .cheer-row{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .cheer-track{display:flex;gap:14px;width:max-content;animation:cheerflow var(--dur,40s) linear infinite}
+  .cheer-row.rev .cheer-track{animation-direction:reverse}
+  .cheer-row:hover .cheer-track{animation-play-state:paused}
+  @keyframes cheerflow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .cheer-card{
+    flex:none;max-width:360px;min-width:220px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.11);
+    border-radius:14px;padding:15px 19px;transition:background .25s,border-color .25s;
+  }
+  .cheer-card:hover{background:rgba(255,255,255,.09);border-color:rgba(227,200,104,.4)}
+  .cheer-card .cc-msg{font-size:14px;line-height:1.65;color:rgba(255,255,255,.88);word-break:keep-all}
+  .cheer-card .cc-meta{font-size:12px;color:var(--gold-300);margin-top:8px;font-weight:600}
+  .cheer-empty{
+    margin-top:10px;padding:34px 26px;border:1px dashed rgba(255,255,255,.25);border-radius:16px;
+    text-align:center;color:rgba(255,255,255,.65);font-size:15px;line-height:1.7;
+  }
+  .cheer-note{margin-top:14px;font-size:11.5px;color:rgba(255,255,255,.35)}
+  @media (prefers-reduced-motion:reduce){.cheer-track{animation:none}}
+  @media(max-width:640px){.cheer-card{max-width:280px;padding:12px 14px}.cheer-card .cc-msg{font-size:13px}}
+
+  /* ---------- Vision ---------- */
+  .vision{text-align:center;background:var(--surface)}
+  .vision blockquote{
+    font-size:clamp(20px,2.8vw,28px);font-weight:600;letter-spacing:-.02em;line-height:1.55;
+    max-width:760px;margin:0 auto;color:var(--navy-800);
+  }
+  .vision blockquote strong{color:var(--gold-500)}
+  .vision .sign{margin-top:24px;font-size:14px;color:var(--ink-muted)}
+  .vision-footer{
+    margin-top:60px;padding-top:26px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font-size:12.5px;color:var(--ink-muted);text-align:left;
+  }
+  .vision-footer .f-brand{color:var(--ink-primary);font-weight:700;font-size:14px;margin-bottom:6px}
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.on{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    #waveCanvas{display:none}
+    .scroll-hint::after{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="30" fill="#0C2650" stroke="#C9A227" stroke-width="2.5"/>
+      <circle cx="32" cy="32" r="25.5" fill="none" stroke="rgba(227,200,104,.25)" stroke-width="1"/>
+      <text x="32" y="35.5" text-anchor="middle" font-family="inherit" font-size="22" font-weight="800" fill="#E3C868">40</text>
+      <path d="M17 44c4-4 8-4 12 0s8 4 12 0 5-3 6 0" fill="none" stroke="#5B94DB" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M20 49c3-3 6-3 9 0s6 3 9 0 4-2 6 0" fill="none" stroke="rgba(91,148,219,.5)" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+    IBK캐피탈 <span class="em">40TH ANNIVERSARY</span></div>
+  <div class="hdr-right">
+    <nav>
+      <a href="#stats">40년의 기록</a>
+      <a href="#c-asset">성장 그래프</a>
+      <a href="#story1">우리의 항해</a>
+      <a href="#business">사업영역</a>
+      <a href="#vision">비전</a>
+    </nav>
+    <button class="saga-btn" id="sagaBtn" aria-label="40주년 헌정곡 '혁신의 파도' 재생" aria-pressed="false" title="40주년 헌정곡 · 혁신의 파도">
+      <svg class="s-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18.5V6.7c0-.5.3-.9.8-1l9-2c.6-.1 1.2.4 1.2 1v11.1a3.3 3.3 0 1 1-2-3V7.2l-7 1.6v11a3.3 3.3 0 1 1-2-3.3Z"/></svg>
+      <span class="saga-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="s-txt"><span class="s-txt-full">40주년 헌정곡 - </span>혁신의 파도</span>
+    </button>
+  </div>
+</header>
+<audio id="sagaAudio" preload="auto" loop src="__SAGA_SRC__"></audio>
+
+<div class="lyric-bar" id="lyricBar" aria-live="polite">
+  <div class="l-now" id="lyricNow"></div>
+  <div class="l-next" id="lyricNext"></div>
+</div>
+
+<div class="dots" id="dots"></div>
+
+<!-- P1. Hero -->
+<section class="page hero" id="home" data-dot="홈">
+  <canvas id="waveCanvas" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <div class="years">1986 &mdash; 2026</div>
+    <div class="big40">40<small>th</small></div>
+    <h1>IBK캐피탈 창립 40주년</h1>
+    <div class="song-tag">♪ 40주년 헌정곡 <b>「혁신의 파도」</b>가 흐르고 있습니다</div>
+    <div><span class="dday" id="dday" hidden>⚓ 창립 40주년 기념일(2026.11.1)까지 <b id="ddayNum"></b></span></div>
+    <p class="sub">고객과 함께한 40년, 미래를 여는 금융.<br>파도는 멈추지 않습니다 &mdash; 중소기업과 함께 넘어온 40년의 물결이 새로운 바다로 나아갑니다.</p>
+    <div class="cta">
+      <a class="btn btn-gold" href="#story1">40년의 항해 보기</a>
+      <a class="btn btn-ghost" href="#stats">숫자로 보는 40년</a>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- P2. Stats -->
+<section class="page stats" id="stats" data-dot="숫자로 보는 40년">
+  <div class="wrap">
+    <div class="kicker reveal">Since 1986</div>
+    <h2 class="sec-title reveal">숫자로 보는 40년</h2>
+    <p class="sec-desc reveal">1986년 한국기업개발금융으로 출발한 IBK캐피탈의 오늘을 여덟 개의 숫자로 요약했습니다.</p>
+    <div class="stat-grid">
+      <div class="tile reveal">
+        <div class="label">고객과 함께한 시간</div>
+        <div class="value" data-count="40">40<span class="unit">년</span></div>
+        <div class="note">1986년 11월 1일 창립</div>
+      </div>
+      <div class="tile reveal">
+        <div class="label">총자산</div>
+        <div class="value" data-count="12.1" data-decimal="1">12.1<span class="unit">조 원</span></div>
+        <div class="note">2025년 말 · 2010년(2.2조) 대비 5.4배</div>
+      </div>
+      <div class="tile reveal">
+        <div class="label">당기순이익</div>
+        <div class="value" data-count="2456">2,456<span class="unit">억 원</span></div>
+        <div class="note">2025년 · 창립 이래 역대 최대</div>
+      </div>
+      <div class="tile reveal">
+        <div class="label">자기자본</div>
+        <div class="value" data-count="20759">20,759<span class="unit">억 원</span></div>
+        <div class="note">2025년 · 2년 새 +28%, 2조 원 돌파</div>
+      </div>
+      <div class="tile reveal">
+        <div class="label">임직원</div>
+        <div class="value" data-count="282">282<span class="unit">명</span></div>
+        <div class="note">2025년 말 · 2010년 104명에서 2.7배</div>
+      </div>
+      <div class="tile reveal">
+        <div class="label">총자산순이익률(ROA)</div>
+        <div class="value" data-count="2.11" data-decimal="2">2.11<span class="unit">%</span></div>
+        <div class="note">2025년 · 최근 5년 평균 1.98%</div>
+      </div>
+      <div class="tile reveal">
+        <div class="label">자기자본비율</div>
+        <div class="value" data-count="17.2" data-decimal="2">17.20<span class="unit">%</span></div>
+        <div class="note">2025년 · 2021년 13.62%에서 매년 개선</div>
+      </div>
+      <div class="tile reveal">
+        <div class="label">금융자산 10조 달성</div>
+        <div class="value">2022<span class="unit">년</span></div>
+        <div class="note">2017년 5조 → 5년 만에 2배</div>
+      </div>
+    </div>
+    <div class="fact-strip reveal">
+      <span class="fact"><span class="dot"></span>IBK기업은행 <b>100% 자회사</b> (2010~)</span>
+      <span class="fact"><span class="dot"></span>미얀마 법인 <b>해외 진출</b> (2016~)</span>
+      <span class="fact"><span class="dot"></span>PEF 업무집행사원 <b>투자금융 운용</b> (2014~)</span>
+      <span class="fact"><span class="dot"></span>금융의 날 <b>국무총리 표창</b> (2023)</span>
+      <span class="fact"><span class="dot"></span>본사 <b>서울 강남구 테헤란로 414</b></span>
+    </div>
+    <div class="stats-foot reveal">출처: IBK캐피탈 재무현황·주요경영지표(별도 기준), 기업은행 감사보고서, 금융감독원 FISIS. 상세 추이는 다음 페이지의 그래프에서 확인할 수 있습니다.</div>
+  </div>
+</section>
+
+<!-- P3~7. Chart pages (filled by JS) -->
+<section class="page chart-page" id="c-asset" data-chart="asset" data-dot="총자산 추이"></section>
+<section class="page chart-page" id="c-profit" data-chart="profit" data-dot="당기순이익 추이"></section>
+<section class="page chart-page" id="c-equity" data-chart="equity" data-dot="자기자본 추이"></section>
+<section class="page chart-page" id="c-people" data-chart="people" data-dot="임직원 추이"></section>
+<section class="page chart-page" id="c-revenue" data-chart="revenue" data-dot="영업수익 추이"></section>
+
+<!-- P8~11. Story chapters -->
+<section class="page story-page" id="story1" data-dot="제1장 첫 물결">
+  <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#F5F8FC"/></svg></div>
+  <div class="ch-num">01</div>
+  <div class="era-bg" aria-hidden="true"><svg viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice">
+    <!-- 1980s: 산업화 풍경 (공장, 크레인) -->
+    <g fill="#5B94DB">
+      <path d="M60 220V150h30v-18l26 12v-24l26 12v18h20v70Z"/>
+      <rect x="180" y="120" width="14" height="100"/><path d="M187 120l90-34v10l-78 30Z"/><rect x="262" y="92" width="8" height="24"/>
+      <path d="M320 220v-60h50l12-26h30l12 26h40v60Z"/>
+      <rect x="500" y="140" width="18" height="80"/><rect x="530" y="160" width="60" height="60"/><rect x="606" y="130" width="14" height="90"/>
+      <path d="M700 220v-50h36v-16h22v16h30v50Z"/>
+      <path d="M850 220v-70h24l8-20h22l8 20h24v70Z"/>
+      <rect x="1000" y="150" width="70" height="70"/><path d="M1000 150l35-22 35 22Z"/>
+      <rect x="1120" y="170" width="12" height="50"/><path d="M1126 170l70-26v9l-60 22Z"/>
+      <path d="M1250 220v-55h60v55Z"/><rect x="1268" y="140" width="10" height="25"/>
+    </g>
+  </svg></div>
+  <div class="wrap">
+    <div class="kicker reveal">Our Voyage · 40년의 항해</div>
+    <svg class="ch-wavemark reveal" viewBox="0 0 56 24"><path d="M2 14c6-6 10-6 16 0s10 6 16 0 10-6 20 0"/></svg>
+    <div class="ch-era reveal">CHAPTER 1 · 1986&ndash;1999</div>
+    <div class="ch-title reveal">첫 물결 <em>&mdash; 태동의 시대</em></div>
+    <p class="ch-narr reveal">1986년 11월, 한국기업개발금융(주)이라는 이름으로 첫 물결이 일었습니다. 산업화의 파도 속에서 담보가 부족한 유망 중소기업에 자본을 공급하는 개발금융이 사명이었습니다. 1997년 외환위기라는 거대한 파고 앞에서도 항해는 멈추지 않았고, 1999년 기은개발금융과 기은할부금융의 합병으로 종합 여신전문금융회사 '기은캐피탈'이 출범하며 더 단단한 배로 거듭났습니다.</p>
+    <div class="ch-events">
+      <div class="ev reveal"><div class="ev-y">1986</div><div class="ev-t">한국기업개발금융(주) 설립</div><div class="ev-d">11월 1일, 중소기업 성장을 지원하는 개발금융 회사로 출항.</div></div>
+      <div class="ev reveal"><div class="ev-y">1997</div><div class="ev-t">외환위기의 파고</div><div class="ev-d">시련 속에서도 기업금융의 항로를 지켰습니다.</div></div>
+      <div class="ev reveal"><div class="ev-y">1999</div><div class="ev-t">기은캐피탈 출범</div><div class="ev-d">기은개발금융·기은할부금융 합병으로 재정비.</div></div>
+    </div>
+    <div class="ch-progress reveal"><span class="done"></span><span></span><span></span><span></span></div>
+  </div>
+</section>
+
+<section class="page story-page" id="story2" data-dot="제2장 폭풍을 지나">
+  <div class="ch-num">02</div>
+  <div class="era-bg" aria-hidden="true"><svg viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice">
+    <!-- 2000s: 도시 스카이라인 -->
+    <g fill="#5B94DB">
+      <rect x="80" y="120" width="46" height="100"/><rect x="140" y="80" width="60" height="140"/><rect x="214" y="130" width="40" height="90"/>
+      <rect x="300" y="60" width="54" height="160"/><path d="M300 60l27-20 27 20Z"/>
+      <rect x="380" y="110" width="44" height="110"/><rect x="440" y="90" width="70" height="130"/>
+      <rect x="560" y="40" width="58" height="180"/><rect x="576" y="20" width="12" height="20"/>
+      <rect x="650" y="100" width="48" height="120"/><rect x="716" y="70" width="64" height="150"/>
+      <rect x="820" y="120" width="42" height="100"/><rect x="880" y="50" width="56" height="170"/><path d="M880 50l28-16 28 16Z"/>
+      <rect x="970" y="100" width="60" height="120"/><rect x="1050" y="130" width="44" height="90"/>
+      <rect x="1130" y="70" width="66 " height="150"/><rect x="1220" y="110" width="48" height="110"/>
+      <rect x="1300" y="90" width="56" height="130"/>
+    </g>
+  </svg></div>
+  <div class="wrap">
+    <svg class="ch-wavemark reveal" viewBox="0 0 56 24"><path d="M2 16c5-8 9-8 14-2s9 6 14-2 9-8 24 2"/></svg>
+    <div class="ch-era reveal">CHAPTER 2 · 2000&ndash;2009</div>
+    <div class="ch-title reveal">폭풍을 지나 <em>&mdash; 재정비의 시대</em></div>
+    <p class="ch-narr reveal">2000년대, 여신전문금융 시장의 성장과 함께 기업금융의 토대를 다졌습니다. 2008년 글로벌 금융위기의 폭풍이 세계 금융시장을 뒤흔든 직후에도 중소기업 곁을 지켰고, 2009년에는 IBK금융그룹의 새 기수를 달고 'IBK캐피탈'로 다시 태어났습니다. 폭풍이 지나간 자리에서 더 선명해진 이름이었습니다.</p>
+    <div class="ch-events">
+      <div class="ev reveal"><div class="ev-y">2000년대</div><div class="ev-t">기업금융 토대 구축</div><div class="ev-d">여신전문금융 시장 성장과 함께 내실을 다진 시기.</div></div>
+      <div class="ev reveal"><div class="ev-y">2008</div><div class="ev-t">글로벌 금융위기</div><div class="ev-d">폭풍 속에서도 중소기업 금융 공급을 이어갔습니다.</div></div>
+      <div class="ev reveal"><div class="ev-y">2009</div><div class="ev-t">IBK캐피탈로 사명 변경</div><div class="ev-d">IBK금융그룹의 일원으로 새 출발.</div></div>
+    </div>
+    <div class="ch-progress reveal"><span class="done"></span><span class="done"></span><span></span><span></span></div>
+  </div>
+</section>
+
+<section class="page story-page" id="story3" data-dot="제3장 너른 바다로">
+  <div class="ch-num">03</div>
+  <div class="era-bg" aria-hidden="true"><svg viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice">
+    <!-- 2010s: 항해 — 배, 항로, 등대 -->
+    <g fill="none" stroke="#5B94DB" stroke-width="3" stroke-linecap="round">
+      <path d="M40 180c60-10 120-10 180 0s120 10 180 0 120-10 180 0 120 10 180 0 120-10 180 0 120 10 180 0 120-10 180 0" opacity=".7"/>
+      <path d="M240 150c80-40 200-60 320-50" stroke-dasharray="2 14" stroke-width="4"/>
+    </g>
+    <g fill="#5B94DB">
+      <path d="M600 172l120 0-18 30H630Z"/><rect x="654" y="120" width="8" height="52"/><path d="M662 120l54 44h-54Z"/><path d="M654 132l-40 40h40Z"/>
+      <circle cx="1050" cy="60" r="14" fill="#E3C868" opacity=".8"/>
+      <path d="M1180 220v-80l16-24 16 24v80Z"/><rect x="1188" y="108" width="16" height="10" fill="#E3C868"/>
+    </g>
+  </svg></div>
+  <div class="wrap">
+    <svg class="ch-wavemark reveal" viewBox="0 0 56 24"><path d="M2 17c5-9 9-9 14-2s9 7 14-2 9-9 24 2M8 8c4-4 8-4 12 0s8 4 12 0"/></svg>
+    <div class="ch-era reveal">CHAPTER 3 · 2010&ndash;2019</div>
+    <div class="ch-title reveal">너른 바다로 <em>&mdash; 도약의 시대</em></div>
+    <p class="ch-narr reveal">2010년 IBK기업은행의 100% 자회사가 되며 그룹의 돛을 활짝 폈습니다. 새 사옥과 차세대 전산시스템으로 배를 정비했고, PEF 운용과 신기술금융으로 투자금융이라는 새 항로를 개척했습니다. 2016년에는 미얀마에 닻을 내리며 국경 너머의 바다로 나아갔고, 2017년 금융자산 5조 원 &mdash; 출항 이후 가장 너른 바다에 도달했습니다.</p>
+    <div class="ch-events">
+      <div class="ev reveal"><div class="ev-y">2010</div><div class="ev-t">기업은행 완전자회사</div><div class="ev-d">지분율 100%, 그룹 시너지 본격화.</div></div>
+      <div class="ev reveal"><div class="ev-y">2012</div><div class="ev-t">사옥 이전 · 차세대 전산</div><div class="ev-d">경영 인프라 혁신.</div></div>
+      <div class="ev reveal"><div class="ev-y">2014</div><div class="ev-t">PEF 업무집행사원 등록</div><div class="ev-d">투자금융 항로 개척.</div></div>
+      <div class="ev reveal"><div class="ev-y">2015&ndash;16</div><div class="ev-t">미얀마 진출</div><div class="ev-d">첫 해외 법인 설립·영업 개시.</div></div>
+      <div class="ev reveal"><div class="ev-y">2017</div><div class="ev-t">금융자산 5조 원</div><div class="ev-d">균형 성장의 결실.</div></div>
+    </div>
+    <div class="ch-progress reveal"><span class="done"></span><span class="done"></span><span class="done"></span><span></span></div>
+  </div>
+</section>
+
+<section class="page story-page" id="story4" data-dot="제4장 혁신의 파도">
+  <div class="ch-num">04</div>
+  <div class="era-bg" aria-hidden="true" style="opacity:.14"><svg viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice">
+    <!-- 2020s: 수평선 위 일출과 큰 파도 -->
+    <circle cx="720" cy="120" r="52" fill="#E3C868" opacity=".9"/>
+    <g fill="none" stroke="#E3C868" stroke-width="2.5" stroke-linecap="round" opacity=".6">
+      <path d="M720 40v-18M640 60l-12-14M800 60l12-14M610 120h-24M830 120h24"/>
+    </g>
+    <g fill="none" stroke="#5B94DB" stroke-width="4" stroke-linecap="round">
+      <path d="M0 170c90-40 150-40 240 0s150 40 240 0 150-40 240 0 150 40 240 0 150-40 240 0 150 40 240 0" />
+      <path d="M0 200c90-30 150-30 240 0s150 30 240 0 150-30 240 0 150 30 240 0 150-30 240 0 150 30 240 0" opacity=".5"/>
+    </g>
+  </svg></div>
+  <div class="wrap">
+    <svg class="ch-wavemark reveal" viewBox="0 0 56 24"><path d="M2 18c5-10 9-10 14-2s9 8 14-2 8-10 12-4M4 8c4-4 8-4 12 0s8 4 12 0 8-3 14 0"/></svg>
+    <div class="ch-era reveal">CHAPTER 4 · 2020&ndash;2026</div>
+    <div class="ch-title reveal">혁신의 파도 <em>&mdash; 새로운 40년</em></div>
+    <p class="ch-narr reveal">팬데믹이라는 전례 없는 풍랑 속에서 오히려 돛을 더 크게 올렸습니다. 1,000억 원 증자로 벤처투자의 물살을 키웠고, 2022년 금융자산 10조 원 &mdash; 5년 만에 두 배의 바다를 건넜습니다. 혁신금융의 공로로 국무총리 표창을 받았고, 2025년에는 역대 최대 순이익으로 항해 40년차를 맞았습니다. 이제 혁신의 파도는 다음 40년의 수평선을 향합니다.</p>
+    <div class="ch-events">
+      <div class="ev reveal"><div class="ev-y">2020</div><div class="ev-t">자본금 1,000억 증자</div><div class="ev-d">벤처투자 확대 기반.</div></div>
+      <div class="ev reveal"><div class="ev-y">2022</div><div class="ev-t">금융자산 10조 원</div><div class="ev-d">5년 만에 2배.</div></div>
+      <div class="ev reveal"><div class="ev-y">2023</div><div class="ev-t">국무총리 표창</div><div class="ev-d">혁신금융부문 수상.</div></div>
+      <div class="ev reveal"><div class="ev-y">2026</div><div class="ev-t">창립 40주년</div><div class="ev-d">헌정곡 「혁신의 파도」와 함께 새 항해.</div></div>
+    </div>
+    <div class="ch-progress reveal"><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span></div>
+  </div>
+</section>
+
+<!-- P12. Business -->
+<section class="page biz" id="business" data-dot="사업영역">
+  <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#050F26"/></svg></div>
+  <div class="wrap">
+    <div class="kicker reveal">Business</div>
+    <h2 class="sec-title reveal">기업의 성장을 잇는 금융</h2>
+    <p class="sec-desc reveal">기업금융과 투자금융 중심의 B2B 파이낸싱으로 중소·중견기업의 도전을 뒷받침합니다.</p>
+    <div class="biz-grid">
+      <div class="biz-card reveal">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div>
+        <h3>기업금융</h3>
+        <p>기업 일반대출과 구조화금융 등 기업의 단계별 성장에 맞춘 여신 솔루션을 제공합니다.</p>
+      </div>
+      <div class="biz-card reveal">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></div>
+        <h3>투자금융</h3>
+        <p>PEF 운용과 신기술사업금융으로 유망 기업의 미래 가치에 투자합니다.</p>
+      </div>
+      <div class="biz-card reveal">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg></div>
+        <h3>할부 · 리스금융</h3>
+        <p>설비와 자산 도입에 필요한 할부금융·리스로 기업의 투자 부담을 덜어드립니다.</p>
+      </div>
+      <div class="biz-card reveal">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg></div>
+        <h3>글로벌 금융</h3>
+        <p>미얀마 법인을 비롯한 해외 네트워크로 국경을 넘는 금융 서비스를 이어갑니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P13. Cheers -->
+<section class="page cheers" id="cheers" data-dot="축하 한마디">
+  <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#0C2650"/></svg></div>
+  <div class="wrap">
+    <div class="kicker reveal">Messages · 함께 띄우는 물결</div>
+    <h2 class="sec-title reveal">임직원 축하 한마디</h2>
+    <p class="sec-desc reveal">40년의 항해를 함께해 온 사람들의 마음이 파도가 되어 흐릅니다. 여러분의 한마디를 지금 바로 띄워주세요.</p>
+    <div class="cheer-form reveal">
+      <input class="cf-name" id="cheerName" maxlength="20" placeholder="이름 (선택)">
+      <textarea class="cf-msg" id="cheerMsg" maxlength="160" rows="1" placeholder="축하 한마디를 남겨주세요 (160자 이내)"></textarea>
+      <button class="cf-send" id="cheerSend" type="button">🌊 파도에 띄우기</button>
+    </div>
+    <div class="cheer-status" id="cheerStatus"></div>
+    <div class="cheer-rows" id="cheerRows"><div class="cheer-empty">메시지를 불러오는 중입니다…</div></div>
+  </div>
+</section>
+
+<!-- P14. Vision + footer -->
+<section class="page vision" id="vision" data-dot="비전">
+  <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#050F26"/></svg></div>
+  <div class="wrap">
+    <div class="kicker reveal" style="text-align:center">Next 40 Years</div>
+    <blockquote class="reveal">
+      &ldquo;지난 40년, 고객의 신뢰가 우리를 키웠습니다.<br>
+      다가올 40년, <strong>혁신의 파도</strong>가 되어 보답하겠습니다.&rdquo;
+    </blockquote>
+    <div class="sign reveal">IBK캐피탈 임직원 일동</div>
+    <div class="vision-footer">
+      <div>
+        <div class="f-brand">IBK캐피탈</div>
+        <div>서울특별시 강남구 테헤란로 414, L&amp;B타워</div>
+        <div>IBK기업은행 100% 자회사 · 1986년 설립</div>
+      </div>
+      <div style="text-align:right">
+        <div>1986 &ndash; 2026</div>
+        <div>창립 40주년 · 헌정곡 「혁신의 파도」</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* ================= Reveal ================= */
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* ================= Count-up ================= */
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = (n,dec,plain)=> dec>0 ? n.toFixed(dec) : (plain ? String(Math.round(n)) : Math.round(n).toLocaleString('ko-KR'));
+  const counted = new WeakSet();
+  const io2 = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting || counted.has(e.target)) return;
+      counted.add(e.target);
+      const el = e.target;
+      if(reduceMotion){ io2.unobserve(el); return; }
+      const target = parseFloat(el.dataset.count);
+      const dec = parseInt(el.dataset.decimal||'0',10);
+      const plain = el.dataset.plain === '1';
+      const unit = el.querySelector('.unit');
+      const unitHTML = unit ? unit.outerHTML : '';
+      const dur = 1400, t0 = performance.now();
+      const step = (t)=>{
+        const p = Math.min((t-t0)/dur,1);
+        const eased = 1-Math.pow(1-p,3);
+        el.innerHTML = fmt(target*eased,dec,plain) + unitHTML;
+        if(p<1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      io2.unobserve(el);
+    });
+  },{threshold:.6});
+  document.querySelectorAll('.value[data-count]').forEach(el=>io2.observe(el));
+
+  /* ================= Saga player ================= */
+  const sagaBtn=document.getElementById('sagaBtn');
+  const sagaAudio=document.getElementById('sagaAudio');
+  const sagaTxt=sagaBtn.querySelector('.s-txt');
+  sagaBtn.addEventListener('click',()=>{
+    if(sagaAudio.paused){ ensureAnalyser(); sagaAudio.play().catch(()=>{}); }
+    else{ sagaAudio.pause(); }
+  });
+  const syncSaga=()=>{
+    const playing=!sagaAudio.paused;
+    sagaBtn.classList.toggle('playing',playing);
+    sagaBtn.setAttribute('aria-pressed',playing);
+    sagaTxt.innerHTML=playing?'혁신의 파도 재생 중':'<span class="s-txt-full">40주년 헌정곡 - </span>혁신의 파도';
+    const tag=document.querySelector('.song-tag');
+    if(tag) tag.style.opacity=playing?1:.45;
+  };
+  ['play','pause','ended'].forEach(ev=>sagaAudio.addEventListener(ev,syncSaga));
+
+  (function(){
+    let userPaused=false;
+    sagaAudio.addEventListener('pause',()=>{ userPaused=true; });
+    // 진짜 사용자 제스처(클릭/키/터치)와 소프트 이벤트(휠/스크롤)를 구분:
+    // 재생이 실제로 시작될 때까지 리스너를 유지한다 (실패해도 제거하지 않음)
+    const gestureEvents=['pointerdown','keydown','touchstart'];
+    const softEvents=['wheel','scroll'];
+    let armed=false;
+    const cleanup=()=>{
+      if(!armed) return; armed=false;
+      gestureEvents.forEach(e=>removeEventListener(e,onGesture));
+      softEvents.forEach(e=>removeEventListener(e,onSoft));
+    };
+    const tryPlay=(withAnalyser)=>{
+      if(userPaused){ cleanup(); return; }
+      if(!sagaAudio.paused){ cleanup(); return; }
+      if(withAnalyser) ensureAnalyser(); // 제스처 문맥에서만 오디오 컨텍스트 생성
+      sagaAudio.play().then(()=>cleanup()).catch(()=>{/* 다음 이벤트에서 재시도 */});
+    };
+    const onGesture=(ev)=>{
+      if(ev.target && ev.target.closest && ev.target.closest('#sagaBtn')) return; // 버튼은 자체 처리
+      tryPlay(true);
+    };
+    const onSoft=()=>{ tryPlay(false); };
+    sagaAudio.play().catch(()=>{
+      armed=true;
+      gestureEvents.forEach(e=>addEventListener(e,onGesture,{passive:true}));
+      softEvents.forEach(e=>addEventListener(e,onSoft,{passive:true}));
+    });
+    // 이미 자동재생 중이어도 첫 제스처에서 파형 분석기로 업그레이드
+    const up=()=>{ ensureAnalyser(); gestureEvents.forEach(e=>removeEventListener(e,up)); };
+    gestureEvents.forEach(e=>addEventListener(e,up,{passive:true}));
+  })();
+
+  /* ================= Audio analyser ================= */
+  let actx=null, analyser=null, freqArr=null;
+  function ensureAnalyser(){
+    if(actx){ if(actx.state==='suspended') actx.resume().catch(()=>{}); return; }
+    try{
+      const AC=window.AudioContext||window.webkitAudioContext;
+      if(!AC) return;
+      actx=new AC();
+      const src=actx.createMediaElementSource(sagaAudio);
+      analyser=actx.createAnalyser();
+      analyser.fftSize=256;
+      analyser.smoothingTimeConstant=.82;
+      src.connect(analyser);
+      analyser.connect(actx.destination);
+      freqArr=new Uint8Array(analyser.frequencyBinCount);
+      if(actx.state==='suspended') actx.resume().catch(()=>{});
+    }catch(e){ actx=null; analyser=null; }
+  }
+
+  /* ================= Hero wave canvas ================= */
+  (function(){
+    const cv=document.getElementById('waveCanvas');
+    if(!cv || reduceMotion) return;
+    const ctx=cv.getContext('2d');
+    let W,H,dpr;
+    const fit=()=>{
+      dpr=Math.min(2,window.devicePixelRatio||1);
+      W=cv.clientWidth; H=cv.clientHeight;
+      cv.width=W*dpr; cv.height=H*dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    };
+    fit(); addEventListener('resize',fit);
+    const layers=[
+      {amp:14,len:.006,speed:.012,y:.55,color:'rgba(21,101,198,.20)'},
+      {amp:20,len:.004,speed:.018,y:.66,color:'rgba(91,148,219,.16)'},
+      {amp:26,len:.0028,speed:.026,y:.78,color:'rgba(227,200,104,.13)'},
+      {amp:18,len:.005,speed:.033,y:.88,color:'rgba(255,255,255,.07)'}
+    ];
+    let t=0;
+    const draw=()=>{
+      t+=1;
+      ctx.clearRect(0,0,W,H);
+      let boost=1;
+      if(analyser && !sagaAudio.paused){
+        analyser.getByteFrequencyData(freqArr);
+        let sum=0; const n=Math.min(48,freqArr.length);
+        for(let i=0;i<n;i++) sum+=freqArr[i];
+        boost=1+(sum/n/255)*1.6;
+      }else if(!sagaAudio.paused){
+        boost=1.25+Math.sin(t*.05)*.2;
+      }
+      layers.forEach((L,li)=>{
+        ctx.beginPath();
+        ctx.moveTo(0,H);
+        for(let x=0;x<=W;x+=4){
+          const y=H*L.y + Math.sin(x*L.len*2*Math.PI + t*L.speed + li*1.7)*L.amp*boost
+                        + Math.sin(x*L.len*4.7*Math.PI - t*L.speed*.7)*L.amp*.35*boost;
+          ctx.lineTo(x,y);
+        }
+        ctx.lineTo(W,H);
+        ctx.closePath();
+        ctx.fillStyle=L.color;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    };
+    requestAnimationFrame(draw);
+  })();
+
+  /* ================= Growth charts (one per page) ================= */
+  const CHARTS = [
+    {
+      key:'asset', label:'총자산', unit:'조 원', dec:1, step:'Growth 1 / 5',
+      current:'12.1', delta:'15년 새 5.4배', sub:'2010년 2.2조 원에서 2025년 12.1조 원까지 — 멈추지 않은 확장의 항해입니다.',
+      type:'line',
+      data:[
+        {y:2010,v:2.2},{y:2011,v:2.7},{y:2012,v:2.9},{y:2013,v:3.0},{y:2014,v:3.4},
+        {y:2015,v:3.9},{y:2016,v:4.6},{y:2017,v:5.4},{y:2018,v:6.1,note:'9월 말 기준'},
+        {y:2020,v:8.2},{y:2021,v:9.3},{y:2022,v:10.5},{y:2023,v:11.0},{y:2024,v:11.2},{y:2025,v:12.1}
+      ],
+      foot:'2010~2017: 기업은행 연결감사보고서 자회사 요약재무 · 2018: 9월 말 기준 · 2020: 공시 기반(별도) · 2021~2025: IBK캐피탈 주요경영지표. 2019년 말 수치는 공개 자료에서 확인되지 않아 비워두었습니다. 시간축은 실제 연도 간격 반영.'
+    },
+    {
+      key:'profit', label:'당기순이익', unit:'억 원', dec:0, step:'Growth 2 / 5',
+      current:'2,456', delta:'역대 최대 경신', sub:'2010년대 초 300~500억 원 수준에서 2025년 2,456억 원 — 수익성의 파고가 해마다 높아지고 있습니다.',
+      type:'bar',
+      data:[
+        {y:2010,v:62,note:'K-IFRS 전환 연도'},{y:2011,v:315},{y:2012,v:466},{y:2013,v:420},{y:2014,v:470},
+        {y:2015,v:539},{y:2016,v:682},{y:2017,v:786},{y:2019,v:1067},{y:2020,v:1276},
+        {y:2021,v:2004},{y:2022,v:1822},{y:2023,v:1841},{y:2024,v:2142},{y:2025,v:2456}
+      ],
+      foot:'2010~2017: 기업은행 연결감사보고서 자회사 요약재무 · 2019~2021: 기업은행 애뉴얼리포트(별도 기준) · 2022~2025: IBK캐피탈 재무현황·주요경영지표(별도 기준). 2018년 연간 수치는 공개 자료에서 확인되지 않아 비워두었습니다.'
+    },
+    {
+      key:'equity', label:'자기자본', unit:'억 원', dec:0, step:'Growth 3 / 5',
+      current:'20,759', delta:'15년 새 6.3배', sub:'3,313억 원의 자본으로 시작한 항해가 2조 원의 배가 되었습니다. 2020년 1,000억 증자가 도약의 돛이 되었습니다.',
+      type:'line',
+      data:[
+        {y:2010,v:3313},{y:2011,v:3597},{y:2012,v:4008},{y:2013,v:4400},{y:2014,v:4900},
+        {y:2015,v:5487},{y:2017,v:6860},{y:2018,v:7565,note:'9월 말 기준'},
+        {y:2023,v:16195},{y:2024,v:18311},{y:2025,v:20759}
+      ],
+      foot:'2010~2018: 기업은행 감사보고서 주석(별도 기준, 2018은 9월 말) · 2023~2025: IBK캐피탈 재무현황(별도 기준). 중간 연도(2016·2019~2022)는 확인된 수치만 표시했습니다.'
+    },
+    {
+      key:'people', label:'임직원 수', unit:'명', dec:0, step:'Growth 4 / 5',
+      current:'282', delta:'15년 새 2.7배', sub:'104명의 선원이 282명이 되었습니다 — 성장의 파도를 함께 넘어온 사람들입니다.',
+      type:'line',
+      data:[
+        {y:2010,v:104},{y:2011,v:195,note:'서무직 포함 집계 시작'},{y:2012,v:205},{y:2013,v:208},{y:2014,v:205},
+        {y:2015,v:201},{y:2016,v:212},{y:2017,v:222},{y:2018,v:235},{y:2019,v:253},
+        {y:2020,v:253},{y:2021,v:259},{y:2022,v:265},{y:2023,v:267},{y:2024,v:272},{y:2025,v:282}
+      ],
+      foot:'금융감독원 금융통계정보시스템(FISIS) 임직원현황, 각 연도 12월 말 총임직원(임원 포함) 기준. 2011년부터 서무직이 집계에 포함되었고, 2018년 12월부터 업무보고서 개정으로 통계 기준이 일부 변경되었습니다.'
+    },
+    {
+      key:'revenue', label:'영업수익', unit:'억 원', dec:0, step:'Growth 5 / 5',
+      current:'8,782', delta:'3년 새 +68%', sub:'2022년 5,241억 원에서 2025년 8,782억 원으로 — 기업금융과 투자금융이 함께 만든 물결입니다.',
+      type:'bar',
+      data:[ {y:2022,v:5241},{y:2023,v:7436},{y:2024,v:7862},{y:2025,v:8782} ],
+      foot:'2022: 분기보고서 요약재무정보 · 2023~2025: IBK캐피탈 재무현황(별도 기준). 과거 연도는 회계기준·계정 정의가 달라 비교 가능성이 낮아 제외했습니다.',
+      withNote:true
+    }
+  ];
+
+  const NS='http://www.w3.org/2000/svg';
+  const el=(t,a)=>{const n=document.createElementNS(NS,t);for(const k in a)n.setAttribute(k,a[k]);return n;};
+  const fmtV=(v,dec)=> dec>0 ? v.toFixed(dec) : Math.round(v).toLocaleString('ko-KR');
+
+  const tip=document.createElement('div');
+  tip.className='cv-tip';document.body.appendChild(tip);
+  const showTip=(ev,html)=>{
+    tip.innerHTML=html;tip.style.opacity=1;
+    const pad=14, w=tip.offsetWidth, h=tip.offsetHeight;
+    let x=ev.clientX+pad, y=ev.clientY-h-pad;
+    if(x+w>innerWidth-8) x=ev.clientX-w-pad;
+    if(y<8) y=ev.clientY+pad;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  };
+  const hideTip=()=>{tip.style.opacity=0;};
+
+  const tipHTML=(c,d,i)=>{
+    let yoy='';
+    if(i>0){
+      const prev=c.data[i-1], gap=d.y-prev.y, pct=((d.v-prev.v)/prev.v*100);
+      const cls=pct<0?' down':'';
+      yoy=`<div class="t-yoy${cls}">${gap===1?'전년':prev.y+'년'} 대비 ${pct>=0?'+':''}${pct.toFixed(1)}%</div>`;
+    }
+    const note=d.note?`<div style="color:rgba(255,255,255,.65)">※ ${d.note}</div>`:'';
+    return `<div class="t-year">${d.y}년</div><div>${c.label} ${fmtV(d.v,c.dec)}${c.unit}</div>${yoy}${note}`;
+  };
+
+  function renderChart(c){
+    const W=860,H=330,m={t:24,r:20,b:34,l:56};
+    const iw=W-m.l-m.r, ih=H-m.t-m.b;
+    const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':c.label+' 연도별 추이'});
+    let ySc;
+    const drawTick=(v,y)=>{
+      svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,class:'grid-ln'}));
+      const t=el('text',{x:m.l-9,y:y+4,'text-anchor':'end',class:'axis-txt'});
+      t.textContent=c.dec>0? (Math.round(v*10)/10) : Math.round(v).toLocaleString('ko-KR');
+      svg.appendChild(t);
+    };
+    if(c.type==='line'){
+      // 확대 축: 데이터 범위에 맞춰 최소~최대만 보여줌 (변화 폭 강조)
+      const vmin=Math.min(...c.data.map(d=>d.v)), vmaxr=Math.max(...c.data.map(d=>d.v));
+      const range=(vmaxr-vmin)||Math.abs(vmaxr)*.1||1;
+      const rawStep=range/4;
+      const pow=Math.pow(10,Math.floor(Math.log10(rawStep)));
+      const step=[1,2,2.5,5,10].map(s=>s*pow).find(s=>s>=rawStep);
+      let lo=Math.floor((vmin-range*.06)/step)*step;
+      if(vmin>=0 && lo<0) lo=0;
+      let hi=lo+step*Math.ceil(((vmaxr+range*.10)-lo)/step);
+      ySc=v=>m.t+ih-((v-lo)/(hi-lo))*ih;
+      for(let v=lo; v<=hi+step*.01; v+=step) drawTick(v,ySc(v));
+    }else{
+      // 막대: 항상 0 기준 (길이 왜곡 방지)
+      const rawStep=Math.max(...c.data.map(d=>d.v))*1.08/3;
+      const pow=Math.pow(10,Math.floor(Math.log10(rawStep)));
+      const step=[1,2,2.5,5,10].map(s=>s*pow).find(s=>s>=rawStep);
+      const vmax=step*3;
+      ySc=v=>m.t+ih-(v/vmax)*ih;
+      for(let i=0;i<=3;i++) drawTick(step*i,ySc(step*i));
+    }
+
+    const y0=c.data[0].y, y1=c.data[c.data.length-1].y, span=Math.max(1,y1-y0);
+    const pad=c.type==='bar'? Math.max(18, iw/(span+1)/2) : 10;
+    const xSc=yr=>m.l+pad+((yr-y0)/span)*(iw-2*pad);
+    const tickStep=span>8?3:1;
+    for(let yr=y0; yr<=y1; yr++){
+      if((yr-y0)%tickStep!==0 && yr!==y1) continue;
+      if(tickStep>1 && yr===y1 && (yr-y0)%tickStep!==0 && xSc(y1)-xSc(y1-((y1-y0)%tickStep))<34) continue;
+      const xt=el('text',{x:xSc(yr),y:H-10,'text-anchor':'middle',class:'axis-txt'});
+      xt.textContent=yr; svg.appendChild(xt);
+    }
+
+    if(c.type==='bar'){
+      const n=c.data.length;
+      const bw=Math.min(64,(iw-2*pad)/span*0.62||64);
+      c.data.forEach((d,i)=>{
+        const cx=xSc(d.y), x=cx-bw/2, y=ySc(d.v), hgt=m.t+ih-y;
+        const last=i===n-1;
+        const r=Math.min(5,bw/2,hgt);
+        const bar=el('path',{d:`M${x},${y+r} a${r},${r} 0 0 1 ${r},-${r} h${bw-2*r} a${r},${r} 0 0 1 ${r},${r} v${hgt-r} h${-bw} Z`,
+          fill:last?'url(#gold-'+c.key+')':'var(--blue-600)',class:'bar',style:`--dly:${(i*0.07).toFixed(2)}s`});
+        const hw=Math.min((iw-2*pad)/span,bw+12);
+        const hit=el('rect',{x:cx-hw/2,y:m.t,width:hw,height:ih+m.b,fill:'transparent'});
+        hit.addEventListener('mousemove',ev=>{bar.style.opacity=.8;showTip(ev,tipHTML(c,d,i));});
+        hit.addEventListener('mouseleave',()=>{bar.style.opacity=1;hideTip();});
+        svg.appendChild(bar);svg.appendChild(hit);
+        if(last){
+          const lb=el('text',{x:cx,y:y-8,'text-anchor':'middle',class:'mark-lbl',fill:'var(--gold-500)'});
+          lb.textContent=fmtV(d.v,c.dec); svg.appendChild(lb);
+        }
+      });
+    }else{
+      const pts=c.data.map(d=>[xSc(d.y),ySc(d.v)]);
+      const dPath=pts.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join(' ');
+      const area=el('path',{d:dPath+` L${pts[pts.length-1][0]},${m.t+ih} L${pts[0][0]},${m.t+ih} Z`,fill:'var(--blue-100)',class:'draw-area'});
+      area.style.fillOpacity=.55; svg.appendChild(area);
+      svg.appendChild(el('path',{d:dPath,fill:'none',stroke:'var(--blue-600)','stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round',class:'draw-line',pathLength:1}));
+      c.data.forEach((d,i)=>{
+        const last=i===c.data.length-1;
+        const dot=el('circle',{cx:pts[i][0],cy:pts[i][1],r:5,fill:last?'var(--gold-500)':'var(--blue-600)',stroke:'#fff','stroke-width':2,class:'draw-dot',style:`--dly:${(0.15+i/c.data.length*1.6).toFixed(2)}s`});
+        const hit=el('circle',{cx:pts[i][0],cy:pts[i][1],r:16,fill:'transparent'});
+        hit.addEventListener('mousemove',ev=>{dot.setAttribute('r',7);showTip(ev,tipHTML(c,d,i));});
+        hit.addEventListener('mouseleave',()=>{dot.setAttribute('r',5);hideTip();});
+        svg.appendChild(dot);svg.appendChild(hit);
+        if(last||i===0){
+          const lb=el('text',{x:pts[i][0]+(last?-8:8),y:pts[i][1]-13,'text-anchor':last?'end':'start',class:'mark-lbl'});
+          if(last) lb.setAttribute('fill','var(--gold-500)');
+          lb.textContent=fmtV(d.v,c.dec)+c.unit; svg.appendChild(lb);
+        }
+      });
+    }
+
+    const defs=el('defs',{});
+    const g=el('linearGradient',{id:'gold-'+c.key,x1:0,y1:0,x2:0,y2:1});
+    g.appendChild(el('stop',{offset:'0%','stop-color':'#E3C868'}));
+    g.appendChild(el('stop',{offset:'100%','stop-color':'#C9A227'}));
+    defs.appendChild(g);svg.appendChild(defs);
+    return svg;
+  }
+
+  CHARTS.forEach(c=>{
+    const sec=document.querySelector(`[data-chart="${c.key}"]`);
+    if(!sec) return;
+    const noteHTML = c.withNote ? `
+      <div class="growth-note reveal">
+        <div class="gn-big">2.2조 &rarr; 12.1조, <em>15년 만에 5.4배</em></div>
+        <div class="gn-txt">2010년 총자산 2.2조 원이던 IBK캐피탈은 2017년 금융자산 5조, 2022년 10조 원 이정표를 지나 2025년 총자산 12조 원 시대를 열었습니다. 자기자본 6.3배, 임직원 2.7배 — 모든 물결이 같은 방향으로 흘렀습니다.</div>
+      </div>` : '';
+    sec.innerHTML=`
+      <div class="wrap">
+        <div class="cp-step reveal">${c.step} · Growth Tracking</div>
+        <div class="cp-head reveal">
+          <div class="cp-title">${c.label}</div>
+          <div class="cp-value">${c.current}<span class="unit">${c.unit}</span></div>
+          <span class="cp-delta">${c.delta}</span>
+        </div>
+        <p class="cp-sub reveal">${c.sub}</p>
+        <div class="cp-plot reveal"></div>
+        ${c.type==='line'?'<div class="axis-note">※ 세로축은 변화 폭이 잘 보이도록 데이터 범위에 맞춰 확대되어 있습니다 (0부터 시작하지 않음).</div>':''}
+        <details class="reveal"><summary>표로 보기</summary>
+          <table><thead><tr><th>연도</th><th>${c.label}(${c.unit})</th><th>변화</th></tr></thead><tbody>
+          ${c.data.map((d,i)=>{
+            let ch='—';
+            if(i>0){const p=((d.v-c.data[i-1].v)/c.data[i-1].v*100);ch=(p>=0?'+':'')+p.toFixed(1)+'%';}
+            return `<tr><td>${d.y}${d.note?' <span style="color:var(--ink-muted)">('+d.note+')</span>':''}</td><td>${fmtV(d.v,c.dec)}</td><td>${ch}</td></tr>`;
+          }).join('')}
+          </tbody></table>
+        </details>
+        <div class="cp-foot reveal">${c.foot}</div>
+        ${noteHTML}
+      </div>`;
+    sec.querySelector('.cp-plot').appendChild(renderChart(c));
+    sec.querySelectorAll('.reveal').forEach(n=>io.observe(n));
+  });
+
+  // chart drawing animation trigger (re-runs each time the page comes into view)
+  const ioChart=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('chart-in');
+      else e.target.classList.remove('chart-in');
+    });
+  },{threshold:.45});
+  document.querySelectorAll('.chart-page').forEach(s=>ioChart.observe(s));
+
+  /* ================= D-day countdown ================= */
+  (function(){
+    const chip=document.getElementById('dday'), num=document.getElementById('ddayNum');
+    if(!chip) return;
+    const today=new Date(); today.setHours(0,0,0,0);
+    const target=new Date(2026,10,1); // 2026-11-01
+    const diff=Math.round((target-today)/86400000);
+    if(diff>0){ num.textContent='D-'+diff; chip.hidden=false; }
+    else if(diff===0){ num.textContent='D-DAY 🎉'; chip.hidden=false; }
+    else { num.textContent='40주년의 새 항해가 시작되었습니다'; chip.hidden=false; }
+  })();
+
+  /* ================= Saga lyrics captions ================= */
+  (function(){
+    // [시작시각(초), 가사] — 사용자가 LRC 메이커로 직접 찍은 실측 타임코드
+    const CUES=[
+      [14.06,"사십 년의 무게, 그 이상의 가치 (그 이상의 가치)"],
+      [17.52,"IBK캐피탈, 새로운 시대를 위한 돛을 달고"],
+      [21.52,"흔들림 없는 신뢰, 우리의 base (우리의 base)"],
+      [23.89,"미래를 향한 투자, 가슴 뛰는 pace"],
+      [25.89,"지금부터 시작이야, the second chapter"],
+      [29.51,"사십 년의 비전, 우리의 이름 IBK캐피탈!"],
+      [34.04,"함께 만들어 온 빛나는 역사, let's keep it going!"],
+      [38.05,"혁신의 파도 위로, 더 높이 비상해"],
+      [42.02,"우리의 내일은 오늘보다 더 빛나 (오늘보다 더 빛나)!"],
+      [47.10,"숫자로 증명된 시간, 40 years strong"],
+      [50.14,"변화에 발맞춰, 우린 멈추지 않아 (멈추지 않아)"],
+      [53.86,"Corporate partner, venture flow"],
+      [55.70,"금융의 새 지평을 열어, watch us grow"],
+      [58.29,"세련된 감각으로, the capital of future"],
+      [63.41,"사십 년의 비전, 우리의 이름 IBK캐피탈!"],
+      [67.74,"함께 만들어 온 빛나는 역사, let's keep it going!"],
+      [71.74,"혁신의 파도 위로, 더 높이 비상해"],
+      [75.73,"우리의 내일은 오늘보다 더 빛나 (오늘보다 더 빛나)!"],
+      [87.83,"과거와 현재, 그 사이의 연결고리"],
+      [89.99,"우리의 legacy, 영원히 흐르리"],
+      [92.06,"Beyond the limit, beyond the dream"],
+      [94.14,"가장 빛나는 순간을 향해"],
+      [97.28,"사십 년의 비전, 우리의 이름 IBK캐피탈!"],
+      [101.45,"함께 만들어 온 빛나는 역사, let's keep it going!"],
+      [105.53,"혁신의 파도 위로, 더 높이 비상해"],
+      [109.49,"우리의 내일은 오늘보다 더 빛나 (오늘보다 더 빛나)!"],
+      [115.60,"IBK캐피탈, 사십 년 그 이상의 도약"],
+      [120.99,"We are the future. (IBK Capital.)"]
+    ];
+    const bar=document.getElementById('lyricBar');
+    const now=document.getElementById('lyricNow');
+    const next=document.getElementById('lyricNext');
+    let lastKey='';
+    const update=()=>{
+      if(sagaAudio.paused){ bar.classList.remove('show'); lastKey=''; return; }
+      const t=sagaAudio.currentTime;
+      let idx=-1;
+      for(let i=0;i<CUES.length;i++){ if(t>=CUES[i][0]) idx=i; else break; }
+      // 8초 이상 비는 구간(간주)에서는 이전 가사 대신 간주 표시
+      let interlude=false;
+      if(idx>=0 && idx<CUES.length-1){
+        const gap=CUES[idx+1][0]-CUES[idx][0];
+        if(gap>8 && t>CUES[idx][0]+5.5 && CUES[idx+1][0]-t>1.2) interlude=true;
+      }
+      const key=idx+(interlude?'i':'');
+      if(key===lastKey) return;
+      lastKey=key;
+      if(idx<0){ now.textContent='♪ 혁신의 파도 — IBK캐피탈 40주년 헌정곡'; next.textContent=CUES[0][1]; }
+      else if(interlude){ now.textContent='♪ ── 간주 ──'; next.textContent=CUES[idx+1][1]; }
+      else{ now.textContent=CUES[idx][1]; next.textContent=CUES[idx+1]?CUES[idx+1][1]:'♪'; }
+      bar.classList.add('show');
+      document.body.classList.add('lyrics-on');
+    };
+    sagaAudio.addEventListener('timeupdate',update);
+    sagaAudio.addEventListener('pause',()=>{bar.classList.remove('show');document.body.classList.remove('lyrics-on');});
+    sagaAudio.addEventListener('play',update);
+  })();
+
+  /* ================= Nav dots ================= */
+  (function(){
+    const pages=[...document.querySelectorAll('.page')];
+    const dots=document.getElementById('dots');
+    const map=new Map();
+    pages.forEach(p=>{
+      const a=document.createElement('a');
+      a.href='#'+p.id;
+      a.title=p.dataset.dot||p.id;
+      dots.appendChild(a);
+      map.set(p,a);
+    });
+    const darkPages=new Set(['home','story1','story2','story3','story4','business','cheers']);
+    const io3=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting) return;
+        map.forEach(a=>a.classList.remove('on'));
+        const a=map.get(e.target);
+        if(a) a.classList.add('on');
+        dots.classList.toggle('on-dark',darkPages.has(e.target.id));
+      });
+    },{threshold:.55});
+    pages.forEach(p=>io3.observe(p));
+  })();
+</script>
+
+<!-- ================= 임직원 축하 한마디: Firebase Firestore 실시간 연동 ================= -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp }
+    from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAh2M2maHqzpN-eQFjM0LLeTWqt413zE80",
+    authDomain: "ibk-40th.firebaseapp.com",
+    projectId: "ibk-40th",
+    storageBucket: "ibk-40th.firebasestorage.app",
+    messagingSenderId: "272027867262",
+    appId: "1:272027867262:web:74f18275a5d905ec81602f"
+  };
+
+  const box=document.getElementById('cheerRows');
+  const nameEl=document.getElementById('cheerName');
+  const msgEl=document.getElementById('cheerMsg');
+  const sendBtn=document.getElementById('cheerSend');
+  const statusEl=document.getElementById('cheerStatus');
+  if(box && sendBtn){
+    let db=null;
+    try{
+      const app=initializeApp(firebaseConfig);
+      db=getFirestore(app);
+    }catch(e){ box.innerHTML='<div class="cheer-empty">메시지 서비스에 연결할 수 없습니다.</div>'; }
+
+    const fmtDate=(ts)=>{
+      try{ const d=ts&&ts.toDate?ts.toDate():null;
+        return d? `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}` : ''; }
+      catch(e){ return ''; }
+    };
+
+    function render(msgs){
+      box.innerHTML='';
+      if(!msgs.length){
+        const d=document.createElement('div');
+        d.className='cheer-empty';
+        d.innerHTML='아직 첫 메시지가 없습니다.<br>지금 <b style="color:var(--gold-300)">첫 번째 파도</b>를 띄워주세요 🌊';
+        box.appendChild(d);
+        return;
+      }
+      const nRows=msgs.length>10?3:(msgs.length>4?2:1);
+      for(let r=0;r<nRows;r++){
+        const rowMsgs=msgs.filter((_,i)=>i%nRows===r);
+        if(!rowMsgs.length) continue;
+        const rowEl=document.createElement('div');
+        rowEl.className='cheer-row'+(r%2?' rev':'');
+        const track=document.createElement('div');
+        track.className='cheer-track';
+        track.style.setProperty('--dur',Math.max(28,rowMsgs.length*9)+'s');
+        for(let dup=0;dup<2;dup++){
+          rowMsgs.forEach(m=>{
+            const card=document.createElement('div');card.className='cheer-card';
+            const msg=document.createElement('div');msg.className='cc-msg';msg.textContent=m.text; // textContent = XSS 안전
+            card.appendChild(msg);
+            const metaTxt=[m.name,m.date].filter(Boolean).join(' · ');
+            if(metaTxt){ const meta=document.createElement('div');meta.className='cc-meta';meta.textContent='— '+metaTxt;card.appendChild(meta); }
+            track.appendChild(card);
+          });
+        }
+        rowEl.appendChild(track);
+        box.appendChild(rowEl);
+      }
+    }
+
+    if(db){
+      // 실시간 구독 (최신 100개)
+      onSnapshot(query(collection(db,'cheers'),orderBy('ts','desc'),limit(100)),(snap)=>{
+        const msgs=[];
+        snap.forEach(doc=>{
+          const d=doc.data();
+          if(d && typeof d.msg==='string' && d.msg.trim())
+            msgs.push({text:d.msg.trim().slice(0,160),name:(d.name||'').slice(0,20),date:fmtDate(d.ts)});
+        });
+        render(msgs);
+      },()=>{ box.innerHTML='<div class="cheer-empty">메시지를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</div>'; });
+
+      // 제출 (1분당 1회 제한)
+      const submit=async()=>{
+        const msg=(msgEl.value||'').trim();
+        const name=(nameEl.value||'').trim();
+        if(!msg){ statusEl.textContent='한마디를 입력해 주세요!'; msgEl.focus(); return; }
+        let last=0; try{ last=+localStorage.getItem('cheerLast')||0; }catch(e){}
+        if(Date.now()-last<60000){ statusEl.textContent='잠시 후 다시 띄울 수 있어요 (1분에 한 번씩)'; return; }
+        sendBtn.disabled=true; statusEl.textContent='파도에 띄우는 중…';
+        try{
+          await addDoc(collection(db,'cheers'),{name:name.slice(0,20),msg:msg.slice(0,160),ts:serverTimestamp()});
+          try{ localStorage.setItem('cheerLast',String(Date.now())); }catch(e){}
+          msgEl.value='';
+          statusEl.textContent='🌊 축하의 파도가 띄워졌습니다!';
+          setTimeout(()=>{ statusEl.textContent=''; },4000);
+        }catch(e){
+          statusEl.textContent='전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+        }
+        sendBtn.disabled=false;
+      };
+      sendBtn.addEventListener('click',submit);
+      msgEl.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); submit(); } });
+    }
+  }
+</script>
+</body>
+</html>
