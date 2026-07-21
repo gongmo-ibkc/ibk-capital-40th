@@ -221,6 +221,18 @@
   .stats-foot{margin-top:18px;font-size:11.5px;color:var(--ink-muted)}
 
   /* ---------- Chart pages ---------- */
+  /* ---------- Numbers prologue ---------- */
+  .num-intro{background:var(--navy-950);color:#fff;text-align:center;overflow:hidden}
+  .num-intro .kicker{color:var(--gold-300)}
+  .num-intro .sec-desc{color:rgba(255,255,255,.66)}
+  .num-intro .wrap{position:relative}
+  .ni-float{position:absolute;inset:0;pointer-events:none}
+  .ni-float span{position:absolute;left:var(--x);top:var(--y);font-size:calc(clamp(48px,8vw,110px)*var(--s));font-weight:800;letter-spacing:-.03em;color:rgba(91,148,219,.16);animation:ni-bob 7s ease-in-out infinite;animation-delay:var(--d)}
+  .ni-float span.g{color:rgba(227,200,104,.13)}
+  @keyframes ni-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+  .ni-hint{margin-top:34px;font-size:13px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,.45)}
+  @media (prefers-reduced-motion: reduce){.ni-float span{animation:none}}
+
   .chart-page{background:var(--surface)}
   /* 숫자 인트로 오버레이: 진입 시 숫자만 크게 → 설명으로 전환 */
   .cp-intro{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:var(--surface);opacity:0;pointer-events:none;transition:opacity .5s ease}
@@ -521,13 +533,33 @@
     <p class="sub">고객과 함께한 40년, 미래를 여는 금융.<br>파도는 멈추지 않습니다 &mdash; 중소기업과 함께 넘어온 40년의 물결이 새로운 바다로 나아갑니다.</p>
     <div class="cta">
       <a class="btn btn-gold" href="#story1">40년의 항해 보기</a>
-      <a class="btn btn-ghost" href="#c-asset">숫자로 보는 40년</a>
+      <a class="btn btn-ghost" href="#numbers">숫자로 보는 40년</a>
     </div>
   </div>
   <div class="scroll-hint">SCROLL</div>
 </section>
 
-<!-- P2~5. Chart pages (filled by JS) — 숫자 인트로 후 설명 -->
+<!-- P2. Numbers prologue -->
+<section class="page num-intro" id="numbers" data-dot="40년의 숫자">
+  <div class="ni-float" aria-hidden="true">
+    <span style="--x:10%;--y:16%;--d:0s;--s:1">12.1</span>
+    <span style="--x:66%;--y:12%;--d:1.4s;--s:.82">2,456</span>
+    <span style="--x:14%;--y:64%;--d:.7s;--s:.9">20,759</span>
+    <span style="--x:72%;--y:60%;--d:2.1s;--s:.72">286</span>
+    <span class="g" style="--x:38%;--y:7%;--d:2.8s;--s:.6">69.7</span>
+    <span class="g" style="--x:84%;--y:36%;--d:1.1s;--s:.55">2,709</span>
+    <span class="g" style="--x:3%;--y:40%;--d:3.4s;--s:.52">7,488</span>
+    <span class="g" style="--x:44%;--y:82%;--d:1.8s;--s:.68">14,610</span>
+  </div>
+  <div class="wrap">
+    <div class="kicker reveal">Prologue · 숫자로 보는 40년</div>
+    <h2 class="sec-title reveal">40년이 남긴 숫자들</h2>
+    <p class="sec-desc reveal">지금은 그저 낯선 숫자들입니다.<br>한 페이지씩 넘기며, 이 숫자들에 담긴 40년의 항해를 확인해보세요.</p>
+    <div class="ni-hint reveal">↓ 첫 번째 숫자</div>
+  </div>
+</section>
+
+<!-- P3~6. Chart pages (filled by JS) — 숫자 인트로 후 설명 -->
 <section class="page chart-page" id="c-asset" data-chart="asset" data-dot="총자산 추이"></section>
 <section class="page chart-page" id="c-profit" data-chart="profit" data-dot="당기순이익 추이"></section>
 <section class="page chart-page" id="c-equity" data-chart="equity" data-dot="자기자본 추이"></section>
