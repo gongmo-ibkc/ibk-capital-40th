@@ -222,6 +222,14 @@
 
   /* ---------- Chart pages ---------- */
   .chart-page{background:var(--surface)}
+  /* 숫자 인트로 오버레이: 진입 시 숫자만 크게 → 설명으로 전환 */
+  .cp-intro{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--surface);opacity:0;pointer-events:none;transition:opacity .5s ease}
+  .cp-intro .ci-hint{font-size:13.5px;font-weight:600;letter-spacing:.16em;color:var(--ink-muted);opacity:0;transform:translateY(10px);transition:opacity .45s .12s,transform .45s .12s}
+  .cp-intro .ci-num{font-size:clamp(58px,10vw,126px);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--navy-800);opacity:0;transform:scale(.72);transition:opacity .5s .05s,transform .65s cubic-bezier(.2,.8,.2,1) .05s}
+  .cp-intro .ci-unit{font-size:.32em;font-weight:700;color:var(--ink-secondary);margin-left:8px}
+  .chart-page.intro-on .cp-intro{opacity:1}
+  .chart-page.intro-on .cp-intro .ci-hint{opacity:1;transform:none}
+  .chart-page.intro-on .cp-intro .ci-num{opacity:1;transform:scale(1)}
   .chart-page:nth-of-type(even){background:var(--surface-alt)}
   .chart-page .wrap{max-width:880px}
   .cp-step{font-size:12.5px;font-weight:700;letter-spacing:.24em;color:var(--gold-500);text-transform:uppercase}
@@ -504,18 +512,24 @@
     <p class="sub">고객과 함께한 40년, 미래를 여는 금융.<br>파도는 멈추지 않습니다 &mdash; 중소기업과 함께 넘어온 40년의 물결이 새로운 바다로 나아갑니다.</p>
     <div class="cta">
       <a class="btn btn-gold" href="#story1">40년의 항해 보기</a>
-      <a class="btn btn-ghost" href="#stats">숫자로 보는 40년</a>
+      <a class="btn btn-ghost" href="#c-asset">숫자로 보는 40년</a>
     </div>
   </div>
   <div class="scroll-hint">SCROLL</div>
 </section>
 
-<!-- P2. Stats -->
+<!-- P2~5. Chart pages (filled by JS) — 숫자 인트로 후 설명 -->
+<section class="page chart-page" id="c-asset" data-chart="asset" data-dot="총자산 추이"></section>
+<section class="page chart-page" id="c-profit" data-chart="profit" data-dot="당기순이익 추이"></section>
+<section class="page chart-page" id="c-equity" data-chart="equity" data-dot="자기자본 추이"></section>
+<section class="page chart-page" id="c-people" data-chart="people" data-dot="임직원 추이"></section>
+
+<!-- P6. Stats (요약) -->
 <section class="page stats" id="stats" data-dot="숫자로 보는 40년">
   <div class="wrap">
     <div class="kicker reveal">Since 1986</div>
     <h2 class="sec-title reveal">숫자로 보는 40년</h2>
-    <p class="sec-desc reveal">1986년 한국기업개발금융으로 출발한 IBK캐피탈의 오늘을 여덟 개의 숫자로 요약했습니다.</p>
+    <p class="sec-desc reveal">방금 보신 네 번의 물결을 포함해, IBK캐피탈의 오늘을 여덟 개의 숫자로 한눈에 모았습니다.</p>
     <div class="stat-grid">
       <div class="tile reveal">
         <div class="label">고객과 함께한 시간</div>
@@ -565,15 +579,9 @@
       <span class="fact"><span class="dot"></span>금융의 날 <b>국무총리 표창</b> (2023)</span>
       <span class="fact"><span class="dot"></span>본사 <b>서울 강남구 테헤란로 414</b></span>
     </div>
-    <div class="stats-foot reveal">출처: DART 사업보고서(2006~2025, 별도 기준) 및 IBK캐피탈 재무현황·주요경영지표. 상세 추이는 다음 페이지의 그래프에서 확인할 수 있습니다.</div>
+    <div class="stats-foot reveal">출처: DART 사업보고서(2006~2025, 별도 기준) 및 IBK캐피탈 재무현황·주요경영지표. 상세 추이는 앞의 그래프 페이지에서 확인할 수 있습니다.</div>
   </div>
 </section>
-
-<!-- P3~7. Chart pages (filled by JS) -->
-<section class="page chart-page" id="c-asset" data-chart="asset" data-dot="총자산 추이"></section>
-<section class="page chart-page" id="c-profit" data-chart="profit" data-dot="당기순이익 추이"></section>
-<section class="page chart-page" id="c-equity" data-chart="equity" data-dot="자기자본 추이"></section>
-<section class="page chart-page" id="c-people" data-chart="people" data-dot="임직원 추이"></section>
 
 <!-- P8~11. Story chapters -->
 <section class="page story-page" id="story1" data-dot="제1장 첫 물결">
@@ -1140,6 +1148,10 @@
         <div class="gn-txt">2006년 총자산 1.6조 원이던 IBK캐피탈은 2017년 금융자산 5조, 2022년 10조 원 이정표를 지나 2025년 총자산 12조 원 시대를 열었습니다. 자기자본 12.6배, 임직원 3.3배 — 모든 물결이 같은 방향으로 흘렀습니다.</div>
       </div>` : '';
     sec.innerHTML=`
+      <div class="cp-intro" aria-hidden="true">
+        <div class="ci-hint">40년이 만든 숫자</div>
+        <div class="ci-num">${c.current}<span class="ci-unit">${c.unit}</span></div>
+      </div>
       <div class="wrap">
         <div class="cp-step reveal">${c.step} · Growth Tracking</div>
         <div class="cp-head reveal">
@@ -1166,11 +1178,23 @@
     sec.querySelectorAll('.reveal').forEach(n=>io.observe(n));
   });
 
-  // chart drawing animation trigger (re-runs each time the page comes into view)
+  // 숫자 인트로 → 차트 드로잉 (페이지 진입마다 재실행)
+  const introTimers=new WeakMap();
   const ioChart=new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
-      if(e.isIntersecting) e.target.classList.add('chart-in');
-      else e.target.classList.remove('chart-in');
+      const sec=e.target;
+      clearTimeout(introTimers.get(sec));
+      if(e.isIntersecting){
+        if(reduceMotion){ sec.classList.add('chart-in'); return; }
+        sec.classList.remove('chart-in');
+        sec.classList.add('intro-on');
+        introTimers.set(sec,setTimeout(()=>{
+          sec.classList.remove('intro-on');
+          sec.classList.add('chart-in');
+        },1250));
+      }else{
+        sec.classList.remove('chart-in','intro-on');
+      }
     });
   },{threshold:.45});
   document.querySelectorAll('.chart-page').forEach(s=>ioChart.observe(s));
