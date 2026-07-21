@@ -1110,7 +1110,7 @@
   };
 
   function renderChart(c){
-    const W=860,H=330,m={t:24,r:20,b:34,l:56};
+    const W=860,H=360,m={t:24,r:20,b:34,l:56};
     const iw=W-m.l-m.r, ih=H-m.t-m.b;
     const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':c.label+' 연도별 추이'});
     let ySc;
@@ -1121,17 +1121,16 @@
       svg.appendChild(t);
     };
     if(c.type==='line'){
-      // 확대 축: 데이터 범위에 맞춰 최소~최대만 보여줌 (변화 폭 강조)
+      // 확대 축: 축 경계를 눈금 배수로 내리지 않고 데이터에 밀착 — 변화 폭을 최대로 강조
       const vmin=Math.min(...c.data.map(d=>d.v)), vmaxr=Math.max(...c.data.map(d=>d.v));
       const range=(vmaxr-vmin)||Math.abs(vmaxr)*.1||1;
-      const rawStep=range/4;
+      let lo=vmin-range*.05, hi=vmaxr+range*.07;
+      if(vmin>=0 && lo<0) lo=0;
+      const rawStep=(hi-lo)/5;
       const pow=Math.pow(10,Math.floor(Math.log10(rawStep)));
       const step=[1,2,2.5,5,10].map(s=>s*pow).find(s=>s>=rawStep);
-      let lo=Math.floor((vmin-range*.06)/step)*step;
-      if(vmin>=0 && lo<0) lo=0;
-      let hi=lo+step*Math.ceil(((vmaxr+range*.10)-lo)/step);
       ySc=v=>m.t+ih-((v-lo)/(hi-lo))*ih;
-      for(let v=lo; v<=hi+step*.01; v+=step) drawTick(v,ySc(v));
+      for(let v=Math.ceil(lo/step)*step; v<=hi+step*.01; v+=step) drawTick(v,ySc(v));
     }else{
       // 막대: 항상 0 기준 (길이 왜곡 방지)
       const rawStep=Math.max(...c.data.map(d=>d.v))*1.08/3;
