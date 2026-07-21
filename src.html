@@ -368,6 +368,20 @@
   .biz-card p{font-size:13.5px;color:rgba(255,255,255,.68);margin-top:7px}
 
   /* ---------- Cheers (employee messages) ---------- */
+  /* ---------- People power ---------- */
+  .power{background:var(--navy-900);color:#fff;text-align:center}
+  .power .kicker{color:var(--gold-300)}
+  .power .sec-desc{color:rgba(255,255,255,.66);max-width:640px;margin-left:auto;margin-right:auto}
+  .pw-grid{margin-top:34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;text-align:left}
+  .pw-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 22px}
+  .pw-card .label{font-size:13px;color:rgba(255,255,255,.6);font-weight:600}
+  .pw-card .value{font-size:clamp(26px,2.8vw,34px);font-weight:700;letter-spacing:-.02em;color:#fff;margin-top:4px;line-height:1.1}
+  .pw-card .value .unit{font-size:.5em;font-weight:600;color:rgba(255,255,255,.55);margin-left:3px}
+  .pw-card .note{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px;line-height:1.5}
+  .pw-close{margin-top:30px;font-size:clamp(15px,1.8vw,18px);color:rgba(255,255,255,.8)}
+  .pw-close b{color:var(--gold-300)}
+  @media(max-width:640px){.pw-grid{grid-template-columns:1fr 1fr;gap:9px}.pw-card{padding:14px}.pw-card .value{font-size:22px}}
+
   .cheers{background:var(--navy-950);color:#fff}
   .cheers .kicker{color:var(--gold-300)}
   .cheers .sec-desc{color:rgba(255,255,255,.66)}
@@ -486,7 +500,7 @@
     <div class="big40">40<small>th</small></div>
     <h1>IBK캐피탈 창립 40주년</h1>
     <div class="song-tag">♪ 40주년 헌정곡 <b>「혁신의 파도」</b>가 흐르고 있습니다</div>
-    <div><span class="dday" id="dday" hidden>⚓ 창립 40주년 기념일(2026.11.1)까지 <b id="ddayNum"></b></span></div>
+    <div><span class="dday" id="dday" hidden>⚓ 창립 40주년(2026.11.1)까지 <b id="ddayNum"></b></span></div>
     <p class="sub">고객과 함께한 40년, 미래를 여는 금융.<br>파도는 멈추지 않습니다 &mdash; 중소기업과 함께 넘어온 40년의 물결이 새로운 바다로 나아갑니다.</p>
     <div class="cta">
       <a class="btn btn-gold" href="#story1">40년의 항해 보기</a>
@@ -717,9 +731,42 @@
   </div>
 </section>
 
+<!-- People Power -->
+<section class="page power" id="power" data-dot="사람의 힘">
+  <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#0C2650"/></svg></div>
+  <div class="wrap">
+    <div class="kicker reveal">People Power · 파도를 만든 사람들</div>
+    <h2 class="sec-title reveal">모든 숫자 뒤에, 사람이 있습니다</h2>
+    <p class="sec-desc reveal">성장 그래프의 물결은 저절로 일지 않았습니다. 서류 한 장, 고객 한 분을 향한 임직원의 정성이 만든 파도입니다.</p>
+    <div class="pw-grid">
+      <div class="pw-card reveal">
+        <div class="label">취급금액 · 최근 10년</div>
+        <div class="value" data-count="69.7" data-decimal="1">69.7<span class="unit">조 원</span></div>
+        <div class="note">2016년~2026년 상반기 누적 실행 69조 6,608억 원</div>
+      </div>
+      <div class="pw-card reveal">
+        <div class="label">함께하는 고객</div>
+        <div class="value" data-count="2709">2,709</div>
+        <div class="note">기업 1,701 · 개인 1,008 (2026년 6월 말 기준)</div>
+      </div>
+      <div class="pw-card reveal">
+        <div class="label">시행문서</div>
+        <div class="value" data-count="7488">7,488<span class="unit">건</span></div>
+        <div class="note">임직원의 손끝에서 완성된 약정의 기록 (2026년 6월 말 기준)</div>
+      </div>
+      <div class="pw-card reveal">
+        <div class="label">함께 열어 온 아침</div>
+        <div class="value" data-count="14610">14,610<span class="unit">일</span></div>
+        <div class="note">1986년 11월 1일 창립부터 40주년까지의 모든 날</div>
+      </div>
+    </div>
+    <p class="pw-close reveal">그 모든 숫자 뒤에, 오늘도 파도를 만드는 <b>275명의 임직원</b>이 있습니다.</p>
+  </div>
+</section>
+
 <!-- P13. Cheers -->
 <section class="page cheers" id="cheers" data-dot="축하 한마디">
-  <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#0C2650"/></svg></div>
+  <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#081A38"/></svg></div>
   <div class="wrap">
     <div class="kicker reveal">Messages · 함께 띄우는 물결</div>
     <h2 class="sec-title reveal">임직원 축하 한마디</h2>
@@ -748,11 +795,10 @@
       <div>
         <div class="f-brand"><img class="f-logo" src="__LOGO_SRC__" alt="IBK캐피탈"></div>
         <div>서울특별시 강남구 테헤란로 414, L&amp;B타워</div>
-        <div>IBK기업은행 100% 자회사 · 1986년 설립</div>
       </div>
       <div style="text-align:right">
         <div>1986 &ndash; 2026</div>
-        <div>창립 40주년 · 헌정곡 「혁신의 파도」</div>
+        <div>창립 40주년 기념 페이지</div>
       </div>
     </div>
   </div>
