@@ -223,13 +223,20 @@
   /* ---------- Chart pages ---------- */
   .chart-page{background:var(--surface)}
   /* 숫자 인트로 오버레이: 진입 시 숫자만 크게 → 설명으로 전환 */
-  .cp-intro{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--surface);opacity:0;pointer-events:none;transition:opacity .5s ease}
-  .cp-intro .ci-hint{font-size:13.5px;font-weight:600;letter-spacing:.16em;color:var(--ink-muted);opacity:0;transform:translateY(10px);transition:opacity .45s .12s,transform .45s .12s}
+  .cp-intro{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:var(--surface);opacity:0;pointer-events:none;transition:opacity .5s ease}
   .cp-intro .ci-num{font-size:clamp(58px,10vw,126px);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--navy-800);opacity:0;transform:scale(.72);transition:opacity .5s .05s,transform .65s cubic-bezier(.2,.8,.2,1) .05s}
   .cp-intro .ci-unit{font-size:.32em;font-weight:700;color:var(--ink-secondary);margin-left:8px}
   .chart-page.intro-on .cp-intro{opacity:1}
-  .chart-page.intro-on .cp-intro .ci-hint{opacity:1;transform:none}
   .chart-page.intro-on .cp-intro .ci-num{opacity:1;transform:scale(1)}
+  /* 역사관 입장 인트로 (제1장) */
+  .story-intro{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:var(--navy-950);opacity:0;pointer-events:none;transition:opacity .55s ease}
+  .story-intro .si-wave{width:64px;stroke:var(--gold-300);fill:none;stroke-width:2.5;stroke-linecap:round;opacity:0;transform:translateY(10px);transition:opacity .5s .15s,transform .5s .15s}
+  .story-intro .si-title{font-size:clamp(38px,6.5vw,80px);font-weight:800;letter-spacing:-.02em;color:#fff;opacity:0;transform:scale(.82);transition:opacity .5s .05s,transform .65s cubic-bezier(.2,.8,.2,1) .05s}
+  .story-intro .si-sub{font-size:14px;font-weight:600;letter-spacing:.22em;color:var(--gold-300);opacity:0;transform:translateY(10px);transition:opacity .5s .25s,transform .5s .25s}
+  .story-page.intro-on .story-intro{opacity:1}
+  .story-page.intro-on .story-intro .si-wave,
+  .story-page.intro-on .story-intro .si-sub{opacity:1;transform:none}
+  .story-page.intro-on .story-intro .si-title{opacity:1;transform:scale(1)}
   .chart-page:nth-of-type(even){background:var(--surface-alt)}
   .chart-page .wrap{max-width:880px}
   .cp-step{font-size:12.5px;font-weight:700;letter-spacing:.24em;color:var(--gold-500);text-transform:uppercase}
@@ -376,19 +383,23 @@
   .biz-card p{font-size:13.5px;color:rgba(255,255,255,.68);margin-top:7px}
 
   /* ---------- Cheers (employee messages) ---------- */
-  /* ---------- People power ---------- */
-  .power{background:var(--navy-900);color:#fff;text-align:center}
-  .power .kicker{color:var(--gold-300)}
-  .power .sec-desc{color:rgba(255,255,255,.66);max-width:640px;margin-left:auto;margin-right:auto}
-  .pw-grid{margin-top:34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;text-align:left}
-  .pw-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 22px}
-  .pw-card .label{font-size:13px;color:rgba(255,255,255,.6);font-weight:600}
-  .pw-card .value{font-size:clamp(26px,2.8vw,34px);font-weight:700;letter-spacing:-.02em;color:#fff;margin-top:4px;line-height:1.1}
-  .pw-card .value .unit{font-size:.5em;font-weight:600;color:rgba(255,255,255,.55);margin-left:3px}
-  .pw-card .note{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px;line-height:1.5}
+  /* ---------- People power (지표별 1페이지, 서술형) ---------- */
+  .power-page{background:var(--navy-900);color:#fff;text-align:center}
+  .power-page .wrap{max-width:860px}
+  .pp-intro{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:var(--navy-900);opacity:0;pointer-events:none;transition:opacity .5s ease}
+  .pp-intro .pi-num{font-size:clamp(58px,10vw,126px);font-weight:800;letter-spacing:-.03em;line-height:1;color:#fff;opacity:0;transform:scale(.72);transition:opacity .5s .05s,transform .65s cubic-bezier(.2,.8,.2,1) .05s}
+  .pp-intro .pi-unit{font-size:.32em;font-weight:700;color:var(--gold-300);margin-left:8px}
+  .power-page.intro-on .pp-intro{opacity:1}
+  .power-page.intro-on .pp-intro .pi-num{opacity:1;transform:scale(1)}
+  .pp-step{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--gold-300);margin-bottom:14px}
+  .pp-label{font-size:15px;font-weight:600;color:rgba(255,255,255,.65)}
+  .pp-value{font-size:clamp(40px,6vw,64px);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-top:6px}
+  .pp-value .unit{font-size:.4em;font-weight:700;color:var(--gold-300);margin-left:6px}
+  .pp-narr{margin:26px auto 0;max-width:640px;font-size:clamp(15px,1.8vw,17.5px);line-height:1.85;color:rgba(255,255,255,.82)}
+  .pp-illust{width:min(320px,70vw);margin:34px auto 0;display:block;opacity:.9}
+  .pp-foot{margin-top:26px;font-size:12px;color:rgba(255,255,255,.4)}
   .pw-close{margin-top:30px;font-size:clamp(15px,1.8vw,18px);color:rgba(255,255,255,.8)}
   .pw-close b{color:var(--gold-300)}
-  @media(max-width:640px){.pw-grid{grid-template-columns:1fr 1fr;gap:9px}.pw-card{padding:14px}.pw-card .value{font-size:22px}}
 
   .cheers{background:var(--navy-950);color:#fff}
   .cheers .kicker{color:var(--gold-300)}
@@ -585,6 +596,11 @@
 
 <!-- P8~11. Story chapters -->
 <section class="page story-page" id="story1" data-dot="제1장 첫 물결">
+  <div class="story-intro" aria-hidden="true">
+    <svg class="si-wave" viewBox="0 0 56 24"><path d="M2 14c6-6 10-6 16 0s10 6 16 0 10-6 20 0"/></svg>
+    <div class="si-title">40년의 항해</div>
+    <div class="si-sub">OUR VOYAGE · 1986 &mdash; 2026</div>
+  </div>
   <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#F5F8FC"/></svg></div>
   <div class="ch-num">01</div>
   <div class="era-bg" aria-hidden="true"><svg viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice">
@@ -739,35 +755,83 @@
   </div>
 </section>
 
-<!-- People Power -->
-<section class="page power" id="power" data-dot="사람의 힘">
+<!-- People Power: 지표별 1페이지 -->
+<section class="page power-page" id="power1" data-dot="취급금액">
+  <div class="pp-intro" aria-hidden="true"><div class="pi-num">69.7<span class="pi-unit">조 원</span></div></div>
   <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#0C2650"/></svg></div>
   <div class="wrap">
-    <div class="kicker reveal">People Power · 파도를 만든 사람들</div>
-    <h2 class="sec-title reveal">모든 숫자 뒤에, 사람이 있습니다</h2>
-    <p class="sec-desc reveal">성장 그래프의 물결은 저절로 일지 않았습니다. 서류 한 장, 고객 한 분을 향한 임직원의 정성이 만든 파도입니다.</p>
-    <div class="pw-grid">
-      <div class="pw-card reveal">
-        <div class="label">취급금액 · 최근 10년</div>
-        <div class="value" data-count="69.7" data-decimal="1">69.7<span class="unit">조 원</span></div>
-        <div class="note">2016년~2026년 상반기 누적 실행 69조 6,608억 원</div>
-      </div>
-      <div class="pw-card reveal">
-        <div class="label">함께하는 고객</div>
-        <div class="value" data-count="2709">2,709</div>
-        <div class="note">기업 1,701 · 개인 1,008 (2026년 6월 말 기준)</div>
-      </div>
-      <div class="pw-card reveal">
-        <div class="label">시행문서</div>
-        <div class="value" data-count="7488">7,488<span class="unit">건</span></div>
-        <div class="note">임직원의 손끝에서 완성된 약정의 기록 (2026년 6월 말 기준)</div>
-      </div>
-      <div class="pw-card reveal">
-        <div class="label">함께 열어 온 아침</div>
-        <div class="value" data-count="14610">14,610<span class="unit">일</span></div>
-        <div class="note">1986년 11월 1일 창립부터 40주년까지의 모든 날</div>
-      </div>
-    </div>
+    <div class="pp-step reveal">PEOPLE POWER 1 / 4 · 파도를 만든 사람들</div>
+    <div class="pp-label reveal">취급금액 · 최근 10년</div>
+    <div class="pp-value reveal">69.7<span class="unit">조 원</span></div>
+    <p class="pp-narr reveal">2016년 한 해 5.5조 원이던 취급액은 2025년 8.2조 원까지 불었습니다. 심사하고, 조율하고, 실행한 하루하루가 모여 10년 동안 69조 6,608억 원 — 임직원이 중소기업의 바다로 흘려보낸 금융의 강물입니다.</p>
+    <svg class="pp-illust reveal" viewBox="0 0 320 90" aria-hidden="true">
+      <g fill="none" stroke="#5B94DB" stroke-width="3" stroke-linecap="round">
+        <path d="M10 60c30-18 60-18 90 0s60 18 90 0 60-18 110 0" opacity=".8"/>
+        <path d="M10 78c30-14 60-14 90 0s60 14 90 0 60-14 110 0" opacity=".4"/>
+      </g>
+      <g stroke="#E3C868" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M160 44V12M148 24l12-12 12 12"/>
+      </g>
+    </svg>
+    <div class="pp-foot reveal">2016년 ~ 2026년 상반기 누적 실행액 · 내부 집계</div>
+  </div>
+</section>
+
+<section class="page power-page" id="power2" data-dot="함께하는 고객">
+  <div class="pp-intro" aria-hidden="true"><div class="pi-num">2,709</div></div>
+  <div class="wrap">
+    <div class="pp-step reveal">PEOPLE POWER 2 / 4 · 파도를 만든 사람들</div>
+    <div class="pp-label reveal">함께하는 고객</div>
+    <div class="pp-value reveal">2,709</div>
+    <p class="pp-narr reveal">기업 1,701곳과 개인 고객 1,008명. 장부에는 숫자로 적히지만, 임직원에게는 하나하나가 이름이고 얼굴입니다. 첫 미팅의 악수부터 실행의 순간까지 — 신뢰는 언제나 사람과 사람 사이에서 자랐습니다.</p>
+    <svg class="pp-illust reveal" viewBox="0 0 320 90" aria-hidden="true">
+      <g fill="#5B94DB" opacity=".85">
+        <rect x="40" y="40" width="26" height="50"/><rect x="74" y="24" width="34" height="66"/><rect x="116" y="50" width="22" height="40"/>
+      </g>
+      <g fill="#E3C868"><circle cx="220" cy="38" r="9"/><path d="M204 90v-30a16 16 0 0 1 32 0v30Z"/></g>
+      <g fill="#5B94DB"><circle cx="256" cy="42" r="8"/><path d="M242 90v-26a14 14 0 0 1 28 0v26Z"/></g>
+      <path d="M130 30c30-22 60-22 84 0" fill="none" stroke="#E3C868" stroke-width="2.5" stroke-dasharray="2 8" stroke-linecap="round"/>
+    </svg>
+    <div class="pp-foot reveal">2026년 6월 말 기준</div>
+  </div>
+</section>
+
+<section class="page power-page" id="power3" data-dot="시행문서">
+  <div class="pp-intro" aria-hidden="true"><div class="pi-num">7,488<span class="pi-unit">건</span></div></div>
+  <div class="wrap">
+    <div class="pp-step reveal">PEOPLE POWER 3 / 4 · 파도를 만든 사람들</div>
+    <div class="pp-label reveal">시행문서</div>
+    <div class="pp-value reveal">7,488<span class="unit">건</span></div>
+    <p class="pp-narr reveal">한 건의 금융이 실행되기까지, 검토와 결재를 거쳐 완성되는 약정의 기록. 7,488건의 문서 한 장 한 장이 어느 기업에게는 새 기계였고, 새 공장이었고, 버텨낸 겨울이었습니다.</p>
+    <svg class="pp-illust reveal" viewBox="0 0 320 90" aria-hidden="true">
+      <g fill="none" stroke="#5B94DB" stroke-width="3" stroke-linejoin="round">
+        <path d="M120 84V16h48l16 16v52Z"/><path d="M168 16v16h16"/>
+        <path d="M132 42h40M132 54h40M132 66h28" stroke-width="2.5" opacity=".7"/>
+      </g>
+      <circle cx="196" cy="70" r="13" fill="none" stroke="#E3C868" stroke-width="3"/>
+      <path d="M190 70l5 5 8-9" fill="none" stroke="#E3C868" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="pp-foot reveal">2026년 6월 말 기준</div>
+  </div>
+</section>
+
+<section class="page power-page" id="power4" data-dot="14,610일">
+  <div class="pp-intro" aria-hidden="true"><div class="pi-num">14,610<span class="pi-unit">일</span></div></div>
+  <div class="wrap">
+    <div class="pp-step reveal">PEOPLE POWER 4 / 4 · 파도를 만든 사람들</div>
+    <div class="pp-label reveal">함께 열어 온 아침</div>
+    <div class="pp-value reveal">14,610<span class="unit">일</span></div>
+    <p class="pp-narr reveal">1986년 11월 1일의 첫 출근부터 2026년 11월 1일까지 — 14,610번의 아침을 열었습니다. 파도는 하루도 같은 적이 없었지만, 바다로 나가는 사람들의 마음은 같았습니다.</p>
+    <svg class="pp-illust reveal" viewBox="0 0 320 90" aria-hidden="true">
+      <circle cx="160" cy="58" r="22" fill="#E3C868" opacity=".9"/>
+      <g stroke="#E3C868" stroke-width="2.5" stroke-linecap="round" opacity=".6" fill="none">
+        <path d="M160 22v-12M120 34l-8-8M200 34l8-8M104 58H88M232 58h-16"/>
+      </g>
+      <g fill="none" stroke="#5B94DB" stroke-width="3" stroke-linecap="round">
+        <path d="M20 70c30-14 55-14 85 0s55 14 85 0 55-14 110 0" opacity=".9"/>
+        <path d="M20 84c30-10 55-10 85 0s55 10 85 0 55-10 110 0" opacity=".45"/>
+      </g>
+    </svg>
     <p class="pw-close reveal">그 모든 숫자 뒤에, 오늘도 파도를 만드는 <b>275명의 임직원</b>이 있습니다.</p>
   </div>
 </section>
@@ -1149,7 +1213,6 @@
       </div>` : '';
     sec.innerHTML=`
       <div class="cp-intro" aria-hidden="true">
-        <div class="ci-hint">40년이 만든 숫자</div>
         <div class="ci-num">${c.current}<span class="ci-unit">${c.unit}</span></div>
       </div>
       <div class="wrap">
@@ -1191,13 +1254,29 @@
         introTimers.set(sec,setTimeout(()=>{
           sec.classList.remove('intro-on');
           sec.classList.add('chart-in');
-        },1250));
+        },2000));
       }else{
         sec.classList.remove('chart-in','intro-on');
       }
     });
   },{threshold:.45});
   document.querySelectorAll('.chart-page').forEach(s=>ioChart.observe(s));
+
+  // 입장 인트로 (제1장 "40년의 항해" + 사람의 힘 페이지들: 오버레이 2초 후 본문 공개)
+  const ioIntro=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const sec=e.target;
+      clearTimeout(introTimers.get(sec));
+      if(e.isIntersecting){
+        if(reduceMotion) return;
+        sec.classList.add('intro-on');
+        introTimers.set(sec,setTimeout(()=>sec.classList.remove('intro-on'),2000));
+      }else{
+        sec.classList.remove('intro-on');
+      }
+    });
+  },{threshold:.45});
+  document.querySelectorAll('#story1, .power-page').forEach(s=>ioIntro.observe(s));
 
   /* ================= D-day countdown ================= */
   (function(){
