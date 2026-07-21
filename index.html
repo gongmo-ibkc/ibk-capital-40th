@@ -225,7 +225,6 @@
   /* 숫자 인트로 오버레이: 진입 시 숫자만 크게 → 설명으로 전환 */
   .cp-intro{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:var(--surface);opacity:0;pointer-events:none;transition:opacity .5s ease}
   .cp-intro .ci-num{font-size:clamp(58px,10vw,126px);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--navy-800);opacity:0;transform:scale(.72);transition:opacity .5s .05s,transform .65s cubic-bezier(.2,.8,.2,1) .05s}
-  .cp-intro .ci-unit{font-size:.32em;font-weight:700;color:var(--ink-secondary);margin-left:8px}
   .chart-page.intro-on .cp-intro{opacity:1}
   .chart-page.intro-on .cp-intro .ci-num{opacity:1;transform:scale(1)}
   /* 역사관 입장 인트로 (제1장) */
@@ -388,7 +387,6 @@
   .power-page .wrap{max-width:860px}
   .pp-intro{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:var(--navy-900);opacity:0;pointer-events:none;transition:opacity .5s ease}
   .pp-intro .pi-num{font-size:clamp(58px,10vw,126px);font-weight:800;letter-spacing:-.03em;line-height:1;color:#fff;opacity:0;transform:scale(.72);transition:opacity .5s .05s,transform .65s cubic-bezier(.2,.8,.2,1) .05s}
-  .pp-intro .pi-unit{font-size:.32em;font-weight:700;color:var(--gold-300);margin-left:8px}
   .power-page.intro-on .pp-intro{opacity:1}
   .power-page.intro-on .pp-intro .pi-num{opacity:1;transform:scale(1)}
   .pp-step{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--gold-300);margin-bottom:14px}
@@ -757,7 +755,7 @@
 
 <!-- People Power: 지표별 1페이지 -->
 <section class="page power-page" id="power1" data-dot="취급금액">
-  <div class="pp-intro" aria-hidden="true"><div class="pi-num">69.7<span class="pi-unit">조 원</span></div></div>
+  <div class="pp-intro" aria-hidden="true"><div class="pi-num">69.7</div></div>
   <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#0C2650"/></svg></div>
   <div class="wrap">
     <div class="pp-step reveal">PEOPLE POWER 1 / 4 · 파도를 만든 사람들</div>
@@ -797,7 +795,7 @@
 </section>
 
 <section class="page power-page" id="power3" data-dot="시행문서">
-  <div class="pp-intro" aria-hidden="true"><div class="pi-num">7,488<span class="pi-unit">건</span></div></div>
+  <div class="pp-intro" aria-hidden="true"><div class="pi-num">7,488</div></div>
   <div class="wrap">
     <div class="pp-step reveal">PEOPLE POWER 3 / 4 · 파도를 만든 사람들</div>
     <div class="pp-label reveal">시행문서</div>
@@ -816,7 +814,7 @@
 </section>
 
 <section class="page power-page" id="power4" data-dot="14,610일">
-  <div class="pp-intro" aria-hidden="true"><div class="pi-num">14,610<span class="pi-unit">일</span></div></div>
+  <div class="pp-intro" aria-hidden="true"><div class="pi-num">14,610</div></div>
   <div class="wrap">
     <div class="pp-step reveal">PEOPLE POWER 4 / 4 · 파도를 만든 사람들</div>
     <div class="pp-label reveal">함께 열어 온 아침</div>
@@ -1213,7 +1211,7 @@
       </div>` : '';
     sec.innerHTML=`
       <div class="cp-intro" aria-hidden="true">
-        <div class="ci-num">${c.current}<span class="ci-unit">${c.unit}</span></div>
+        <div class="ci-num">${c.current}</div>
       </div>
       <div class="wrap">
         <div class="cp-step reveal">${c.step} · Growth Tracking</div>
