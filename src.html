@@ -264,7 +264,6 @@
   .cp-value{font-size:clamp(26px,3.2vw,36px);font-weight:700;letter-spacing:-.02em;color:var(--blue-600)}
   .cp-value .unit{font-size:.5em;font-weight:600;color:var(--ink-secondary);margin-left:3px}
   .cp-delta{font-size:13px;font-weight:700;color:#0B6E4F;background:#E7F5EF;padding:4px 12px;border-radius:999px}
-  .axis-note{font-size:11.5px;color:var(--ink-muted);margin-top:6px}
 
   /* ---------- Chart drawing animation ---------- */
   .cp-plot .draw-line{stroke-dasharray:1;stroke-dashoffset:1}
@@ -504,7 +503,7 @@
 
   /* ---------- 차트 강조 연출 ---------- */
   .draw-line{filter:drop-shadow(0 3px 8px rgba(11,77,162,.3))}
-  .band-lbl{font-size:10px;font-weight:600;fill:#B06A6A}
+  .band-lbl{font-size:10px;font-weight:600;fill:rgba(90,105,125,.55)}
   .mk{opacity:0;transition:opacity .5s 1.1s}
   .chart-page.chart-in .mk{opacity:1}
   .mk-lbl{font-size:10.5px;font-weight:700;fill:var(--gold-500)}
@@ -758,10 +757,10 @@
     <div class="ch-events">
       <div class="ev reveal"><div class="ev-y">2020</div><div class="ev-t">1,000억 원 유상증자</div><div class="ev-d">12월, 자본금 1,655억 → 2,655억 원 — 벤처투자 확대 기반.</div></div>
       <div class="ev reveal"><div class="ev-y">2021</div><div class="ev-t">벤처투자 성과 입증</div><div class="ev-d">신기술금융 우수투자사 협회장상 · 벤처창업진흥 중기부장관 표창.</div></div>
-      <div class="ev reveal"><div class="ev-y">2022</div><div class="ev-t">금융자산 10조 원</div><div class="ev-d">6월 돌파 — 5년 만에 2배.</div></div>
+      <div class="ev reveal"><div class="ev-y">2022</div><div class="ev-t">금융자산 10조 원</div><div class="ev-d">2017년 5조 원 → 5년 만에 2배.</div></div>
       <div class="ev reveal"><div class="ev-y">2023</div><div class="ev-t">다산금융상 금상 · 국무총리 표창</div><div class="ev-d">여신금융부문 금상, 금융의 날 혁신금융부문 표창.</div></div>
       <div class="ev reveal"><div class="ev-y">2025</div><div class="ev-t">역대 최대 순이익</div><div class="ev-d">2,456억 원 — 40년차 항해의 신기록.</div></div>
-      <div class="ev reveal"><div class="ev-y">2026</div><div class="ev-t">창립 40주년</div><div class="ev-d">헌정곡 「혁신의 파도」와 함께 새 항해.</div></div>
+      <div class="ev reveal"><div class="ev-y">2026</div><div class="ev-t">금융자산 12조 원 달성</div><div class="ev-d">2022년 10조 원 → 4년 만에 — 40주년의 이정표.</div></div>
     </div>
     <div class="ch-progress reveal"><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span></div>
   </div>
@@ -1294,12 +1293,10 @@
     if(c.type==='bar'){
       const n=c.data.length;
       const bw=Math.min(64,(iw-2*pad)/span*0.62||64);
-      // 구간 음영 밴드 (예: 글로벌 금융위기)
+      // 사건 라벨: 해당 막대 바로 위에 연회색 글씨로 표기
       (c.bands||[]).forEach(bd=>{
         const dd=c.data.find(x=>x.y===bd.y); if(!dd) return;
-        const bx=xSc(bd.y), hw=(iw-2*pad)/span/2+6;
-        svg.appendChild(el('rect',{x:bx-hw,y:m.t,width:hw*2,height:ih,fill:'rgba(176,74,74,.08)'}));
-        const bl=el('text',{x:bx,y:m.t+13,'text-anchor':'middle',class:'band-lbl'});
+        const bl=el('text',{x:xSc(bd.y),y:ySc(dd.v)-7,'text-anchor':'middle',class:'band-lbl'});
         bl.textContent=bd.label; svg.appendChild(bl);
       });
       c.data.forEach((d,i)=>{
@@ -1333,7 +1330,7 @@
         hit.addEventListener('mouseleave',()=>{dot.setAttribute('r',5);hideTip();});
         svg.appendChild(dot);svg.appendChild(hit);
         if(last||i===0){
-          const lb=el('text',{x:pts[i][0]+(last?-8:8),y:pts[i][1]-13,'text-anchor':last?'end':'start',class:'mark-lbl'});
+          const lb=el('text',{x:pts[i][0]+(last?-8:8),y:pts[i][1]-(last?13:27),'text-anchor':last?'end':'start',class:'mark-lbl'});
           if(last) lb.setAttribute('fill','var(--gold-500)');
           lb.textContent=fmtV(d.v,c.dec)+c.unit; svg.appendChild(lb);
         }
@@ -1386,7 +1383,6 @@
         </div>
         <p class="cp-sub reveal">${c.sub}</p>
         <div class="cp-plot reveal"></div>
-        ${c.type==='line'?'<div class="axis-note">※ 세로축은 변화 폭이 잘 보이도록 데이터 범위에 맞춰 확대되어 있습니다 (0부터 시작하지 않음).</div>':''}
         <details class="reveal"><summary>표로 보기</summary>
           <table><thead><tr><th>연도</th><th>${c.label}(${c.unit})</th><th>변화</th></tr></thead><tbody>
           ${c.data.map((d,i)=>{
