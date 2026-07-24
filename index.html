@@ -421,10 +421,32 @@
   .pp-split{display:flex;height:10px;border-radius:999px;overflow:hidden;max-width:454px;margin:0 auto}
   .pp-split i{background:linear-gradient(90deg,var(--blue-500),var(--blue-600))}
   .pp-split i.g{background:linear-gradient(90deg,var(--gold-500),var(--gold-300))}
-  .pp-steps{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
-  .pp-steps span{padding:9px 16px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.05);font-size:13.5px;font-weight:600;color:rgba(255,255,255,.75)}
-  .pp-steps span.hl{border-color:rgba(227,200,104,.5);background:rgba(227,200,104,.1);color:var(--gold-300)}
-  .pp-steps em{font-style:normal;color:rgba(255,255,255,.35);font-size:13px}
+  /* 시행문서: 신전 기둥 — 문구가 기둥에 새겨진 형태로 실행을 떠받침 */
+  .pp-temple{max-width:min(470px,86vw);margin:0 auto 10px}
+  .tp-roof{height:12px;border-radius:3px;background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,.10));position:relative}
+  .tp-roof::before{content:"";position:absolute;left:7%;right:7%;top:-7px;height:5px;border-radius:2px;background:rgba(255,255,255,.13)}
+  .tp-cols{display:flex;justify-content:space-between;padding:0 30px}
+  .tp-col{display:flex;flex-direction:column;align-items:center;width:96px;transform-origin:center bottom;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+  .tp-col:nth-child(2){transition-delay:.12s}
+  .tp-col:nth-child(3){transition-delay:.24s}
+  .tp-col .cap,.tp-col .base{display:block;width:100%;height:9px;background:rgba(255,255,255,.17)}
+  .tp-col .cap{border-radius:2px 2px 0 0}
+  .tp-col .base{border-radius:0 0 2px 2px}
+  .tp-col .shaft{
+    writing-mode:vertical-rl;text-orientation:upright;
+    height:clamp(128px,19vh,164px);width:70%;
+    display:flex;align-items:center;justify-content:center;
+    letter-spacing:.28em;font-size:14.5px;font-weight:700;color:rgba(255,255,255,.78);
+    background:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 6px,rgba(255,255,255,.095) 6px 12px);
+    border-inline:1px solid rgba(255,255,255,.15);
+  }
+  .tp-col.hl .shaft{color:var(--gold-300);border-inline-color:rgba(227,200,104,.45);background:repeating-linear-gradient(90deg,rgba(227,200,104,.06) 0 6px,rgba(227,200,104,.115) 6px 12px)}
+  .tp-col.hl .cap,.tp-col.hl .base{background:rgba(227,200,104,.42)}
+  .tp-ground{height:6px;border-radius:2px;background:rgba(255,255,255,.10);margin-top:2px}
+  .tp-roof{transition:opacity .45s .55s,transform .45s .55s}
+  #power3.intro-on .tp-col{transform:scaleY(.04)}
+  #power3.intro-on .tp-roof{opacity:0;transform:translateY(9px)}
+  @media(max-width:640px){.tp-cols{padding:0 14px}.tp-col{width:82px}.tp-col .shaft{font-size:13px;letter-spacing:.2em}}
   @media(max-width:640px){.pp-bg{font-size:120px;opacity:.7}.pp-duo{gap:9px}.duo-card{padding:12px 13px}}
   .pp-illust{width:min(320px,70vw);margin:34px auto 0;display:block;opacity:.9}
   .pp-foot{margin-top:26px;font-size:12px;color:rgba(255,255,255,.4)}
@@ -916,8 +938,14 @@
     <p class="pp-narr reveal">금융이 바다로 나가려면 배 안의 모든 장치가 맞물려 돌아야 합니다. 업무의 기준과 절차를 담아 임직원이 다듬어 온 내부 문서 7,488건 — 보이지 않는 곳에서 모든 실행을 매끄럽게 움직여 온 엔진의 윤활유이자 연료입니다.</p>
     <div class="pp-compare reveal">하루 한 건씩 쉼 없이 만들어도 20년 6개월이 걸리는 기록입니다.</div>
     <div class="pp-viz reveal">
-      <div class="pp-steps">
-        <span>기준을 세우고</span><em>→</em><span>절차를 다듬어</span><em>→</em><span class="hl">실행을 떠받치다</span>
+      <div class="pp-temple" role="img" aria-label="기준을 세우고, 절차를 다듬어, 실행을 떠받치다">
+        <div class="tp-roof"></div>
+        <div class="tp-cols">
+          <div class="tp-col"><i class="cap"></i><span class="shaft">기준을 세우고</span><i class="base"></i></div>
+          <div class="tp-col"><i class="cap"></i><span class="shaft">절차를 다듬어</span><i class="base"></i></div>
+          <div class="tp-col hl"><i class="cap"></i><span class="shaft">실행을 떠받치다</span><i class="base"></i></div>
+        </div>
+        <div class="tp-ground"></div>
       </div>
       <div class="viz-cap">7,488건의 내부 문서가 모든 금융 실행의 밑바탕이 되었습니다</div>
     </div>
