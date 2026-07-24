@@ -1647,11 +1647,24 @@
       db=getFirestore(app);
     }catch(e){ box.innerHTML='<div class="cheer-empty">메시지 서비스에 연결할 수 없습니다.</div>'; }
 
-    const fmtDate=(ts)=>{
-      try{ const d=ts&&ts.toDate?ts.toDate():null;
-        return d? `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}` : ''; }
-      catch(e){ return ''; }
+    // 익명 대체 닉네임: 수식어 50 × 바다 명사 50 = 2,500가지 조합 (쉽고 귀여운 톤)
+    // 제출 시 랜덤으로 뽑아 저장(영구 고정), nickFor는 이름 없는 옛 문서용 폴백(ID 해시 고정)
+    const NICK_ADJ=['조용한','씩씩한','다정한','반짝이는','단단한','유쾌한','슬기로운','용감한','부지런한','따뜻한',
+      '명랑한','듬직한','상냥한','꾸준한','활기찬','차분한','당찬','포근한','수줍은','신나는',
+      '귀여운','깜찍한','의젓한','야무진','재빠른','느긋한','튼튼한','똑똑한','호기심 많은','웃음 많은',
+      '노래하는','춤추는','꿈꾸는','콧노래','새벽의','아침의','한낮의','노을빛','달빛의','별빛의',
+      '무지개빛','순풍의','파도의','물결의','항구의','등대의','수평선의','바닷바람의','조개껍질','몽글몽글'];
+    const NICK_JOB=['선원','항해사','선장님','키잡이','갑판원','등대지기','조타수','뱃사람','돛잡이','닻지기',
+      '물길잡이','나침반지기','지도쟁이','노잡이','바다친구','파도지기','모험가','여행자','낚시꾼','잠수부',
+      '신호수','망꾼','보급관','요리사','일등항해사','갈매기','돌고래','거북이','아기고래','불가사리',
+      '소라게','물개','펭귄','해달','문어','해마','새우','꽃게','조개','진주',
+      '산호','돛단배','종이배','부표','물방울','파도타기꾼','등대','별바라기','항로개척자','바다요정'];
+    const comboNick=(a,j)=>NICK_ADJ[a]+' '+NICK_JOB[j];
+    const nickFor=(id)=>{
+      let h=0; for(const ch of String(id)) h=(h*31+ch.charCodeAt(0))>>>0;
+      return comboNick(h%NICK_ADJ.length,((h/NICK_ADJ.length)|0)%NICK_JOB.length);
     };
+    const randomNick=()=>comboNick(Math.random()*NICK_ADJ.length|0,Math.random()*NICK_JOB.length|0);
 
     function render(msgs){
       box.innerHTML='';
@@ -1676,8 +1689,9 @@
             const card=document.createElement('div');card.className='cheer-card';
             const msg=document.createElement('div');msg.className='cc-msg';msg.textContent=m.text; // textContent = XSS 안전
             card.appendChild(msg);
-            const metaTxt=[m.name,m.date].filter(Boolean).join(' · ');
-            if(metaTxt){ const meta=document.createElement('div');meta.className='cc-meta';meta.textContent='— '+metaTxt;card.appendChild(meta); }
+            const meta=document.createElement('div');meta.className='cc-meta';
+            meta.textContent='— '+(m.name||nickFor(m.id));
+            card.appendChild(meta);
             track.appendChild(card);
           });
         }
@@ -1693,7 +1707,7 @@
         snap.forEach(doc=>{
           const d=doc.data();
           if(d && typeof d.msg==='string' && d.msg.trim())
-            msgs.push({text:d.msg.trim().slice(0,160),name:(d.name||'').slice(0,20),date:fmtDate(d.ts)});
+            msgs.push({text:d.msg.trim().slice(0,160),name:(d.name||'').trim().slice(0,20),id:doc.id});
         });
         render(msgs);
       },()=>{ box.innerHTML='<div class="cheer-empty">메시지를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</div>'; });
@@ -1701,7 +1715,7 @@
       // 제출 (1분당 1회 제한)
       const submit=async()=>{
         const msg=(msgEl.value||'').trim();
-        const name=(nameEl.value||'').trim();
+        const name=(nameEl.value||'').trim() || randomNick();   // 이름 미입력 시 항해 닉네임 부여
         if(!msg){ statusEl.textContent='한마디를 입력해 주세요!'; msgEl.focus(); return; }
         let last=0; try{ last=+localStorage.getItem('cheerLast')||0; }catch(e){}
         if(Date.now()-last<60000){ statusEl.textContent='잠시 후 다시 띄울 수 있어요 (1분에 한 번씩)'; return; }

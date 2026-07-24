@@ -70,6 +70,9 @@ git add -A && git commit -m "..." && git push   # push → Pages 1~2분 내 자�
 - 게시된 보안 규칙: 읽기 전체 허용 / create만 허용(필드·길이 검증) / update·delete 차단
 - 클라이언트: src.html 하단 `<script type="module">` — gstatic CDN v10.12.2, onSnapshot 실시간 구독(최신 100개),
   addDoc 제출, localStorage 기반 1분당 1회 제한, textContent 렌더링(XSS 안전)
+- 카드 표기(2026-07-24): 날짜는 표시하지 않음(ts는 저장·정렬용으로 유지). 이름 미입력 시 대체 닉네임 —
+  수식어 50 × 바다 명사 50 = 2,500가지 조합(쉽고 귀여운 톤 — 바다 생물 포함). **제출 시 랜덤으로 뽑아 name 필드에 저장**(영구 고정).
+  nickFor(문서 ID 해시)는 이름 없는 옛 문서용 폴백. 닉네임 최대 11자라 name ≤20 규칙 통과
 - firebaseConfig는 src.html에 내장돼 있음 (apiKey는 공개용 값이라 커밋해도 안전)
 - 메시지 삭제(운영): Firebase 콘솔 → Firestore → cheers 컬렉션에서 문서 삭제 → 전 방문자 실시간 반영
 - 테스트 메시지는 2026-07-23 사용자가 콘솔에서 전부 삭제 완료 — DB 깨끗한 상태
