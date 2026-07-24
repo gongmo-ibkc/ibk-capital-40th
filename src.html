@@ -359,9 +359,9 @@
   .ch-title em{font-style:normal;color:var(--gold-300)}
   .ch-narr{margin-top:18px;font-size:15.5px;line-height:1.9;color:rgba(255,255,255,.78);max-width:680px}
   /* 챕터 기록 사진 (폴라로이드 카드) */
-  .ch-body{display:flex;gap:38px;align-items:center}
-  .ch-body .ch-narr{flex:1;min-width:0}
-  .ch-photo{flex:0 0 auto;margin:18px 8px 0 0;background:#fff;padding:10px 10px 12px;border-radius:6px;box-shadow:0 14px 34px rgba(0,0,0,.4);transform:rotate(var(--tilt,-2deg))}
+  .ch-body{display:grid;grid-template-columns:1fr min(300px,34vw);gap:38px;align-items:center}
+  .ch-body .ch-narr{min-width:0}
+  .ch-photo{justify-self:center;margin:18px 0 0;background:#fff;padding:10px 10px 12px;border-radius:6px;box-shadow:0 14px 34px rgba(0,0,0,.4);transform:rotate(var(--tilt,-2deg))}
   .ch-photo img{height:clamp(140px,24vh,220px);width:min(264px,32vw);object-fit:cover;display:block;border-radius:2px}
   /* 세로 건물 사진(1·4장): 잘리지 않게 전체 표시(4:5 틀), 남는 여백은 매트 색으로 */
   #story1 .ch-photo img,#story4 .ch-photo img{width:auto;aspect-ratio:4/5;object-fit:contain;background:#EDF2F9}
@@ -370,8 +370,8 @@
   #story2 .ch-photo img{filter:sepia(.22) saturate(.78)}
   #story4 .ch-photo img{filter:saturate(1.08) brightness(1.02)}
   @media(max-width:760px){
-    .ch-body{flex-direction:column;gap:16px}
-    .ch-photo{flex:none;margin:6px auto 0}
+    .ch-body{grid-template-columns:1fr;gap:16px}
+    .ch-photo{margin:6px auto 0}
     .ch-photo img{height:clamp(120px,20vh,180px);width:min(264px,72vw)}
   }
   .ch-num{
