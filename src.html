@@ -366,7 +366,7 @@
   .ch-body{display:grid;grid-template-columns:1fr min(300px,34vw);gap:38px;align-items:center}
   .ch-body .ch-narr{min-width:0}
   .ch-photo{justify-self:center;margin:18px 0 0;background:#fff;padding:10px 10px 12px;border-radius:6px;box-shadow:0 14px 34px rgba(0,0,0,.4);transform:rotate(var(--tilt,-2deg))}
-  .ch-photo img{height:clamp(140px,24vh,220px);width:min(264px,32vw);object-fit:cover;display:block;border-radius:2px}
+  .ch-photo img{height:clamp(140px,24vh,220px);width:min(264px,32vw);object-fit:cover;display:block;margin:0 auto;border-radius:2px}
   /* 세로 건물 사진(1·4장): 잘리지 않게 전체 표시(4:5 틀), 남는 여백은 매트 색으로 */
   #story1 .ch-photo img,#story4 .ch-photo img{width:auto;aspect-ratio:4/5;object-fit:contain;background:#EDF2F9}
   .ch-photo figcaption{margin-top:9px;font-size:11.5px;font-weight:600;color:#38506e;text-align:center;line-height:1.45}
@@ -857,7 +857,7 @@
       </div>
       <div class="tile reveal">
         <div class="label">자기자본</div>
-        <div class="value">2조 759억<span class="unit">원</span></div>
+        <div class="value" data-count="20759" data-fmt="jo">2조 759억<span class="unit">원</span></div>
         <div class="note">2025년 · 2년 새 +28%, 2조 원 돌파</div>
       </div>
       <div class="tile reveal">
@@ -877,7 +877,7 @@
       </div>
       <div class="tile reveal">
         <div class="label">금융자산 12조 달성</div>
-        <div class="value">2026<span class="unit">년</span></div>
+        <div class="value" data-count="2026" data-from="1986" data-plain="1">2026<span class="unit">년</span></div>
         <div class="note">2022년 10조 돌파 후 4년 만</div>
       </div>
     </div>
@@ -1073,8 +1073,10 @@
   const fmt = (n,dec,plain)=> dec>0 ? n.toFixed(dec) : (plain ? String(Math.round(n)) : Math.round(n).toLocaleString('ko-KR'));
   const animateTile = (el)=>{
     const target = parseFloat(el.dataset.count);
+    const from = parseFloat(el.dataset.from||'0');
     const dec = parseInt(el.dataset.decimal||'0',10);
     const plain = el.dataset.plain === '1';
+    const joFmt = el.dataset.fmt === 'jo';
     const unit = el.querySelector('.unit');
     const unitHTML = unit ? unit.outerHTML : '';
     const dur = 1400, t0 = performance.now();
@@ -1083,7 +1085,8 @@
       if(el.dataset.run !== String(t0)) return;  // 새 실행으로 대체됨
       const p = Math.min((t-t0)/dur,1);
       const eased = 1-Math.pow(1-p,3);
-      el.innerHTML = fmt(target*eased,dec,plain) + unitHTML;
+      const v = from + (target-from)*eased;
+      el.innerHTML = (joFmt ? fmtJo(v) : fmt(v,dec,plain)) + unitHTML;
       if(p<1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
