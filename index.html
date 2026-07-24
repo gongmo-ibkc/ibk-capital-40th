@@ -238,6 +238,10 @@
   .cp-intro .ci-num{font-size:clamp(58px,10vw,126px);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--navy-800);opacity:0;transform:scale(.72);transition:opacity .5s .05s,transform .65s cubic-bezier(.2,.8,.2,1) .05s}
   .chart-page.intro-on .cp-intro{opacity:1}
   .chart-page.intro-on .cp-intro .ci-num{opacity:1;transform:scale(1)}
+  /* 차트 페이지 배경 워터마크 숫자 (밝은 배경용 연한 파랑) */
+  .cp-bg{position:absolute;top:5%;font-size:clamp(150px,24vw,320px);font-weight:800;letter-spacing:-.04em;line-height:1;color:rgba(91,148,219,.075);pointer-events:none;user-select:none}
+  .cp-bg.r{right:-1%}.cp-bg.l{left:-1%}
+  @media(max-width:640px){.cp-bg{font-size:120px;opacity:.7}}
   /* 역사관 입장 인트로 (제1장) */
   .story-intro{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:var(--navy-950);opacity:0;pointer-events:none;transition:opacity .55s ease}
   .story-intro .si-wave{width:64px;stroke:var(--gold-300);fill:none;stroke-width:2.5;stroke-linecap:round;opacity:0;transform:translateY(10px);transition:opacity .5s .15s,transform .5s .15s}
@@ -423,30 +427,36 @@
   .pp-split i.g{background:linear-gradient(90deg,var(--gold-500),var(--gold-300))}
   /* 시행문서: 신전 기둥 — 문구가 기둥에 새겨진 형태로 실행을 떠받침 */
   .pp-temple{max-width:min(470px,86vw);margin:0 auto 10px}
-  .tp-roof{height:12px;border-radius:3px;background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,.10));position:relative}
-  .tp-roof::before{content:"";position:absolute;left:7%;right:7%;top:-7px;height:5px;border-radius:2px;background:rgba(255,255,255,.13)}
-  .tp-cols{display:flex;justify-content:space-between;padding:0 30px}
-  .tp-col{display:flex;flex-direction:column;align-items:center;width:96px;transform-origin:center bottom;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-  .tp-col:nth-child(2){transition-delay:.12s}
-  .tp-col:nth-child(3){transition-delay:.24s}
+  .tp-roof{
+    height:34px;border-radius:4px;position:relative;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,rgba(255,255,255,.20),rgba(255,255,255,.08));
+    font-size:14px;font-weight:700;letter-spacing:.3em;text-indent:.3em;color:var(--gold-300);
+  }
+  .tp-roof::before{content:"";position:absolute;left:6%;right:6%;top:-7px;height:5px;border-radius:2px;background:rgba(255,255,255,.13)}
+  .tp-cols{display:flex;justify-content:space-between;padding:0 26px}
+  .tp-col{display:flex;flex-direction:column;align-items:center;width:88px;transform-origin:center bottom;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+  .tp-col.p{width:34px}
+  .tp-col:nth-child(2){transition-delay:.08s}
+  .tp-col:nth-child(3){transition-delay:.16s}
+  .tp-col:nth-child(4){transition-delay:.24s}
+  .tp-col:nth-child(5){transition-delay:.32s}
   .tp-col .cap,.tp-col .base{display:block;width:100%;height:9px;background:rgba(255,255,255,.17)}
   .tp-col .cap{border-radius:2px 2px 0 0}
   .tp-col .base{border-radius:0 0 2px 2px}
   .tp-col .shaft{
     writing-mode:vertical-rl;text-orientation:upright;
-    height:clamp(128px,19vh,164px);width:70%;
+    height:clamp(122px,18vh,156px);width:72%;
     display:flex;align-items:center;justify-content:center;
     letter-spacing:.28em;font-size:14.5px;font-weight:700;color:rgba(255,255,255,.78);
     background:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 6px,rgba(255,255,255,.095) 6px 12px);
     border-inline:1px solid rgba(255,255,255,.15);
   }
-  .tp-col.hl .shaft{color:var(--gold-300);border-inline-color:rgba(227,200,104,.45);background:repeating-linear-gradient(90deg,rgba(227,200,104,.06) 0 6px,rgba(227,200,104,.115) 6px 12px)}
-  .tp-col.hl .cap,.tp-col.hl .base{background:rgba(227,200,104,.42)}
   .tp-ground{height:6px;border-radius:2px;background:rgba(255,255,255,.10);margin-top:2px}
-  .tp-roof{transition:opacity .45s .55s,transform .45s .55s}
+  .tp-roof{transition:opacity .45s .6s,transform .45s .6s}
   #power3.intro-on .tp-col{transform:scaleY(.04)}
   #power3.intro-on .tp-roof{opacity:0;transform:translateY(9px)}
-  @media(max-width:640px){.tp-cols{padding:0 14px}.tp-col{width:82px}.tp-col .shaft{font-size:13px;letter-spacing:.2em}}
+  @media(max-width:640px){.tp-cols{padding:0 12px}.tp-col{width:76px}.tp-col.p{width:24px}.tp-col .shaft{font-size:13px;letter-spacing:.2em}.tp-roof{font-size:12.5px}}
   @media(max-width:640px){.pp-bg{font-size:120px;opacity:.7}.pp-duo{gap:9px}.duo-card{padding:12px 13px}}
   .pp-illust{width:min(320px,70vw);margin:34px auto 0;display:block;opacity:.9}
   .pp-foot{margin-top:26px;font-size:12px;color:rgba(255,255,255,.4)}
@@ -558,9 +568,15 @@
   #power4.intro-on .pp-viz svg line{opacity:0}
   #power4.intro-on .pp-viz svg circle{transform:scale(0);animation:none}
   @keyframes tick-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.45)}}
+  /* 40년 타임라인 위를 지나는 돛단배: 1986 출항 → 2026 정박 */
+  #power4 .tl-sail{transform:translateX(500px);transition:transform 4.2s 1.15s ease-in-out}
+  #power4.intro-on .tl-sail{transform:translateX(0);transition:none}
+  #power4 .tl-rock{transform-box:fill-box;transform-origin:center bottom;animation:ship-rock 2.4s ease-in-out infinite}
+  #power4.intro-on .tl-rock{animation:none}
+  @keyframes ship-rock{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
   @media (prefers-reduced-motion: reduce){
-    .cv-pulse,#power4 .pp-viz svg circle:last-of-type{animation:none!important}
-    #power1 .pp-viz svg rect,.pp-split i,#power4 .pp-viz svg line,#power4 .pp-viz svg circle{transition:none!important}
+    .cv-pulse,#power4 .pp-viz svg circle:last-of-type,#power4 .tl-rock{animation:none!important}
+    #power1 .pp-viz svg rect,.pp-split i,#power4 .pp-viz svg line,#power4 .pp-viz svg circle,#power4 .tl-sail{transition:none!important}
   }
 
   /* ---------- 낮은 화면(높이 820px 이하) 압축 — 큰 화면에는 적용되지 않음. 반드시 스타일 맨 끝 유지 ---------- */
@@ -589,6 +605,7 @@
     .pp-narr{margin-top:14px}
     .pp-compare{margin-top:12px}
     .pp-viz{margin-top:16px}
+    .tp-col .shaft{height:clamp(96px,15vh,120px)}
     .pw-close{margin-top:16px}
     .lyric-bar{bottom:8px;padding:8px 18px}
     .lyric-bar .l-now{font-size:15px}
@@ -939,11 +956,13 @@
     <div class="pp-compare reveal">하루 한 건씩 쉼 없이 만들어도 20년 6개월이 걸리는 기록입니다.</div>
     <div class="pp-viz reveal">
       <div class="pp-temple" role="img" aria-label="기준을 세우고, 절차를 다듬어, 실행을 떠받치다">
-        <div class="tp-roof"></div>
+        <div class="tp-roof">실행을 떠받치다</div>
         <div class="tp-cols">
+          <div class="tp-col p"><i class="cap"></i><span class="shaft"></span><i class="base"></i></div>
           <div class="tp-col"><i class="cap"></i><span class="shaft">기준을 세우고</span><i class="base"></i></div>
+          <div class="tp-col p"><i class="cap"></i><span class="shaft"></span><i class="base"></i></div>
           <div class="tp-col"><i class="cap"></i><span class="shaft">절차를 다듬어</span><i class="base"></i></div>
-          <div class="tp-col hl"><i class="cap"></i><span class="shaft">실행을 떠받치다</span><i class="base"></i></div>
+          <div class="tp-col p"><i class="cap"></i><span class="shaft"></span><i class="base"></i></div>
         </div>
         <div class="tp-ground"></div>
       </div>
@@ -984,6 +1003,16 @@
           <text x="30" y="68" fill="#E3C868" font-weight="700">1986</text>
           <text x="155" y="68">1996</text><text x="280" y="68">2006</text><text x="405" y="68">2016</text>
           <text x="530" y="68" fill="#E3C868" font-weight="700">2026</text>
+        </g>
+        <g transform="translate(30 36)" aria-hidden="true">
+          <g class="tl-sail">
+            <g class="tl-rock">
+              <path d="M-12 -6 L12 -6 L7 0 L-7 0 Z" fill="#5B94DB"/>
+              <line x1="0" y1="-6" x2="0" y2="-23" stroke="#E3C868" stroke-width="1.6"/>
+              <path d="M2 -22 L13 -8 L2 -8 Z" fill="#E3C868"/>
+              <path d="M-2 -20 L-10 -8 L-2 -8 Z" fill="#E3C868" opacity=".65"/>
+            </g>
+          </g>
         </g>
       </svg>
       <div class="viz-cap">눈금 하나가 1년 — 마흔 번의 항해</div>
@@ -1391,7 +1420,7 @@
     return svg;
   }
 
-  CHARTS.forEach(c=>{
+  CHARTS.forEach((c,ci)=>{
     const sec=document.querySelector(`[data-chart="${c.key}"]`);
     if(!sec) return;
     const noteHTML = c.withNote ? `
@@ -1403,6 +1432,7 @@
       <div class="cp-intro" aria-hidden="true">
         <div class="ci-num">${c.current}</div>
       </div>
+      <div class="cp-bg ${ci%2?'l':'r'}" aria-hidden="true">${c.current}</div>
       <div class="wrap">
         <div class="cp-step reveal">${c.step} · Growth Tracking</div>
         <div class="cp-head reveal">
