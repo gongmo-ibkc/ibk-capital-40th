@@ -1378,7 +1378,7 @@
         hit.addEventListener('mouseleave',()=>{bar.style.opacity=1;hideTip();});
         svg.appendChild(bar);svg.appendChild(hit);
         if(last){
-          const lb=el('text',{x:Math.min(cx,W-m.r-42),y:y-8,'text-anchor':'middle',class:'mark-lbl',fill:'var(--gold-500)'});
+          const lb=el('text',{x:Math.min(cx,W-32),y:y-8,'text-anchor':'middle',class:'mark-lbl',fill:'var(--gold-500)'});
           lb.textContent=fmtChart(c,d.v); svg.appendChild(lb);
         }
       });
