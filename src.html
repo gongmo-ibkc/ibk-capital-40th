@@ -1068,33 +1068,36 @@
   },{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  /* ================= Count-up ================= */
+  /* ================= Count-up (통계 타일 — 페이지 진입마다 재실행) ================= */
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fmt = (n,dec,plain)=> dec>0 ? n.toFixed(dec) : (plain ? String(Math.round(n)) : Math.round(n).toLocaleString('ko-KR'));
-  const counted = new WeakSet();
-  const io2 = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(!e.isIntersecting || counted.has(e.target)) return;
-      counted.add(e.target);
-      const el = e.target;
-      if(reduceMotion){ io2.unobserve(el); return; }
-      const target = parseFloat(el.dataset.count);
-      const dec = parseInt(el.dataset.decimal||'0',10);
-      const plain = el.dataset.plain === '1';
-      const unit = el.querySelector('.unit');
-      const unitHTML = unit ? unit.outerHTML : '';
-      const dur = 1400, t0 = performance.now();
-      const step = (t)=>{
-        const p = Math.min((t-t0)/dur,1);
-        const eased = 1-Math.pow(1-p,3);
-        el.innerHTML = fmt(target*eased,dec,plain) + unitHTML;
-        if(p<1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-      io2.unobserve(el);
-    });
-  },{threshold:.6});
-  document.querySelectorAll('.value[data-count]').forEach(el=>io2.observe(el));
+  const animateTile = (el)=>{
+    const target = parseFloat(el.dataset.count);
+    const dec = parseInt(el.dataset.decimal||'0',10);
+    const plain = el.dataset.plain === '1';
+    const unit = el.querySelector('.unit');
+    const unitHTML = unit ? unit.outerHTML : '';
+    const dur = 1400, t0 = performance.now();
+    el.dataset.run = String(t0);                 // 진행 중 루프 중복 방지
+    const step = (t)=>{
+      if(el.dataset.run !== String(t0)) return;  // 새 실행으로 대체됨
+      const p = Math.min((t-t0)/dur,1);
+      const eased = 1-Math.pow(1-p,3);
+      el.innerHTML = fmt(target*eased,dec,plain) + unitHTML;
+      if(p<1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const statsSec = document.getElementById('stats');
+  if(statsSec){
+    const io2 = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting || reduceMotion) return;
+        statsSec.querySelectorAll('.value[data-count]').forEach(animateTile);
+      });
+    },{threshold:.35});
+    io2.observe(statsSec);
+  }
 
   /* ================= Saga player ================= */
   const sagaBtn=document.getElementById('sagaBtn');
@@ -1351,11 +1354,17 @@
     if(c.type==='bar'){
       const n=c.data.length;
       const bw=Math.min(64,(iw-2*pad)/span*0.62||64);
-      // 사건 라벨: 해당 막대 바로 위에 연회색 글씨로 표기
+      // 사건 라벨: 공백 기준 줄바꿈으로 좁게 쌓아 해당 막대 바로 위에 표기 (이웃 막대와 겹침 없음)
       (c.bands||[]).forEach(bd=>{
         const dd=c.data.find(x=>x.y===bd.y); if(!dd) return;
-        const bl=el('text',{x:xSc(bd.y),y:ySc(dd.v)-7,'text-anchor':'middle',class:'band-lbl'});
-        bl.textContent=bd.label; svg.appendChild(bl);
+        const lines=bd.label.split(' ');
+        const bx=xSc(bd.y);
+        const bl=el('text',{x:bx,y:ySc(dd.v)-8-(lines.length-1)*11,'text-anchor':'middle',class:'band-lbl'});
+        lines.forEach((ln,li)=>{
+          const ts=el('tspan',{x:bx,dy:li?11:0});
+          ts.textContent=ln; bl.appendChild(ts);
+        });
+        svg.appendChild(bl);
       });
       c.data.forEach((d,i)=>{
         const cx=xSc(d.y), x=cx-bw/2, y=ySc(d.v), hgt=m.t+ih-y;
@@ -1369,8 +1378,8 @@
         hit.addEventListener('mouseleave',()=>{bar.style.opacity=1;hideTip();});
         svg.appendChild(bar);svg.appendChild(hit);
         if(last){
-          const lb=el('text',{x:cx,y:y-8,'text-anchor':'middle',class:'mark-lbl',fill:'var(--gold-500)'});
-          lb.textContent=fmtV(d.v,c.dec); svg.appendChild(lb);
+          const lb=el('text',{x:Math.min(cx,W-m.r-42),y:y-8,'text-anchor':'middle',class:'mark-lbl',fill:'var(--gold-500)'});
+          lb.textContent=fmtChart(c,d.v); svg.appendChild(lb);
         }
       });
     }else{
