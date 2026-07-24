@@ -362,7 +362,9 @@
   .ch-body{display:flex;gap:38px;align-items:center}
   .ch-body .ch-narr{flex:1;min-width:0}
   .ch-photo{flex:0 0 auto;margin:18px 8px 0 0;background:#fff;padding:10px 10px 12px;border-radius:6px;box-shadow:0 14px 34px rgba(0,0,0,.4);transform:rotate(var(--tilt,-2deg))}
-  .ch-photo img{height:clamp(140px,24vh,220px);width:auto;max-width:min(300px,34vw);object-fit:cover;display:block;border-radius:2px}
+  .ch-photo img{height:clamp(140px,24vh,220px);width:min(264px,32vw);object-fit:cover;display:block;border-radius:2px}
+  /* 세로 건물 사진(1·4장): 잘리지 않게 전체 표시(4:5 틀), 남는 여백은 매트 색으로 */
+  #story1 .ch-photo img,#story4 .ch-photo img{width:auto;aspect-ratio:4/5;object-fit:contain;background:#EDF2F9}
   .ch-photo figcaption{margin-top:9px;font-size:11.5px;font-weight:600;color:#38506e;text-align:center;line-height:1.45}
   #story1 .ch-photo img{filter:sepia(.5) saturate(.65) contrast(.96)}
   #story2 .ch-photo img{filter:sepia(.22) saturate(.78)}
@@ -370,7 +372,7 @@
   @media(max-width:760px){
     .ch-body{flex-direction:column;gap:16px}
     .ch-photo{flex:none;margin:6px auto 0}
-    .ch-photo img{height:clamp(120px,20vh,180px);max-width:72vw}
+    .ch-photo img{height:clamp(120px,20vh,180px);width:min(264px,72vw)}
   }
   .ch-num{
     position:absolute;right:clamp(10px,4vw,60px);top:90px;font-size:clamp(90px,14vw,160px);font-weight:800;
