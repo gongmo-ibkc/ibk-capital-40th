@@ -200,24 +200,16 @@
 
   /* ---------- Stats page ---------- */
   .stats{background:var(--surface-alt)}
-  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:34px}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:11px;margin-top:28px}
   .tile{
     background:var(--surface);border:1px solid var(--line);border-radius:14px;
-    padding:20px 22px;position:relative;overflow:hidden;
+    padding:15px 18px;position:relative;overflow:hidden;
   }
   .tile::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue-600),var(--gold-500))}
   .tile .label{font-size:13px;color:var(--ink-secondary);font-weight:500}
-  .tile .value{font-size:clamp(26px,2.8vw,34px);font-weight:700;letter-spacing:-.02em;color:var(--navy-800);margin-top:4px;line-height:1.1}
+  .tile .value{font-size:clamp(23px,2.4vw,30px);font-weight:700;letter-spacing:-.02em;color:var(--navy-800);margin-top:4px;line-height:1.1}
   .tile .value .unit{font-size:.5em;font-weight:600;color:var(--ink-secondary);margin-left:3px}
   .tile .note{font-size:11.5px;color:var(--ink-muted);margin-top:7px;line-height:1.5}
-  .fact-strip{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
-  .fact{
-    display:inline-flex;align-items:center;gap:8px;
-    background:var(--surface);border:1px solid var(--line);border-radius:999px;
-    padding:8px 16px;font-size:12.5px;font-weight:600;color:var(--ink-secondary);
-  }
-  .fact b{color:var(--blue-600);font-weight:700}
-  .fact .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-500);flex:none}
   .stats-foot{margin-top:18px;font-size:11.5px;color:var(--ink-muted)}
 
   /* ---------- Chart pages ---------- */
@@ -303,8 +295,6 @@
     .tile{padding:14px 14px}
     .tile .value{font-size:24px}
     .tile .note{font-size:10.5px}
-    .fact-strip{gap:7px}
-    .fact{padding:6px 12px;font-size:11px}
     .cp-head{gap:8px}
     .cp-title{font-size:22px}
     .cp-value{font-size:22px}
@@ -731,13 +721,8 @@
   <div class="wrap">
     <div class="kicker reveal">Since 1986</div>
     <h2 class="sec-title reveal">숫자로 보는 40년</h2>
-    <p class="sec-desc reveal">방금 보신 네 번의 물결을 포함해, IBK캐피탈의 오늘을 여덟 개의 숫자로 한눈에 모았습니다.</p>
+    <p class="sec-desc reveal">방금 보신 네 번의 물결을 포함해, IBK캐피탈의 오늘을 열 개의 숫자로 한눈에 모았습니다.</p>
     <div class="stat-grid">
-      <div class="tile reveal">
-        <div class="label">고객과 함께한 시간</div>
-        <div class="value" data-count="40">40<span class="unit">년</span></div>
-        <div class="note">1986년 11월 1일 창립</div>
-      </div>
       <div class="tile reveal">
         <div class="label">총자산</div>
         <div class="value" data-count="12.1" data-decimal="1">12.1<span class="unit">조 원</span></div>
@@ -747,6 +732,16 @@
         <div class="label">당기순이익</div>
         <div class="value" data-count="2456">2,456<span class="unit">억 원</span></div>
         <div class="note">2025년 · 창립 이래 역대 최대</div>
+      </div>
+      <div class="tile reveal">
+        <div class="label">누적 당기순이익</div>
+        <div class="value" data-count="1.8" data-decimal="1">1.8<span class="unit">조 원</span></div>
+        <div class="note">최근 20년(2006~2025) 합산 1조 8,306억 원</div>
+      </div>
+      <div class="tile reveal">
+        <div class="label">연속 흑자</div>
+        <div class="value" data-count="20">20<span class="unit">년</span></div>
+        <div class="note">2006~2025 · 금융위기에도 멈추지 않은 흑자 항해</div>
       </div>
       <div class="tile reveal">
         <div class="label">자기자본</div>
@@ -759,27 +754,25 @@
         <div class="note">2025년 말 · 2006년 87명에서 3.3배</div>
       </div>
       <div class="tile reveal">
-        <div class="label">총자산순이익률(ROA)</div>
-        <div class="value" data-count="2.11" data-decimal="2">2.11<span class="unit">%</span></div>
-        <div class="note">2025년 · 최근 5년 평균 1.98%</div>
+        <div class="label">1인당 총자산</div>
+        <div class="value" data-count="422">422<span class="unit">억 원</span></div>
+        <div class="note">2006년 187억 원에서 2.3배 (임직원 기준)</div>
       </div>
       <div class="tile reveal">
-        <div class="label">자기자본비율</div>
-        <div class="value" data-count="17.2" data-decimal="2">17.20<span class="unit">%</span></div>
-        <div class="note">2025년 · 2021년 13.62%에서 매년 개선</div>
+        <div class="label">총자산 연평균 성장률</div>
+        <div class="value" data-count="11.1" data-decimal="1">11.1<span class="unit">%</span></div>
+        <div class="note">2006~2025 · 20년 연평균(CAGR)</div>
       </div>
       <div class="tile reveal">
-        <div class="label">금융자산 10조 달성</div>
-        <div class="value">2022<span class="unit">년</span></div>
-        <div class="note">2017년 5조 → 5년 만에 2배</div>
+        <div class="label">신용등급</div>
+        <div class="value">AA-</div>
+        <div class="note">무보증사채 · 2014년부터 유지</div>
       </div>
-    </div>
-    <div class="fact-strip reveal">
-      <span class="fact"><span class="dot"></span>IBK기업은행 <b>100% 자회사</b> (2010~)</span>
-      <span class="fact"><span class="dot"></span>미얀마 법인 <b>해외 진출</b> (2016~)</span>
-      <span class="fact"><span class="dot"></span>PEF 업무집행사원 <b>투자금융 운용</b> (2014~)</span>
-      <span class="fact"><span class="dot"></span>금융의 날 <b>국무총리 표창</b> (2023)</span>
-      <span class="fact"><span class="dot"></span>본사 <b>서울 강남구 테헤란로 414</b></span>
+      <div class="tile reveal">
+        <div class="label">금융자산 12조 달성</div>
+        <div class="value">2026<span class="unit">년</span></div>
+        <div class="note">2022년 10조 돌파 후 4년 만</div>
+      </div>
     </div>
     <div class="stats-foot reveal">출처: DART 사업보고서(2006~2025, 별도 기준) 및 IBK캐피탈 재무현황·주요경영지표. 상세 추이는 앞의 그래프 페이지에서 확인할 수 있습니다.</div>
   </div>
