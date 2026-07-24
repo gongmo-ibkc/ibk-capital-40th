@@ -1400,7 +1400,7 @@
         hit.addEventListener('mouseleave',()=>{dot.setAttribute('r',5);hideTip();});
         svg.appendChild(dot);svg.appendChild(hit);
         if(last||i===0){
-          const lb=el('text',{x:pts[i][0]+(last?-8:8),y:pts[i][1]-(last?13:27),'text-anchor':last?'end':'start',class:'mark-lbl'});
+          const lb=el('text',{x:pts[i][0]+(last?-8:8),y:pts[i][1]+(last?-13:20),'text-anchor':last?'end':'start',class:'mark-lbl'});
           if(last) lb.setAttribute('fill','var(--gold-500)');
           lb.textContent=fmtChart(c,d.v); svg.appendChild(lb);
         }
