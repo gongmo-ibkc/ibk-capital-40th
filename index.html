@@ -799,7 +799,7 @@
   <div class="wrap">
     <div class="kicker reveal">Since 1986</div>
     <h2 class="sec-title reveal">숫자로 보는 40년</h2>
-    <p class="sec-desc reveal">방금 보신 네 번의 물결을 포함해, IBK캐피탈의 오늘을 열 개의 숫자로 한눈에 모았습니다.</p>
+    <p class="sec-desc reveal">방금 보신 네 번의 물결을 포함해, IBK캐피탈의 오늘을 여덟 개의 숫자로 한눈에 모았습니다.</p>
     <div class="stat-grid">
       <div class="tile reveal">
         <div class="label">총자산</div>
@@ -817,13 +817,8 @@
         <div class="note">최근 20년(2006~2025) 합산 1조 8,306억 원</div>
       </div>
       <div class="tile reveal">
-        <div class="label">연속 흑자</div>
-        <div class="value" data-count="20">20<span class="unit">년</span></div>
-        <div class="note">2006~2025 · 금융위기에도 멈추지 않은 흑자 항해</div>
-      </div>
-      <div class="tile reveal">
         <div class="label">자기자본</div>
-        <div class="value" data-count="20759">20,759<span class="unit">억 원</span></div>
+        <div class="value">2조 759억<span class="unit">원</span></div>
         <div class="note">2025년 · 2년 새 +28%, 2조 원 돌파</div>
       </div>
       <div class="tile reveal">
@@ -840,11 +835,6 @@
         <div class="label">총자산 연평균 성장률</div>
         <div class="value" data-count="11.1" data-decimal="1">11.1<span class="unit">%</span></div>
         <div class="note">2006~2025 · 20년 연평균(CAGR)</div>
-      </div>
-      <div class="tile reveal">
-        <div class="label">신용등급</div>
-        <div class="value">AA-</div>
-        <div class="note">무보증사채 · 2014년부터 유지</div>
       </div>
       <div class="tile reveal">
         <div class="label">금융자산 12조 달성</div>
@@ -1198,7 +1188,8 @@
     },
     {
       key:'equity', label:'자기자본', unit:'억 원', dec:0, step:'Growth 3 / 4',
-      current:'20,759', delta:'20년 새 12.6배', sub:'1,643억 원의 자본으로 시작한 항해가 2조 원의 배가 되었습니다. 2009년 800억·2020년 1,000억 증자가 도약의 돛이 되었습니다.',
+      current:'20,759', display:'2조 759억', displayUnit:'원', eokjo:true,
+      delta:'20년 새 12.6배', sub:'1,643억 원의 자본으로 시작한 항해가 2조 원의 배가 되었습니다. 2009년 800억·2020년 1,000억 증자가 도약의 돛이 되었습니다.',
       type:'line', marks:[{y:2009,label:'800억 증자'},{y:2020,label:'1,000억 증자'}],
       data:[
         {y:2006,v:1643},{y:2007,v:1937},{y:2008,v:2129,note:'5월 200억 유상증자'},{y:2009,v:3152,note:'8월 800억 유상증자'},{y:2010,v:3447,note:'K-GAAP 기준'},
@@ -1225,6 +1216,14 @@
   const NS='http://www.w3.org/2000/svg';
   const el=(t,a)=>{const n=document.createElementNS(NS,t);for(const k in a)n.setAttribute(k,a[k]);return n;};
   const fmtV=(v,dec)=> dec>0 ? v.toFixed(dec) : Math.round(v).toLocaleString('ko-KR');
+  // 억 → 조 단위 혼합 표기 (예: 20759 → "2조 759억")
+  const fmtJo=v=>{
+    v=Math.round(v);
+    if(v<10000) return v.toLocaleString('ko-KR')+'억';
+    const jo=Math.floor(v/10000), eok=v%10000;
+    return jo+'조'+(eok? ' '+eok.toLocaleString('ko-KR')+'억':'');
+  };
+  const fmtChart=(c,v)=> c.eokjo ? fmtJo(v)+' 원' : fmtV(v,c.dec)+c.unit;
 
   const tip=document.createElement('div');
   tip.className='cv-tip';document.body.appendChild(tip);
@@ -1246,7 +1245,7 @@
       yoy=`<div class="t-yoy${cls}">${gap===1?'전년':prev.y+'년'} 대비 ${pct>=0?'+':''}${pct.toFixed(1)}%</div>`;
     }
     const note=d.note?`<div style="color:rgba(255,255,255,.65)">※ ${d.note}</div>`:'';
-    return `<div class="t-year">${d.y}년</div><div>${c.label} ${fmtV(d.v,c.dec)}${c.unit}</div>${yoy}${note}`;
+    return `<div class="t-year">${d.y}년</div><div>${c.label} ${fmtChart(c,d.v)}</div>${yoy}${note}`;
   };
 
   function renderChart(c){
@@ -1257,7 +1256,7 @@
     const drawTick=(v,y)=>{
       svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,class:'grid-ln'}));
       const t=el('text',{x:m.l-9,y:y+4,'text-anchor':'end',class:'axis-txt'});
-      t.textContent=c.dec>0? (Math.round(v*10)/10) : Math.round(v).toLocaleString('ko-KR');
+      t.textContent=c.eokjo? (Math.round(v/1000)/10)+'조' : (c.dec>0? (Math.round(v*10)/10) : Math.round(v).toLocaleString('ko-KR'));
       svg.appendChild(t);
     };
     if(c.type==='line'){
@@ -1334,7 +1333,7 @@
         if(last||i===0){
           const lb=el('text',{x:pts[i][0]+(last?-8:8),y:pts[i][1]-(last?13:27),'text-anchor':last?'end':'start',class:'mark-lbl'});
           if(last) lb.setAttribute('fill','var(--gold-500)');
-          lb.textContent=fmtV(d.v,c.dec)+c.unit; svg.appendChild(lb);
+          lb.textContent=fmtChart(c,d.v); svg.appendChild(lb);
         }
       });
       // 이정표 온차트 주석 (금색 다이아몬드 + 라벨)
@@ -1380,7 +1379,7 @@
         <div class="cp-step reveal">${c.step} · Growth Tracking</div>
         <div class="cp-head reveal">
           <div class="cp-title">${c.label}</div>
-          <div class="cp-value" data-target="${parseFloat(String(c.current).replace(/,/g,''))}" data-dec="${c.dec}">${c.current}<span class="unit">${c.unit}</span></div>
+          <div class="cp-value" data-target="${c.display?'':parseFloat(String(c.current).replace(/,/g,''))}" data-dec="${c.dec}">${c.display||c.current}<span class="unit">${c.displayUnit||c.unit}</span></div>
           <span class="cp-delta">${c.delta}</span>
         </div>
         <p class="cp-sub reveal">${c.sub}</p>
