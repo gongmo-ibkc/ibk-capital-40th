@@ -193,7 +193,8 @@
     text-decoration:none;transition:transform .2s,box-shadow .2s;
   }
   .btn-gold{background:linear-gradient(135deg,var(--gold-300),var(--gold-500));color:var(--navy-900)}
-  .btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+  .btn-ghost{border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.10);color:#fff;backdrop-filter:blur(4px)}
+  .btn-ghost:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.75)}
   .btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.28)}
   .scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.24em;z-index:2}
   .scroll-hint::after{content:"";display:block;width:1px;height:30px;margin:7px auto 0;background:linear-gradient(180deg,rgba(255,255,255,.55),transparent);animation:drop 1.8s infinite}
@@ -291,9 +292,13 @@
   /* ---------- Chapter era backdrops ---------- */
   .era-bg{
     position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none;
-    opacity:.10;
+    opacity:.10;overflow:hidden;
   }
-  .era-bg svg{display:block;width:100%;height:100%}
+  .era-bg svg{display:block;width:100%;height:100%;animation:era-drift 30s ease-in-out infinite alternate;will-change:transform}
+  #story2 .era-bg svg{animation-duration:38s}
+  #story3 .era-bg svg{animation-duration:34s}
+  #story4 .era-bg svg{animation-duration:42s}
+  @keyframes era-drift{from{transform:translateX(-1.3%) scale(1.06)}to{transform:translateX(1.3%) scale(1.06)}}
 
   /* ---------- Mobile refinements ---------- */
   @media(max-width:640px), (max-height:700px){
@@ -511,7 +516,27 @@
   @media(max-width:640px){.cheer-card{max-width:280px;padding:12px 14px}.cheer-card .cc-msg{font-size:13px}}
 
   /* ---------- Vision ---------- */
-  .vision{text-align:center;background:var(--surface)}
+  .vision{text-align:center;background:linear-gradient(180deg,#FBF6EA 0%,#FFFFFF 38%,#F2F6FC 100%)}
+  .vision .wrap{position:relative;z-index:1}
+  /* 피날레: 떠오르는 금색 입자 */
+  .vn-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .vn-particles i{position:absolute;bottom:-14px;border-radius:50%;background:rgba(201,162,39,.38);animation:vn-rise linear infinite}
+  .vn-particles i:nth-child(1){left:8%;width:5px;height:5px;animation-duration:16s;animation-delay:-2s}
+  .vn-particles i:nth-child(2){left:18%;width:7px;height:7px;animation-duration:21s;animation-delay:-9s}
+  .vn-particles i:nth-child(3){left:29%;width:4px;height:4px;animation-duration:14s;animation-delay:-5s}
+  .vn-particles i:nth-child(4){left:41%;width:6px;height:6px;animation-duration:19s;animation-delay:-13s}
+  .vn-particles i:nth-child(5){left:52%;width:5px;height:5px;animation-duration:15s;animation-delay:-1s}
+  .vn-particles i:nth-child(6){left:63%;width:8px;height:8px;animation-duration:23s;animation-delay:-16s}
+  .vn-particles i:nth-child(7){left:72%;width:4px;height:4px;animation-duration:13s;animation-delay:-7s}
+  .vn-particles i:nth-child(8){left:81%;width:6px;height:6px;animation-duration:18s;animation-delay:-11s}
+  .vn-particles i:nth-child(9){left:90%;width:5px;height:5px;animation-duration:20s;animation-delay:-4s}
+  .vn-particles i:nth-child(10){left:96%;width:4px;height:4px;animation-duration:15s;animation-delay:-8s}
+  @keyframes vn-rise{
+    0%{transform:translateY(0);opacity:0}
+    10%{opacity:.75}
+    75%{opacity:.45}
+    100%{transform:translateY(-105vh);opacity:0}
+  }
   .vision blockquote{
     font-size:clamp(20px,2.8vw,28px);font-weight:600;letter-spacing:-.02em;line-height:1.55;
     max-width:760px;margin:0 auto;color:var(--navy-800);
@@ -533,6 +558,8 @@
     .reveal{opacity:1;transform:none;transition:none}
     #waveCanvas{display:none}
     .scroll-hint::after{animation:none}
+    .era-bg svg{animation:none}
+    .vn-particles{display:none}
   }
 
   /* ---------- 차트 강조 연출 ---------- */
@@ -1041,6 +1068,7 @@
 <!-- P14. Vision + footer -->
 <section class="page vision" id="vision" data-dot="비전">
   <div class="page-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,60 480,5 720,30 C960,55 1200,10 1440,35 L1440,0 L0,0 Z" fill="#050F26"/></svg></div>
+  <div class="vn-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <div class="wrap">
     <div class="kicker reveal" style="text-align:center">Next 40 Years</div>
     <blockquote class="reveal">
