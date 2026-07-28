@@ -515,6 +515,30 @@
   @media (prefers-reduced-motion:reduce){.cheer-track{animation:none}}
   @media(max-width:640px){.cheer-card{max-width:280px;padding:12px 14px}.cheer-card .cc-msg{font-size:13px}}
 
+  /* ================= 함께한 순간들 (사진 마퀴) ================= */
+  .moments{background:var(--navy-900);color:#fff}
+  .moments .wrap{text-align:center}
+  .moments .kicker{color:var(--gold-300)}
+  .moments .sec-desc{color:rgba(255,255,255,.66);margin-left:auto;margin-right:auto}
+  .gal-rows{margin:24px calc(-1*clamp(20px,6vw,72px)) 0;display:flex;flex-direction:column;gap:12px}
+  .gal-row{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+  .gal-track{display:flex;gap:14px;width:max-content;animation:cheerflow var(--dur,300s) linear infinite}
+  .gal-row.rev .gal-track{animation-direction:reverse}
+  .gal-row:hover .gal-track{animation-play-state:paused}
+  .gal-card{flex:none;margin:7px 0;background:#fff;border-radius:10px;padding:6px 6px 0;box-shadow:0 10px 24px rgba(3,10,26,.42);transform:rotate(var(--tilt,0deg));transition:transform .35s ease,box-shadow .35s ease}
+  .gal-card:hover{transform:rotate(0deg) scale(1.05);box-shadow:0 16px 34px rgba(3,10,26,.55);position:relative;z-index:2}
+  .gal-card img{display:block;width:clamp(150px,21.5vh,210px);height:clamp(100px,14.33vh,140px);object-fit:cover;border-radius:6px;background:#EDF2F9}
+  .gal-cap{display:flex;align-items:center;justify-content:center;gap:6px;margin:0;padding:6px 4px 7px;width:clamp(150px,21.5vh,210px);box-sizing:border-box}
+  .gal-cap .t{flex:1;min-width:0;text-align:center;font-size:11.5px;font-weight:600;color:#24466F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;container-type:inline-size}
+  .gal-cap .tx{display:inline-block;transition:transform .3s ease}
+  /* 호버(마퀴 정지) 시 잘린 캡션이 옆으로 슬라이드되며 전체 표시 — 안 잘린 캡션은 min()이 0을 골라 정지 */
+  .gal-card:hover .t{text-overflow:clip}
+  .gal-card:hover .tx{transform:translateX(min(0px,calc(100cqw - 100%)));transition:transform 2.2s linear .4s}
+  .gal-cap .yy{flex:none;font-size:10.5px;font-weight:500;color:#8AA3C4}
+  .gal-tag{flex:none;font-size:9.5px;font-weight:800;font-style:normal;line-height:1;color:#6B5310;background:linear-gradient(180deg,#F2DE9A,#E3C868);border-radius:4px;padding:3px 5px}
+  .gal-note{margin-top:10px;text-align:center;font-size:11.5px;color:rgba(255,255,255,.35)}
+  @media (prefers-reduced-motion:reduce){.gal-track{animation:none}}
+
   /* ---------- Vision ---------- */
   .vision{text-align:center;background:linear-gradient(180deg,#FBF6EA 0%,#FFFFFF 38%,#F2F6FC 100%)}
   .vision .wrap{position:relative;z-index:1}
@@ -637,6 +661,13 @@
     .lyric-bar{bottom:8px;padding:8px 18px}
     .lyric-bar .l-now{font-size:15px}
     .lyric-bar .l-next{display:none}
+    .gal-rows{margin-top:10px;gap:6px}
+    .gal-card{margin:5px 0}
+    .gal-cap{padding:3px 2px 4px}
+    .gal-note{margin-top:4px}
+    .moments{padding-top:78px;padding-bottom:14px}
+    .moments .kicker{margin-bottom:6px}
+    .moments .sec-desc{margin-top:8px;font-size:13.5px}
   }
 </style>
 </head>
@@ -1046,6 +1077,17 @@
     </div>
     <p class="pw-close reveal">그 모든 숫자 뒤에, 오늘도 파도를 만드는 <b>286명의 임직원</b>이 있습니다.</p>
   </div>
+</section>
+
+<!-- P12.5 함께한 순간들 (사진 마퀴) -->
+<section class="page moments" id="moments" data-dot="함께한 순간들">
+  <div class="wrap">
+    <div class="kicker reveal">Moments · 한 바다의 기억</div>
+    <h2 class="sec-title reveal">함께하는 선원들</h2>
+    <p class="sec-desc reveal">어느 해의 파도였든, 우리는 늘 한마음으로 같은 바다에 있습니다.</p>
+  </div>
+  <div class="gal-rows" id="galRows" aria-label="임직원 활동 기록 사진"></div>
+  <div class="gal-note reveal">173장의 기록 — 사진 위에 마우스를 올리면 물결이 잠시 멈춥니다</div>
 </section>
 
 <!-- P13. Cheers -->
@@ -1634,7 +1676,7 @@
       dots.appendChild(a);
       map.set(p,a);
     });
-    const darkPages=new Set(['home','story1','story2','story3','story4','numbers','power1','power2','power3','power4','cheers']);
+    const darkPages=new Set(['home','story1','story2','story3','story4','numbers','power1','power2','power3','power4','moments','cheers']);
     const io3=new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(!e.isIntersecting) return;
@@ -1645,6 +1687,44 @@
       });
     },{threshold:.55});
     pages.forEach(p=>io3.observe(p));
+  })();
+</script>
+
+<!-- ================= 함께한 순간들: 20년의 기록 사진 마퀴 =================
+     GALLERY 데이터는 build_gallery.py(스크래치패드)가 photos/ 썸네일과 함께 생성·주입.
+     방문할 때마다 연도 무관 랜덤 셔플 — "어느 해였든 한마음" 콘셉트. -->
+<script>
+  (function(){
+    const GALLERY=[["g001.jpg","시스템 경영 교육","2006.02",0],["g002.jpg","시스템 경영 교육","2006.02",0],["g003.jpg","사령장 교부식","2006.04",0],["g004.jpg","경영전략본부 상반기 워크샵","2006.06",0],["g005.jpg","IBKC스타트업 투자조합 제1호 결성","2006.08",0],["g006.jpg","교양 수업","2006.10",0],["g007.jpg","경영전략본부 워크샵","2006.11",0],["g008.jpg","금융2본부 하반기 워크샵","2006.11",0],["g009.jpg","투자본부 워크샵","2006.11",0],["g010.jpg","기은캐피탈 송년의 밤","2006.12",0],["g011.jpg","기은캐피탈 송년의 밤","2006.12",0],["g012.jpg","불우이웃돕기 행사","2006.12",1],["g013.jpg","시무식","2007.01",0],["g014.jpg","시무식","2007.01",0],["g015.jpg","경영전략본부 상반기 워크샵","2007.03",0],["g016.jpg","금융1본부 상반기 워크샵","2007.03",0],["g017.jpg","금융2본부 상반기 워크샵","2007.03",0],["g018.jpg","투자본부 워크샵","2007.03",0],["g019.jpg","체육대회","2007.05",0],["g020.jpg","고객센터오픈","2007.08",0],["g021.jpg","금융1본부 워크샵","2007.11",0],["g022.jpg","금융2본부 워크샵","2007.11",0],["g023.jpg","이노비즈 업무협약식","2008.02",0],["g024.jpg","M&A사업단 상반기 워크샵","2008.04",0],["g025.jpg","금융2본부 상반기 워크샵","2008.04",0],["g026.jpg","춘계체육행사","2008.04",0],["g027.jpg","투자본부 상반기 워크샵","2008.04",0],["g028.jpg","개인금융사업단 상반기 워크샵","2008.07",0],["g029.jpg","개인신용대출 아이론 출시","2008.07",0],["g030.jpg","안산지점 오픈","2009.03",0],["g031.jpg","인천지점 오픈","2009.03",0],["g032.jpg","개인금융본부 춘계체육행사","2009.05",0],["g033.jpg","부산지점 춘계 체육행사","2009.05",0],["g034.jpg","임플란트 대출","2009.06",0],["g035.jpg","스쿠버 다이빙 동호회(제주도)","2009.11",0],["g036.jpg","추계체육행사","2009.11",0],["g037.jpg","천안지점 오픈식","2010.03",0],["g038.jpg","종로론센터 오픈","2011.02",0],["g039.jpg","시립수락양로원 방문","2011.09",1],["g040.jpg","울산지점 개설","2011.10",0],["g041.jpg","신년맞이 청계산 등산","2012.01",0],["g042.jpg","본점 이전 기념식","2012.02",0],["g043.jpg","본점 이전 기념식","2012.02",0],["g044.jpg","카페마루 오픈식","2012.03",0],["g045.jpg","2012 워크샵","2012.05",0],["g046.jpg","호프데이","2012.05",0],["g047.jpg","여수세계박람회","2012.07",0],["g048.jpg","창의혁신 해외연수","2012.08",0],["g049.jpg","창의혁신 해외연수","2012.08",0],["g050.jpg","1사1촌 봉사활동","2012.10",1],["g051.jpg","1사1촌 봉사활동","2012.10",1],["g052.jpg","창립26주년 금리인하 이벤트","2012.11",0],["g053.jpg","차세대 전산시스템 오픈","2013.02",0],["g054.jpg","축령산 산행","2013.02",0],["g055.jpg","신입사원 연수","2013.07",0],["g056.jpg","창의혁신 해외연수","2013.09",0],["g057.jpg","추계 농촌봉사","2013.10",1],["g058.jpg","여주고구마 수확 봉사활동","2013.10",1],["g059.jpg","중소기업대출 금리인하","2013.10",0],["g060.jpg","중국 상해사무소 오픈","2013.11",0],["g061.jpg","우수거래처 세미나","2014.09",0],["g062.jpg","국립서울현충원 참배","2015.05",0],["g063.jpg","무교지점 이전","2016.07",0],["g064.jpg","노동조합 단합대회","2016.11",0],["g065.jpg","사랑의 연탄나눔 봉사활동","2016.11",1],["g066.jpg","사랑의 연탄 나눔 봉사활동","2016.11",1],["g067.jpg","벤처창업대전 대통령상 수상","2016.12",0],["g068.jpg","아시아 정보통신 박람회","2017.05",0],["g069.jpg","일산지점 개점","2017.06",0],["g070.jpg","프랑크푸르트 제약전시회","2017.10",0],["g071.jpg","사랑 나눔 헌혈 봉사활동","2017.11",1],["g072.jpg","스쿠버다이버 동호회 수중정화 활동","2017.11",1],["g073.jpg","LA 프랜차이즈 전시회","2017.11",0],["g074.jpg","사랑의 연탄 나눔 봉사활동","2017.12",1],["g075.jpg","독일 완성차 박람회","2017.12",0],["g076.jpg","4급 책임자 워크샵","2018.01",0],["g077.jpg","CES 2018","2018.01",0],["g078.jpg","평창동계올림픽 현장연수","2018.02",0],["g079.jpg","알토스배구단 응원","2018.03",0],["g080.jpg","챌린지연수","2018.03",0],["g081.jpg","MWC 2018","2018.03",0],["g082.jpg","바젤월드 박람회","2018.03",0],["g083.jpg","창의혁신 해외연수(자카르타·싱가포르)","2018.04",0],["g084.jpg","챌린지연수","2018.04",0],["g085.jpg","챌린지연수","2018.05",0],["g086.jpg","춘계 문화체육행사","2018.05",0],["g087.jpg","챌린지연수","2018.06",0],["g088.jpg","챌린지연수","2018.06",0],["g089.jpg","신입사원 등산(북악산)","2018.07",0],["g090.jpg","임직원 프로야구 단체관람","2018.07",0],["g091.jpg","챌린지연수","2018.10",0],["g092.jpg","챌린지연수","2018.10",0],["g093.jpg","포장기계 박람회","2018.10",0],["g094.jpg","사랑의 연탄 나눔 봉사활동","2018.11",1],["g095.jpg","챌린지연수","2018.11",0],["g096.jpg","챌린지연수","2018.11",0],["g097.jpg","4급책임자 워크샵","2018.12",0],["g098.jpg","사랑의 연탄 나눔 봉사활동","2018.12",1],["g099.jpg","챌린지연수","2018.12",0],["g100.jpg","MWC 2019","2019.02",0],["g101.jpg","창의혁신 해외연수(심천·홍콩·마카오)","2019.04",0],["g102.jpg","챌린지연수","2019.04",0],["g103.jpg","챌린지연수","2019.05",0],["g104.jpg","챌린지연수","2019.06",0],["g105.jpg","싱가포르 정보통신 전시회","2019.06",0],["g106.jpg","챌린지연수","2019.09",0],["g107.jpg","금융의 날 금융위원장 표창","2019.10",0],["g108.jpg","노동조합 단합대회","2019.10",0],["g109.jpg","플라스틱·고무 전시회","2019.10",0],["g110.jpg","챌린지연수","2019.11",0],["g111.jpg","챌린지연수","2019.11",0],["g112.jpg","CHTF 2019","2019.11",0],["g113.jpg","노동조합 송년의 밤","2019.12",0],["g114.jpg","사랑의 연탄 나눔 봉사활동","2019.12",1],["g115.jpg","챌린지연수","2019.12",0],["g116.jpg","CES 2020","2020.01",0],["g117.jpg","사랑 나눔 헌혈 봉사활동","2021.08",1],["g118.jpg","챌린지연수","2022.10",0],["g119.jpg","챌린지연수","2022.11",0],["g120.jpg","챌린지연수","2022.12",0],["g121.jpg","MWC 2023","2023.02",0],["g122.jpg","챌린지연수","2023.05",0],["g123.jpg","커뮤니케이션연수","2023.05",0],["g124.jpg","챌린지연수","2023.06",0],["g125.jpg","커뮤니케이션연수","2023.06",0],["g126.jpg","챌린지연수","2023.09",0],["g127.jpg","커뮤니케이션연수","2023.09",0],["g128.jpg","창의혁신 연수(오사카·교토·나라)","2023.10",0],["g129.jpg","챌린지연수","2023.10",0],["g130.jpg","커뮤니케이션연수","2023.10",0],["g131.jpg","창의혁신 연수(도쿄·하코네)","2023.11",0],["g132.jpg","챌린지연수","2023.11",0],["g133.jpg","커뮤니케이션연수","2023.11",0],["g134.jpg","2024년도 업무계획 수립 워크샵","2023.12",0],["g135.jpg","CES 2024","2024.01",0],["g136.jpg","MWC 2024","2024.02",0],["g137.jpg","챌린지연수","2024.05",0],["g138.jpg","챌린지연수","2024.06",0],["g139.jpg","커뮤니케이션연수","2024.06",0],["g140.jpg","커뮤니케이션연수","2024.07",0],["g141.jpg","차세대리더 워크샵","2024.09",0],["g142.jpg","챌린지연수","2024.09",0],["g143.jpg","커뮤니케이션연수","2024.09",0],["g144.jpg","챌린지연수","2024.10",0],["g145.jpg","커뮤니케이션연수","2024.10",0],["g146.jpg","챌린지연수","2024.11",0],["g147.jpg","커뮤니케이션연수","2024.11",0],["g148.jpg","산사랑회 정기산행","2024.12",0],["g149.jpg","CES 2025","2025.01",0],["g150.jpg","MWC 2025","2025.02",0],["g151.jpg","대표이사 취임식","2025.03",0],["g152.jpg","산사랑회 정기산행","2025.04",0],["g153.jpg","챌린지연수","2025.05",0],["g154.jpg","IBK 풋살대회 토너먼트","2025.06",0],["g155.jpg","제8회 납세대상 수상","2025.06",0],["g156.jpg","챌린지연수","2025.06",0],["g157.jpg","중기부 장관 표창","2025.07",0],["g158.jpg","커뮤니케이션연수","2025.07",0],["g159.jpg","신입사원 임명장 교부식","2025.08",0],["g160.jpg","챌린지연수","2025.09",0],["g161.jpg","커뮤니케이션연수","2025.09",0],["g162.jpg","IFA 2025","2025.09",0],["g163.jpg","챌린지연수","2025.10",0],["g164.jpg","커뮤니케이션연수","2025.10",0],["g165.jpg","창의혁신 연수(오사카·교토·나라)","2025.11",0],["g166.jpg","챌린지연수","2025.11",0],["g167.jpg","커뮤니케이션연수","2025.11",0],["g168.jpg","노사 단체 협약식","2025.12",0],["g169.jpg","CES 2026","2026.01",0],["g170.jpg","MWC 2026","2026.03",0],["g171.jpg","챌린지연수","2026.05",0],["g172.jpg","챌린지연수","2026.06",0],["g173.jpg","2026년도 상반기 경영전략회의","2026.07",0]];
+    const box=document.getElementById('galRows');
+    if(!box||!GALLERY.length) return;
+    const arr=GALLERY.slice();
+    for(let i=arr.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[arr[i],arr[j]]=[arr[j],arr[i]];}
+    const ROWS=3, per=Math.ceil(arr.length/ROWS);
+    for(let r=0;r<ROWS;r++){
+      const part=arr.slice(r*per,(r+1)*per);
+      if(!part.length) break;
+      const row=document.createElement('div');row.className='gal-row'+(r%2?' rev':'');
+      const track=document.createElement('div');track.className='gal-track';
+      track.style.setProperty('--dur',(part.length*5.5)+'s');
+      for(let dup=0;dup<2;dup++){
+        part.forEach((it,k)=>{
+          const fig=document.createElement('figure');fig.className='gal-card';
+          fig.style.setProperty('--tilt',(((k+r)%5-2)*0.7)+'deg');
+          if(dup) fig.setAttribute('aria-hidden','true');
+          const img=document.createElement('img');
+          img.src='photos/'+it[0]; img.alt=it[1]+' ('+it[2]+')';
+          img.loading='lazy'; img.decoding='async'; img.width=210; img.height=140;
+          const cap=document.createElement('figcaption');cap.className='gal-cap';
+          if(it[3]){const tag=document.createElement('i');tag.className='gal-tag';tag.textContent='나눔';cap.appendChild(tag);}
+          const t=document.createElement('span');t.className='t';
+          const tx=document.createElement('span');tx.className='tx';tx.textContent=it[1];t.appendChild(tx);
+          const yy=document.createElement('span');yy.className='yy';yy.textContent=it[2];
+          cap.append(t,yy); fig.append(img,cap); track.appendChild(fig);
+        });
+      }
+      row.appendChild(track); box.appendChild(row);
+    }
   })();
 </script>
 
