@@ -73,20 +73,23 @@ def clean_caption(desc):
     s = re.sub(r"\((.+)\)$", tidy, s)
     return re.sub(r"\s+", " ", s).strip(), nanum
 
-# 기존 썸네일 비우고 새로 저장 (번호 밀림 방지)
-for old in glob.glob(os.path.join(OUT, "g*.jpg")):
+# 기존 썸네일/확대본 비우고 새로 저장 (번호 밀림 방지)
+for old in glob.glob(os.path.join(OUT, "g*.jpg")) + glob.glob(os.path.join(OUT, "f*.jpg")):
     os.remove(old)
 
 manifest = []
 for idx, it in enumerate(items, 1):
-    im = it["im"]
-    w, h = im.size
-    if h > 340:
-        im = im.resize((round(w * 340 / h), 340), Image.LANCZOS)
-    name = f"g{idx:03d}.jpg"
-    im.save(os.path.join(OUT, name), "JPEG", quality=77, optimize=True, progressive=True)
+    src_im = it["im"]
+    w, h = src_im.size
+    # 라이트박스 확대본 (높이 최대 800px, 업스케일 없음)
+    full = src_im.resize((round(w * 800 / h), 800), Image.LANCZOS) if h > 800 else src_im
+    full.save(os.path.join(OUT, f"f{idx:03d}.jpg"), "JPEG", quality=80, optimize=True, progressive=True)
+    # 마퀴 썸네일 (높이 340px)
+    im = src_im.resize((round(w * 340 / h), 340), Image.LANCZOS) if h > 340 else src_im
+    im.save(os.path.join(OUT, f"g{idx:03d}.jpg"), "JPEG", quality=77, optimize=True, progressive=True)
     cap, nanum = clean_caption(it["desc"])
-    manifest.append([name, cap, f"{it['y']}.{it['m']}", 1 if nanum else 0])
+    # [파일, 캡션, 연월, 나눔, 썸네일 w, h] — w/h는 카드 비율 유지(얼굴 잘림 방지)용
+    manifest.append([f"g{idx:03d}.jpg", cap, f"{it['y']}.{it['m']}", 1 if nanum else 0, im.size[0], im.size[1]])
 
 total = sum(os.path.getsize(os.path.join(OUT, f)) for f in os.listdir(OUT))
 print(f"썸네일 {len(manifest)}장, 총 {total/1024/1024:.1f}MB, 나눔 {sum(m[3] for m in manifest)}장")
