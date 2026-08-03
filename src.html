@@ -648,14 +648,22 @@
   html.kiosk #sagaBtn,html.kiosk .song-tag,html.kiosk .cheer-form,html.kiosk .cheer-status{display:none}
   /* TV 시청 거리(10-foot UI) 대응 확대 — .wrap만 zoom하므로 100vh 페이지 골격·offsetTop은 불변.
      moments의 사진 마퀴(gal-rows)는 .wrap 밖(vh 정밀 배치)이라 확대 대상 아님 */
-  html.kiosk .page .wrap{zoom:1.4}
+  html.kiosk .page .wrap{zoom:1.5}
+  html.kiosk .hero-inner{zoom:1.5} /* 히어로는 .wrap이 없어 별도 지정(빠뜨리면 히어로만 안 커지는 버그) */
+  html.kiosk .page{padding-top:48px} /* 헤더가 없으므로 상단 여백 축소 → 확대 공간 확보 */
+  html.kiosk .hero p.sub{max-width:960px} /* 줄글을 가로로 길게 — <br> 기준 2줄 유지 */
   html.kiosk header{display:none} /* TV에서는 헤더 전체 제거(2026-08-03 사용자 요청) */
+  /* 헤더 브랜드를 좌하단 코너 워터마크로 이전 — 엠블럼은 자체 배경색이라 밝은/어두운 페이지 모두 대응 */
+  .kiosk-brand{display:none}
+  html.kiosk .kiosk-brand{display:flex;position:fixed;left:24px;bottom:18px;z-index:80;align-items:center;gap:10px}
+  html.kiosk .kiosk-brand svg{width:36px;height:36px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
+  html.kiosk .kiosk-brand span{font-size:13px;font-weight:700;letter-spacing:.16em;color:rgba(142,158,180,.85)}
   html.kiosk .gal-note,html.kiosk .chart-page details{display:none} /* 호버·클릭 요소는 TV에서 무의미 */
   /* TV 검토 개선(2026-08-03): 클릭 전용 숨김·D-day 승격·갤러리/축하 확대·마퀴 감속·대비 상향 */
   html.kiosk header nav,html.kiosk .hero .cta,html.kiosk .scroll-hint{display:none}
   html.kiosk .dday{font-size:19px;padding:12px 26px}
   html.kiosk .dday b{font-size:23px}
-  html.kiosk .gal-card img{height:clamp(140px,16.2vh,175px);max-width:min(400px,58vh)}
+  html.kiosk .gal-card img{height:clamp(150px,17.6vh,190px);max-width:min(430px,62vh)}
   html.kiosk .gal-cap{padding:8px 6px 9px}
   html.kiosk .gal-cap .t{font-size:15px}
   html.kiosk .gal-cap .yy{font-size:13.5px}
@@ -742,6 +750,18 @@
     </button>
   </div>
 </header>
+
+<!-- 키오스크(TV) 전용 코너 브랜드 — 제거된 헤더의 엠블럼·문구를 좌하단에 작게 유지 -->
+<div class="kiosk-brand" aria-hidden="true">
+  <svg viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="30" fill="#0C2650" stroke="#C9A227" stroke-width="2.5"/>
+    <circle cx="32" cy="32" r="25.5" fill="none" stroke="rgba(227,200,104,.25)" stroke-width="1"/>
+    <text x="32" y="35.5" text-anchor="middle" font-family="inherit" font-size="22" font-weight="800" fill="#E3C868">40</text>
+    <path d="M17 44c4-4 8-4 12 0s8 4 12 0 5-3 6 0" fill="none" stroke="#5B94DB" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M20 49c3-3 6-3 9 0s6 3 9 0 4-2 6 0" fill="none" stroke="rgba(91,148,219,.5)" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+  <span>IBK캐피탈 40TH ANNIVERSARY</span>
+</div>
 <audio id="sagaAudio" preload="auto" loop src="__SAGA_SRC__"></audio>
 
 <div class="lyric-bar" id="lyricBar" aria-live="polite">
