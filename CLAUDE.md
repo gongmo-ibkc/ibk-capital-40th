@@ -51,8 +51,16 @@ git add -A && git commit -m "..." && git push   # push → Pages 1~2분 내 자�
   (vh 정밀 배치 보호). .gal-note(호버·클릭 안내)와 차트 "표로 보기" details도 TV에서 무의미해 숨김.
   1920×1080에서 18페이지 전부 자손 단위 클리핑 0 검증(1.45까지 안전 확인, 1.4 채택 — TV 폰트 폴백 시
   줄바꿈 변동 여유분). 스토리 페이지가 가장 밀도 높음(1.45에서 패딩 박스 꽉 참). 배율 조정 시 넘침 재검증 필수.
-  주의: .page{overflow:hidden}이라 scrollHeight로는 넘침 감지 불가 — 자손 getBoundingClientRect로 검증할 것
-  (era-bg·vn-particles·page-wave·닫힌 details는 의도된 블리드/숨김이므로 제외).
+  ⚠️ 검증 지표 주의(2026-08-03 뱃지 잘림 사고의 교훈): .page는 **min-height:100vh라 콘텐츠가 넘치면 페이지가
+  늘어나고**, 투어는 offsetTop(상단) 정렬이라 하단이 폴드 아래로 잘린다. 요소 잘림(자손 rect vs 페이지 rect)
+  검사는 이걸 못 잡음 — **반드시 `page.height > innerHeight` 페이지 초과 검사**를 기준으로 할 것.
+  총 scrollHeight == 18×innerHeight면 전 페이지 수납 완료.
+- 화면 높이 적응 배율(2026-08-03): 기본 1.5는 ≥1024px 높이 전용. @media(max-height:1023px)→1.25,
+  (max-height:899px)→1(720급 TV는 물리 화면이 커서 배율 불필요). ≥1024에서 콘텐츠 많은 페이지 상한:
+  스토리 1.35(뱃지 5~6개) / #c-people·cheers 1.4 — 1080 실측 초과분에서 역산한 값.
+  D-day·갤러리 카드·축하 카드 확대와 QR 원치수도 ≥1024 전용(낮은 화면은 원본 크기 + QR 128px 축소).
+- 스토리 챕터 kiosk 레이아웃(2026-08-03 사용자 요청): 사진을 본문 상단 정렬(align-items:start,
+  margin-top:0, img clamp(120px,19vh,200px)) + 뱃지(ch-events) margin-top 30→16 — 사진·뱃지를 위로 올림.
 - TV 검토 개선(2026-08-03, 사용자 선택 1~5·8번): ① 갤러리 kiosk 확대 — 카드 이미지 clamp(140px,16.2vh,175px)
   +캡션 15px/연도 13.5px(마퀴는 .wrap 밖이라 zoom 미적용 → 직접 상향), 커진 만큼 마퀴 1.45배 감속
   (animation-duration:calc(var(--dur)*1.45) — 인라인 --dur을 calc로 감속하는 패턴). 1920×1080에서 3줄 유지 검증.

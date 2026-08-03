@@ -650,7 +650,16 @@
      moments의 사진 마퀴(gal-rows)는 .wrap 밖(vh 정밀 배치)이라 확대 대상 아님 */
   html.kiosk .page .wrap{zoom:1.5}
   html.kiosk .hero-inner{zoom:1.5} /* 히어로는 .wrap이 없어 별도 지정(빠뜨리면 히어로만 안 커지는 버그) */
+  /* 화면 높이 적응 배율 — .page{min-height:100vh}라 콘텐츠가 넘치면 페이지가 길어지고
+     투어는 상단 정렬이라 하단(연혁 뱃지)이 폴드 아래로 잘림. 낮은 화면에선 배율을 낮춰 100vh 안에 수납 */
+  @media(max-height:1023px){html.kiosk .page .wrap,html.kiosk .hero-inner{zoom:1.25}}
+  @media(max-height:899px){html.kiosk .page .wrap,html.kiosk .hero-inner{zoom:1}} /* 720급 TV는 물리 화면이 커서 배율 불필요 */
   html.kiosk .page{padding-top:48px} /* 헤더가 없으므로 상단 여백 축소 → 확대 공간 확보 */
+  /* 스토리 챕터: 사진을 본문 상단에 붙이고 높이를 화면 비례로 제한 → 연혁 뱃지가 위로 올라옴 */
+  html.kiosk .ch-body{align-items:start}
+  html.kiosk .ch-photo{margin-top:0}
+  html.kiosk .ch-photo img{height:clamp(120px,19vh,200px)}
+  html.kiosk .ch-events{margin-top:16px}
   html.kiosk .hero p.sub{max-width:960px} /* 줄글을 가로로 길게 — <br> 기준 2줄 유지 */
   html.kiosk header{display:none} /* TV에서는 헤더 전체 제거(2026-08-03 사용자 요청) */
   /* 코너 브랜드: 좌하단 로고 + 우하단 40TH ANNIVERSARY (kb-dark로 밝은/어두운 페이지 대응) */
@@ -665,15 +674,23 @@
   html.kiosk .gal-note,html.kiosk .chart-page details{display:none} /* 호버·클릭 요소는 TV에서 무의미 */
   /* TV 검토 개선(2026-08-03): 클릭 전용 숨김·D-day 승격·갤러리/축하 확대·마퀴 감속·대비 상향 */
   html.kiosk header nav,html.kiosk .hero .cta,html.kiosk .scroll-hint{display:none}
-  html.kiosk .dday{font-size:19px;padding:12px 26px}
-  html.kiosk .dday b{font-size:23px}
-  html.kiosk .gal-card img{height:clamp(150px,17.6vh,190px);max-width:min(430px,62vh)}
-  html.kiosk .gal-cap{padding:8px 6px 9px}
-  html.kiosk .gal-cap .t{font-size:15px}
-  html.kiosk .gal-cap .yy{font-size:13.5px}
-  html.kiosk .gal-track{animation-duration:calc(var(--dur,300s)*1.45)} /* 카드가 커진 만큼 감속 */
-  html.kiosk .cheer-card .cc-msg{font-size:16.5px}
-  html.kiosk .cheer-card .cc-meta{font-size:14px}
+  /* 확대 계열(D-day·갤러리 카드·축하 카드)은 높은 화면 전용 — 낮은 화면에서는 원본 크기가 100vh에 맞음 */
+  @media(min-height:1024px){
+    /* 콘텐츠가 많은 페이지는 1.5배로 100vh를 넘음(실측) — 페이지별 상한 배율:
+       스토리(뱃지 5~6개) 1.35 / 임직원 차트(요약 배지 포함)·축하(QR 포함) 1.4 */
+    html.kiosk .story-page .wrap{zoom:1.35}
+    html.kiosk #c-people .wrap{zoom:1.4}
+    html.kiosk .cheers .wrap{zoom:1.4}
+    html.kiosk .dday{font-size:19px;padding:12px 26px}
+    html.kiosk .dday b{font-size:23px}
+    html.kiosk .gal-card img{height:clamp(150px,17.6vh,190px);max-width:min(430px,62vh)}
+    html.kiosk .gal-cap{padding:8px 6px 9px}
+    html.kiosk .gal-cap .t{font-size:15px}
+    html.kiosk .gal-cap .yy{font-size:13.5px}
+    html.kiosk .cheer-card .cc-msg{font-size:16.5px}
+    html.kiosk .cheer-card .cc-meta{font-size:14px}
+  }
+  html.kiosk .gal-track{animation-duration:calc(var(--dur,300s)*1.45)} /* TV 시청 속도 감속 */
   html.kiosk .cheer-track{animation-duration:calc(var(--dur,40s)*1.4)}
   html.kiosk .ev .ev-d{color:rgba(255,255,255,.75)}
   html.kiosk .num-intro .sec-desc,html.kiosk .cheers .sec-desc,html.kiosk .moments .sec-desc{color:rgba(255,255,255,.8)}
@@ -685,6 +702,12 @@
   html.kiosk .qr-svg{display:block;width:168px;height:168px}
   html.kiosk .cq-txt{font-size:16.5px;line-height:1.6;color:rgba(255,255,255,.82)}
   html.kiosk .cq-txt b{color:var(--gold-300)}
+  @media(max-height:899px){ /* 낮은 화면: QR 축소로 100vh 수납 (스캔 가능 최소선 유지) */
+    html.kiosk .cheer-qr{margin-top:14px;gap:18px}
+    html.kiosk .qr-card{padding:10px}
+    html.kiosk .qr-svg{width:128px;height:128px}
+    html.kiosk .cq-txt{font-size:14.5px}
+  }
 
   /* ---------- 낮은 화면(높이 820px 이하) 압축 — 큰 화면에는 적용되지 않음. 반드시 스타일 맨 끝 유지 ---------- */
   @media(max-height:820px){
