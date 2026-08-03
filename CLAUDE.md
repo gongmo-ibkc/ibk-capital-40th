@@ -43,8 +43,10 @@ git add -A && git commit -m "..." && git push   # push → Pages 1~2분 내 자�
 - TV 시청 거리 확대(2026-08-03, 헤더 제거 후 1.4→1.5 상향): `.page .wrap{zoom:1.5}` + `.hero-inner{zoom:1.5}`
   — **히어로는 .wrap이 없고 .hero-inner 구조**라 별도 지정 필수(빠뜨리면 히어로만 안 커지는 버그, 실제 있었음).
   차트 페이지는 JS 템플릿이 .wrap을 주입하므로 커버됨. 헤더 제거로 kiosk .page{padding-top:48px}(기본 92px).
-  히어로 줄글(p.sub)은 kiosk max-width:960px로 가로 확장(2줄 유지). 헤더 브랜드는 .kiosk-brand(좌하단 고정,
-  엠블럼 36px+문구 13px)로 이전 — 엠블럼이 자체 배경색이라 밝은/어두운 페이지 모두 대응. .wrap만 zoom하므로
+  히어로 줄글(p.sub)은 kiosk max-width:960px로 가로 확장(2줄 유지). 코너 브랜드(사용자 확정 배치):
+  좌하단 IBK캐피탈 로고(28px, 다크 페이지=logo-white/라이트=컬러 logo 자동 전환) + 우하단 "40TH ANNIVERSARY"
+  문구(14px, 색도 전환). 엠블럼은 사용자 요청으로 제거. 전환은 html.kb-dark 클래스 — 키오스크 JS의
+  IntersectionObserver가 darkP 목록(dots의 darkPages와 동일)으로 토글, **두 목록은 함께 갱신할 것**. .wrap만 zoom하므로
   100vh 페이지 골격·offsetTop(자동 투어 좌표)은 불변. moments 사진 마퀴(gal-rows)는 .wrap 밖이라 확대 제외
   (vh 정밀 배치 보호). .gal-note(호버·클릭 안내)와 차트 "표로 보기" details도 TV에서 무의미해 숨김.
   1920×1080에서 18페이지 전부 자손 단위 클리핑 0 검증(1.45까지 안전 확인, 1.4 채택 — TV 폰트 폴백 시
