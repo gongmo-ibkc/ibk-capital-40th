@@ -35,10 +35,13 @@ git add -A && git commit -m "..." && git push   # push → Pages 1~2분 내 자�
   차트 13 / 통계 14 / 사람의 힘 11 / 함께한 순간들 22 / 축하 한마디 16 / 비전 12 (DWELL 객체).
 - 음소거 고정: 자동재생·제스처 재시도 IIFE 전체를 `if(!KIOSK)`로 건너뜀. 사가 버튼·song-tag 숨김.
 - 축하 한마디: 입력 폼(.cheer-form/.cheer-status)은 숨기고 Firebase 실시간 카드만 표출 — 직원이 폰으로 남기면 TV에 실시간 반영.
-- 참여 QR(2026-08-03): 폼 자리에 .cheer-qr(흰 카드 + 안내 문구) 표시 — `#cheers` 앵커 URL을 담은
-  33×33 QR을 **인라인 SVG(3.8KB, 단일 path)로 내장** (python qrcode 라이브러리로 생성, EC 레벨 M).
-  jsQR로 디코드 검증 완료. 일반 웹에서는 숨김(.cheer-qr{display:none} — 폼이 있으므로 불필요).
-  화면 표시 크기 약 272px(zoom 1.4 포함) + 흰 패딩 13px(콰이어트 존). URL 변경 시 QR 재생성 필요.
+- 참여 QR(2026-08-03, 08-04 재배치): `#cheers` 앵커 URL을 담은 33×33 QR을 **인라인 SVG(3.8KB, 단일 path)로
+  내장** (python qrcode 라이브러리 생성, EC 레벨 M, jsQR 디코드 검증). 일반 웹에서는 숨김.
+  08-04 "QR이 커서 메인 가림" 피드백으로 **제목 오른쪽 데드 스페이스에 절대 배치**(.cheers .wrap
+  position:relative + .cheer-qr absolute top/right, 세로 스택 140px + 2줄 캡션) — 세로 점유 0.
+  .cheer-rows margin-top 110px로 첫 마퀴 줄이 QR 아래에서 시작(겹침 방지, 실측 기반 — QR 크기 바꾸면 재실측).
+  cheers 줌 캡 1.4는 QR이 흐름에서 빠지며 1.5로 복귀, 메시지 카드 확대(≥1024: cc-msg 18px·max-width 430px).
+  URL 변경 시 QR 재생성 필요.
 - 수동 조작(휠/터치/포인터/키) 감지 시 투어 정지 → 45초 무입력이면 가장 가까운 페이지부터 재개.
 - TV 시청 거리 확대(2026-08-03, 헤더 제거 후 1.4→1.5 상향): `.page .wrap{zoom:1.5}` + `.hero-inner{zoom:1.5}`
   — **히어로는 .wrap이 없고 .hero-inner 구조**라 별도 지정 필수(빠뜨리면 히어로만 안 커지는 버그, 실제 있었음).
