@@ -642,6 +642,38 @@
     #power1 .pp-viz svg rect,.pp-split i,#power4 .pp-viz svg line,#power4 .pp-viz svg circle,#power4 .tl-sail{transition:none!important}
   }
 
+  /* ---------- 키오스크(전시) 모드 — ?kiosk=1 (회사 TV 등 무인 디스플레이) ---------- */
+  html.kiosk{scroll-snap-type:none;scroll-behavior:auto}
+  html.kiosk body{cursor:none}
+  html.kiosk #sagaBtn,html.kiosk .song-tag,html.kiosk .cheer-form,html.kiosk .cheer-status{display:none}
+  /* TV 시청 거리(10-foot UI) 대응 확대 — .wrap만 zoom하므로 100vh 페이지 골격·offsetTop은 불변.
+     moments의 사진 마퀴(gal-rows)는 .wrap 밖(vh 정밀 배치)이라 확대 대상 아님 */
+  html.kiosk .page .wrap{zoom:1.4}
+  html.kiosk header{zoom:1.25}
+  html.kiosk .gal-note,html.kiosk .chart-page details{display:none} /* 호버·클릭 요소는 TV에서 무의미 */
+  /* TV 검토 개선(2026-08-03): 클릭 전용 숨김·D-day 승격·갤러리/축하 확대·마퀴 감속·대비 상향 */
+  html.kiosk header nav,html.kiosk .hero .cta,html.kiosk .scroll-hint{display:none}
+  html.kiosk .dday{font-size:19px;padding:12px 26px}
+  html.kiosk .dday b{font-size:23px}
+  html.kiosk .gal-card img{height:clamp(140px,16.2vh,175px);max-width:min(400px,58vh)}
+  html.kiosk .gal-cap{padding:8px 6px 9px}
+  html.kiosk .gal-cap .t{font-size:15px}
+  html.kiosk .gal-cap .yy{font-size:13.5px}
+  html.kiosk .gal-track{animation-duration:calc(var(--dur,300s)*1.45)} /* 카드가 커진 만큼 감속 */
+  html.kiosk .cheer-card .cc-msg{font-size:16.5px}
+  html.kiosk .cheer-card .cc-meta{font-size:14px}
+  html.kiosk .cheer-track{animation-duration:calc(var(--dur,40s)*1.4)}
+  html.kiosk .ev .ev-d{color:rgba(255,255,255,.75)}
+  html.kiosk .num-intro .sec-desc,html.kiosk .cheers .sec-desc,html.kiosk .moments .sec-desc{color:rgba(255,255,255,.8)}
+  html.kiosk .duo-card span,html.kiosk .pp-label{color:rgba(255,255,255,.78)}
+  /* 축하 한마디 QR — 키오스크에서만 표시(일반 웹은 폼이 있으므로 불필요) */
+  .cheer-qr{display:none}
+  html.kiosk .cheer-qr{display:flex;align-items:center;gap:24px;margin-top:32px}
+  html.kiosk .qr-card{flex:none;background:#fff;padding:13px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  html.kiosk .qr-svg{display:block;width:168px;height:168px}
+  html.kiosk .cq-txt{font-size:16.5px;line-height:1.6;color:rgba(255,255,255,.82)}
+  html.kiosk .cq-txt b{color:var(--gold-300)}
+
   /* ---------- 낮은 화면(높이 820px 이하) 압축 — 큰 화면에는 적용되지 않음. 반드시 스타일 맨 끝 유지 ---------- */
   @media(max-height:820px){
     .hero .big40{font-size:clamp(84px,16vh,150px)}
@@ -1115,6 +1147,11 @@
       <button class="cf-send" id="cheerSend" type="button">🌊 파도에 띄우기</button>
     </div>
     <div class="cheer-status" id="cheerStatus"></div>
+    <!-- 키오스크(TV) 전용 QR — 폰으로 스캔하면 입력 폼(#cheers)으로 바로 이동. 일반 웹에서는 숨김 -->
+    <div class="cheer-qr">
+      <div class="qr-card"><svg class="qr-svg" viewBox="0 0 33 33" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h7v1H0zM8 0h1v1H8zM11 0h1v1H11zM14 0h1v1H14zM16 0h3v1H16zM21 0h2v1H21zM26 0h7v1H26zM0 1h1v1H0zM6 1h1v1H6zM8 1h1v1H8zM10 1h3v1H10zM16 1h4v1H16zM22 1h1v1H22zM26 1h1v1H26zM32 1h1v1H32zM0 2h1v1H0zM2 2h3v1H2zM6 2h1v1H6zM8 2h1v1H8zM10 2h3v1H10zM18 2h1v1H18zM20 2h3v1H20zM26 2h1v1H26zM28 2h3v1H28zM32 2h1v1H32zM0 3h1v1H0zM2 3h3v1H2zM6 3h1v1H6zM9 3h1v1H9zM12 3h1v1H12zM15 3h1v1H15zM17 3h1v1H17zM21 3h1v1H21zM23 3h1v1H23zM26 3h1v1H26zM28 3h3v1H28zM32 3h1v1H32zM0 4h1v1H0zM2 4h3v1H2zM6 4h1v1H6zM8 4h1v1H8zM10 4h6v1H10zM19 4h1v1H19zM26 4h1v1H26zM28 4h3v1H28zM32 4h1v1H32zM0 5h1v1H0zM6 5h1v1H6zM9 5h2v1H9zM12 5h3v1H12zM17 5h2v1H17zM20 5h2v1H20zM23 5h2v1H23zM26 5h1v1H26zM32 5h1v1H32zM0 6h7v1H0zM8 6h1v1H8zM10 6h1v1H10zM12 6h1v1H12zM14 6h1v1H14zM16 6h1v1H16zM18 6h1v1H18zM20 6h1v1H20zM22 6h1v1H22zM24 6h1v1H24zM26 6h7v1H26zM9 7h1v1H9zM11 7h3v1H11zM19 7h1v1H19zM22 7h1v1H22zM24 7h1v1H24zM0 8h1v1H0zM3 8h7v1H3zM11 8h1v1H11zM14 8h4v1H14zM19 8h1v1H19zM22 8h1v1H22zM24 8h2v1H24zM28 8h1v1H28zM30 8h3v1H30zM2 9h1v1H2zM4 9h2v1H4zM8 9h3v1H8zM14 9h2v1H14zM19 9h1v1H19zM21 9h3v1H21zM28 9h3v1H28zM0 10h1v1H0zM4 10h8v1H4zM14 10h3v1H14zM18 10h1v1H18zM20 10h2v1H20zM23 10h1v1H23zM25 10h2v1H25zM28 10h3v1H28zM32 10h1v1H32zM0 11h2v1H0zM9 11h4v1H9zM14 11h1v1H14zM16 11h2v1H16zM19 11h2v1H19zM22 11h1v1H22zM27 11h1v1H27zM30 11h3v1H30zM0 12h1v1H0zM3 12h1v1H3zM6 12h4v1H6zM13 12h2v1H13zM16 12h3v1H16zM20 12h1v1H20zM22 12h2v1H22zM26 12h1v1H26zM31 12h1v1H31zM0 13h2v1H0zM8 13h1v1H8zM16 13h1v1H16zM18 13h1v1H18zM21 13h1v1H21zM23 13h3v1H23zM27 13h1v1H27zM29 13h1v1H29zM2 14h1v1H2zM6 14h1v1H6zM10 14h3v1H10zM16 14h1v1H16zM19 14h3v1H19zM24 14h1v1H24zM26 14h1v1H26zM28 14h3v1H28zM0 15h2v1H0zM3 15h2v1H3zM9 15h1v1H9zM11 15h1v1H11zM15 15h1v1H15zM18 15h1v1H18zM25 15h1v1H25zM29 15h2v1H29zM32 15h1v1H32zM0 16h3v1H0zM6 16h1v1H6zM8 16h2v1H8zM11 16h4v1H11zM20 16h1v1H20zM22 16h8v1H22zM0 17h1v1H0zM3 17h2v1H3zM11 17h2v1H11zM14 17h2v1H14zM18 17h2v1H18zM21 17h2v1H21zM26 17h1v1H26zM28 17h1v1H28zM30 17h1v1H30zM32 17h1v1H32zM2 18h3v1H2zM6 18h2v1H6zM9 18h1v1H9zM11 18h1v1H11zM13 18h1v1H13zM15 18h2v1H15zM19 18h1v1H19zM23 18h5v1H23zM29 18h2v1H29zM32 18h1v1H32zM1 19h1v1H1zM4 19h2v1H4zM7 19h2v1H7zM13 19h1v1H13zM15 19h4v1H15zM20 19h1v1H20zM22 19h2v1H22zM26 19h1v1H26zM28 19h4v1H28zM3 20h4v1H3zM8 20h4v1H8zM19 20h1v1H19zM22 20h2v1H22zM27 20h1v1H27zM29 20h1v1H29zM31 20h1v1H31zM0 21h1v1H0zM4 21h2v1H4zM7 21h1v1H7zM12 21h3v1H12zM16 21h4v1H16zM21 21h4v1H21zM27 21h2v1H27zM30 21h1v1H30zM0 22h1v1H0zM2 22h1v1H2zM4 22h3v1H4zM9 22h1v1H9zM11 22h1v1H11zM13 22h1v1H13zM15 22h4v1H15zM20 22h2v1H20zM23 22h1v1H23zM25 22h3v1H25zM31 22h2v1H31zM0 23h1v1H0zM2 23h2v1H2zM5 23h1v1H5zM7 23h1v1H7zM10 23h1v1H10zM13 23h2v1H13zM16 23h3v1H16zM23 23h1v1H23zM25 23h2v1H25zM28 23h1v1H28zM30 23h1v1H30zM32 23h1v1H32zM0 24h2v1H0zM6 24h1v1H6zM8 24h1v1H8zM10 24h1v1H10zM15 24h2v1H15zM20 24h1v1H20zM24 24h6v1H24zM32 24h1v1H32zM8 25h1v1H8zM10 25h2v1H10zM13 25h3v1H13zM24 25h1v1H24zM28 25h1v1H28zM30 25h2v1H30zM0 26h7v1H0zM8 26h1v1H8zM10 26h4v1H10zM15 26h2v1H15zM18 26h3v1H18zM22 26h3v1H22zM26 26h1v1H26zM28 26h1v1H28zM30 26h1v1H30zM0 27h1v1H0zM6 27h1v1H6zM8 27h2v1H8zM11 27h2v1H11zM14 27h3v1H14zM19 27h2v1H19zM23 27h2v1H23zM28 27h5v1H28zM0 28h1v1H0zM2 28h3v1H2zM6 28h1v1H6zM8 28h1v1H8zM11 28h2v1H11zM15 28h1v1H15zM17 28h4v1H17zM22 28h7v1H22zM0 29h1v1H0zM2 29h3v1H2zM6 29h1v1H6zM8 29h5v1H8zM14 29h1v1H14zM17 29h1v1H17zM19 29h2v1H19zM22 29h1v1H22zM25 29h1v1H25zM27 29h1v1H27zM29 29h4v1H29zM0 30h1v1H0zM2 30h3v1H2zM6 30h1v1H6zM9 30h3v1H9zM16 30h2v1H16zM19 30h1v1H19zM22 30h1v1H22zM25 30h1v1H25zM27 30h2v1H27zM30 30h3v1H30zM0 31h1v1H0zM6 31h1v1H6zM11 31h6v1H11zM20 31h1v1H20zM27 31h6v1H27zM0 32h7v1H0zM8 32h2v1H8zM12 32h1v1H12zM16 32h2v1H16zM19 32h1v1H19zM24 32h2v1H24zM27 32h3v1H27z" fill="#0B1B3A"/></svg></div>
+      <div class="cq-txt"><b>휴대폰 카메라로 QR을 비춰보세요</b><br>여러분의 축하 한마디가 이 화면에 실시간으로 떠오릅니다</div>
+    </div>
     <div class="cheer-rows" id="cheerRows"><div class="cheer-empty">메시지를 불러오는 중입니다…</div></div>
   </div>
 </section>
@@ -1144,6 +1181,10 @@
 </section>
 
 <script>
+  /* ================= 키오스크(전시) 모드 감지 — ?kiosk=1 ================= */
+  const KIOSK=new URLSearchParams(location.search).get('kiosk')==='1';
+  if(KIOSK) document.documentElement.classList.add('kiosk');
+
   /* ================= Reveal ================= */
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
@@ -1202,7 +1243,8 @@
   };
   ['play','pause','ended'].forEach(ev=>sagaAudio.addEventListener(ev,syncSaga));
 
-  (function(){
+  // 키오스크 모드에서는 자동재생·제스처 재시도 전체를 건너뜀 (음소거 전시)
+  if(!KIOSK)(function(){
     let userPaused=false;
     sagaAudio.addEventListener('pause',()=>{ userPaused=true; });
     // 진짜 사용자 제스처(클릭/키/터치)와 소프트 이벤트(휠/스크롤)를 구분:
@@ -1699,6 +1741,52 @@
       });
     },{threshold:.55});
     pages.forEach(p=>io3.observe(p));
+  })();
+
+  /* ================= 키오스크(전시) 모드: 자동 투어 =================
+     회사 TV 등 무인 디스플레이용(?kiosk=1) — 18페이지를 자동 순회하며 무한 루프.
+     음소거 고정(오디오 미재생), 리모컨 등 수동 조작 시 멈췄다가 45초 무입력 시 재개.
+     scroll-snap은 kiosk CSS에서 해제 — rAF 트윈과 충돌 방지(구형 스마트TV 브라우저 대응). */
+  if(KIOSK)(function(){
+    sagaAudio.muted=true;
+    const pages=[...document.querySelectorAll('section.page')];
+    const DWELL={home:9,story1:12,story2:12,story3:12,story4:12,numbers:8,
+      'c-asset':13,'c-profit':13,'c-equity':13,'c-people':13,stats:14,
+      power1:11,power2:11,power3:11,power4:11,moments:22,cheers:16,vision:12};
+    let idx=0,timer=0,resumeTimer=0,halted=false;
+    const glide=(to,dur)=>{
+      if(document.hidden){scrollTo(0,to);return;} // 백그라운드 탭에서는 rAF가 멈추므로 즉시 이동
+      const from=scrollY,dist=to-from,t0=performance.now();
+      const ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+      const step=t=>{
+        if(halted) return;
+        const p=Math.min((t-t0)/dur,1);
+        scrollTo(0,from+dist*ease(p));
+        if(p<1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const go=i=>{
+      idx=(i+pages.length)%pages.length;
+      glide(pages[idx].offsetTop, idx===0?2100:1500); // TV용 여유 있는 전환(2026-08-03 1100→1500)
+      timer=setTimeout(()=>go(idx+1),(DWELL[pages[idx].id]||10)*1000);
+    };
+    // 수동 조작(리모컨 포인터·휠·키) 감지 → 투어 멈춤, 45초 무입력 시 가까운 페이지부터 재개
+    const wake=()=>{
+      clearTimeout(timer);clearTimeout(resumeTimer);halted=true;
+      resumeTimer=setTimeout(()=>{
+        halted=false;
+        let n=0,best=Infinity;
+        pages.forEach((p,i2)=>{const d=Math.abs(p.offsetTop-scrollY);if(d<best){best=d;n=i2;}});
+        go(n+1);
+      },45000);
+    };
+    ['wheel','touchstart','pointerdown','keydown'].forEach(e=>addEventListener(e,wake,{passive:true}));
+    // 화면 꺼짐 방지(지원 브라우저 한정) + 장시간 운영 대비 6시간마다 새로고침
+    const wl=()=>{ if(navigator.wakeLock) navigator.wakeLock.request('screen').catch(()=>{}); };
+    wl(); document.addEventListener('visibilitychange',()=>{ if(!document.hidden) wl(); });
+    setTimeout(()=>location.reload(),6*3600*1000);
+    timer=setTimeout(()=>go(1),DWELL.home*1000);
   })();
 </script>
 
