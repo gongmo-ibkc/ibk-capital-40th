@@ -40,7 +40,7 @@ git add -A && git commit -m "..." && git push   # push → Pages 1~2분 내 자�
   jsQR로 디코드 검증 완료. 일반 웹에서는 숨김(.cheer-qr{display:none} — 폼이 있으므로 불필요).
   화면 표시 크기 약 272px(zoom 1.4 포함) + 흰 패딩 13px(콰이어트 존). URL 변경 시 QR 재생성 필요.
 - 수동 조작(휠/터치/포인터/키) 감지 시 투어 정지 → 45초 무입력이면 가장 가까운 페이지부터 재개.
-- TV 시청 거리 확대(2026-08-03): `.page .wrap{zoom:1.4}` + `header{zoom:1.25}` — .wrap만 zoom하므로
+- TV 시청 거리 확대(2026-08-03): `.page .wrap{zoom:1.4}` — .wrap만 zoom하므로
   100vh 페이지 골격·offsetTop(자동 투어 좌표)은 불변. moments 사진 마퀴(gal-rows)는 .wrap 밖이라 확대 제외
   (vh 정밀 배치 보호). .gal-note(호버·클릭 안내)와 차트 "표로 보기" details도 TV에서 무의미해 숨김.
   1920×1080에서 18페이지 전부 자손 단위 클리핑 0 검증(1.45까지 안전 확인, 1.4 채택 — TV 폰트 폴백 시
@@ -50,7 +50,7 @@ git add -A && git commit -m "..." && git push   # push → Pages 1~2분 내 자�
 - TV 검토 개선(2026-08-03, 사용자 선택 1~5·8번): ① 갤러리 kiosk 확대 — 카드 이미지 clamp(140px,16.2vh,175px)
   +캡션 15px/연도 13.5px(마퀴는 .wrap 밖이라 zoom 미적용 → 직접 상향), 커진 만큼 마퀴 1.45배 감속
   (animation-duration:calc(var(--dur)*1.45) — 인라인 --dur을 calc로 감속하는 패턴). 1920×1080에서 3줄 유지 검증.
-  ② 축하 카드 cc-msg 16.5px·cc-meta 14px + 마퀴 1.4배 감속. ③ 클릭 전용 요소 숨김 — header nav·히어로
+  ② 축하 카드 cc-msg 16.5px·cc-meta 14px + 마퀴 1.4배 감속. ③ 클릭 전용 요소 숨김 — 헤더 **전체**(nav만 숨기다 사용자 요청으로 display:none 확대)·히어로
   CTA 2버튼·.scroll-hint. ④ D-day 승격 — 19px/굵은 숫자 23px(확대 포함 약 27/32px). ⑤ 저대비 텍스트 상향 —
   ev-d .6→.75, 다크 페이지 sec-desc .66→.8, duo-card span·pp-label→.78. ⑧ 페이지 전환 1100→1500ms(홈 복귀 2100ms).
   검토 시 기각: 오버스캔 safe margin(TV에서 "원본 크기(Just Scan)" 설정으로 해결), OLED 번인 대응(LCD 가정),

@@ -649,7 +649,7 @@
   /* TV 시청 거리(10-foot UI) 대응 확대 — .wrap만 zoom하므로 100vh 페이지 골격·offsetTop은 불변.
      moments의 사진 마퀴(gal-rows)는 .wrap 밖(vh 정밀 배치)이라 확대 대상 아님 */
   html.kiosk .page .wrap{zoom:1.4}
-  html.kiosk header{zoom:1.25}
+  html.kiosk header{display:none} /* TV에서는 헤더 전체 제거(2026-08-03 사용자 요청) */
   html.kiosk .gal-note,html.kiosk .chart-page details{display:none} /* 호버·클릭 요소는 TV에서 무의미 */
   /* TV 검토 개선(2026-08-03): 클릭 전용 숨김·D-day 승격·갤러리/축하 확대·마퀴 감속·대비 상향 */
   html.kiosk header nav,html.kiosk .hero .cta,html.kiosk .scroll-hint{display:none}
