@@ -220,7 +220,17 @@
 
   /* ---------- Stats page ---------- */
   .stats{background:var(--surface-alt)}
-  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:11px;margin-top:28px}
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px} /* 4+4 균형(대표/파생) */
+  @media(max-width:900px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+  .stat-grid .t-pri .value{font-size:clamp(26px,2.9vw,36px)} /* .tile .value보다 특이성 높여야 적용됨 */
+  .stat-grid .t-sec .label{font-size:12.5px}
+  .stat-grid .t-sec .value{font-size:clamp(19px,1.8vw,24px);color:#2A4A73}
+  /* 대표 타일 스파크라인 — 해당 성장 차트의 20년 추이 축약(파란 선 + 금색 끝점) */
+  .spark{display:block;width:100%;height:34px;margin-top:12px;overflow:visible}
+  .spark .sp-area{fill:rgba(11,77,162,.07)}
+  .spark .sp-line{fill:none;stroke:var(--blue-600);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+  .stats.stats-in .spark .sp-line{animation:drawline 1.2s ease .25s forwards}
+  .spark .sp-end{fill:var(--gold-500)}
   .tile{
     background:var(--surface);border:1px solid var(--line);border-radius:14px;
     padding:15px 18px;position:relative;overflow:hidden;
@@ -299,6 +309,7 @@
     .cp-plot .draw-line{stroke-dasharray:none;stroke-dashoffset:0}
     .cp-plot .draw-area,.cp-plot .draw-dot,.cp-plot .mark-lbl{opacity:1}
     .cp-plot .mk{opacity:1;transform:none}
+    .spark .sp-line{stroke-dasharray:none;stroke-dashoffset:0}
     .cp-plot .bar{transform:none}
     .chart-in .cp-plot *{animation:none !important}
   }
@@ -1016,43 +1027,44 @@
     <div class="kicker reveal">Since 1986</div>
     <h2 class="sec-title reveal">숫자로 보는 40년</h2>
     <p class="sec-desc reveal">방금 보신 네 번의 물결을 포함해, IBK캐피탈의 오늘을 여덟 개의 숫자로 한눈에 모았습니다.</p>
+    <!-- 4+4 위계: 첫 줄 대표 4종(그래프 4페이지와 1:1, 스파크라인 포함) / 둘째 줄 파생 4종(보조 톤) -->
     <div class="stat-grid">
-      <div class="tile reveal">
+      <div class="tile t-pri reveal" data-spark="asset">
         <div class="label">총자산</div>
         <div class="value" data-count="12.1" data-decimal="1">12.1<span class="unit">조 원</span></div>
-        <div class="note">2025년 말 · 2006년(1.6조) 대비 7.4배</div>
+        <div class="note">2025년 말 · 2006년 1.6조의 7.4배</div>
       </div>
-      <div class="tile reveal">
+      <div class="tile t-pri reveal" data-spark="profit">
         <div class="label">당기순이익</div>
         <div class="value" data-count="2456">2,456<span class="unit">억 원</span></div>
         <div class="note">2025년 · 창립 이래 역대 최대</div>
       </div>
-      <div class="tile reveal">
-        <div class="label">누적 당기순이익</div>
-        <div class="value" data-count="1.8" data-decimal="1">1.8<span class="unit">조 원</span></div>
-        <div class="note">최근 20년(2006~2025) 합산 1조 8,306억 원</div>
-      </div>
-      <div class="tile reveal">
+      <div class="tile t-pri reveal" data-spark="equity">
         <div class="label">자기자본</div>
         <div class="value" data-count="20759" data-fmt="jo">2조 759억<span class="unit">원</span></div>
-        <div class="note">2025년 · 2년 새 +28%, 2조 원 돌파</div>
+        <div class="note">2025년 · 2년 새 +28% · 2조 돌파</div>
       </div>
-      <div class="tile reveal">
+      <div class="tile t-pri reveal" data-spark="people">
         <div class="label">임직원</div>
         <div class="value" data-count="286">286<span class="unit">명</span></div>
-        <div class="note">2025년 말 · 2006년 87명에서 3.3배</div>
+        <div class="note">2025년 말 · 87명에서 3.3배</div>
       </div>
-      <div class="tile reveal">
+      <div class="tile t-sec reveal">
+        <div class="label">누적 당기순이익</div>
+        <div class="value" data-count="1.8" data-decimal="1">1.8<span class="unit">조 원</span></div>
+        <div class="note">2006~2025 합산 1조 8,306억 원</div>
+      </div>
+      <div class="tile t-sec reveal">
         <div class="label">1인당 총자산</div>
         <div class="value" data-count="422">422<span class="unit">억 원</span></div>
-        <div class="note">2006년 187억 원에서 2.3배 (임직원 기준)</div>
+        <div class="note">2006년 187억 원의 2.3배</div>
       </div>
-      <div class="tile reveal">
+      <div class="tile t-sec reveal">
         <div class="label">총자산 연평균 성장률</div>
         <div class="value" data-count="11.1" data-decimal="1">11.1<span class="unit">%</span></div>
         <div class="note">2006~2025 · 20년 연평균(CAGR)</div>
       </div>
-      <div class="tile reveal">
+      <div class="tile t-sec reveal">
         <div class="label">2026년 금융자산</div>
         <div class="value" data-count="12" data-plain="1">12<span class="unit">조 달성</span></div>
         <div class="note">2022년 10조 돌파 후 4년 만</div>
@@ -1293,6 +1305,7 @@
   if(statsSec){
     const io2 = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
+        statsSec.classList.toggle('stats-in',e.isIntersecting); // 스파크라인 드로잉 재생/리셋
         if(!e.isIntersecting || reduceMotion) return;
         statsSec.querySelectorAll('.value[data-count]').forEach(animateTile);
       });
@@ -1675,6 +1688,19 @@
       </div>`;
     sec.querySelector('.cp-plot').appendChild(renderChart(c));
     sec.querySelectorAll('.reveal').forEach(n=>io.observe(n));
+  });
+
+  // 통계 대표 타일 스파크라인 — 각 성장 차트의 20년 데이터를 그대로 축약(페이지 진입 시 stats-in으로 드로잉)
+  document.querySelectorAll('#stats .tile[data-spark]').forEach(tile=>{
+    const c=CHARTS.find(k=>k.key===tile.dataset.spark); if(!c) return;
+    const vs=c.data.map(d=>d.v), min=Math.min(...vs), max=Math.max(...vs);
+    const W2=100,H2=30,p=3;
+    const pts=vs.map((v,i)=>[((i/(vs.length-1))*(W2-2*p)+p).toFixed(1), (H2-p-((v-min)/(max-min))*(H2-2*p)).toFixed(1)]);
+    const svg=el('svg',{class:'spark',viewBox:`0 0 ${W2} ${H2}`,'aria-hidden':'true',preserveAspectRatio:'none'});
+    svg.appendChild(el('polygon',{points:pts.map(q=>q.join(',')).join(' ')+` ${W2-p},${H2-p} ${p},${H2-p}`,class:'sp-area'}));
+    svg.appendChild(el('polyline',{points:pts.map(q=>q.join(',')).join(' '),class:'sp-line',pathLength:1}));
+    svg.appendChild(el('circle',{cx:pts[pts.length-1][0],cy:pts[pts.length-1][1],r:2.6,class:'sp-end'}));
+    tile.appendChild(svg);
   });
 
   // 키오스크 자동 데이터 스윕 — 드로잉 완료 후 이정표 연도의 점/막대를 순차 하이라이트하며 상세 표출
