@@ -126,6 +126,19 @@
   nav{display:flex;gap:24px}
   nav a{color:rgba(255,255,255,.72);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;white-space:nowrap}
   nav a:hover{color:#fff}
+  /* TV 전시 모드 진입(심사위원·방문자 안내) — 일반 링크와 구분되는 필 버튼 */
+  nav a.nav-kiosk{border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:6px 13px;font-size:13px}
+  nav a.nav-kiosk:hover{border-color:rgba(227,200,104,.65);color:var(--gold-300)}
+  /* 모바일(헤더 내비 숨김 구간)용 히어로 하단 진입 링크 */
+  .hero-kiosk-link{display:none;margin-top:18px;font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;
+    border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:7px 14px}
+  @media(max-width:880px){.hero-kiosk-link{display:inline-block}}
+  html.kiosk .hero-kiosk-link{display:none}
+  /* 키오스크 → 일반 화면 복귀 링크 (우상단, kb-dark로 색 전환) */
+  .kiosk-exit{display:none}
+  html.kiosk .kiosk-exit{display:block;position:fixed;top:18px;right:26px;z-index:90;cursor:pointer;
+    font-size:12.5px;text-decoration:none;color:rgba(11,27,58,.42)}
+  html.kiosk.kb-dark .kiosk-exit{color:rgba(255,255,255,.42)}
   @media(max-width:880px){nav{display:none}}
 
   .saga-btn{
@@ -769,6 +782,7 @@
       <a href="#c-asset">성장 그래프</a>
       <a href="#numbers">숫자로 보는 40년</a>
       <a href="#cheers">축하 한마디</a>
+      <a class="nav-kiosk" href="?kiosk=1">📺 TV 전시 모드</a>
     </nav>
     <button class="saga-btn" id="sagaBtn" aria-label="40주년 헌정곡 '혁신의 파도' 재생" aria-pressed="false" title="40주년 헌정곡 · 혁신의 파도">
       <svg class="s-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18.5V6.7c0-.5.3-.9.8-1l9-2c.6-.1 1.2.4 1.2 1v11.1a3.3 3.3 0 1 1-2-3V7.2l-7 1.6v11a3.3 3.3 0 1 1-2-3.3Z"/></svg>
@@ -785,6 +799,8 @@
   <img class="kb-white" src="__LOGO_W_SRC__" alt="">
 </div>
 <div class="kiosk-anniv" aria-hidden="true">40TH ANNIVERSARY</div>
+<!-- 키오스크에서 일반 화면으로 복귀 (심사위원 등 데스크톱 방문자용 — TV에서는 누를 일 없음) -->
+<a class="kiosk-exit" href="./">일반 화면으로 돌아가기</a>
 <audio id="sagaAudio" preload="auto" loop src="__SAGA_SRC__"></audio>
 
 <div class="lyric-bar" id="lyricBar" aria-live="polite">
@@ -808,6 +824,7 @@
       <a class="btn btn-gold" href="#story1">40년의 항해 보기</a>
       <a class="btn btn-ghost" href="#numbers">숫자로 보는 40년</a>
     </div>
+    <a class="hero-kiosk-link" href="?kiosk=1">📺 TV 전시 모드 보기</a>
   </div>
   <div class="scroll-hint">SCROLL</div>
 </section>
