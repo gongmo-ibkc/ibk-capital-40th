@@ -225,12 +225,6 @@
   .stat-grid .t-pri .value{font-size:clamp(26px,2.9vw,36px)} /* .tile .value보다 특이성 높여야 적용됨 */
   .stat-grid .t-sec .label{font-size:12.5px}
   .stat-grid .t-sec .value{font-size:clamp(19px,1.8vw,24px);color:#2A4A73}
-  /* 대표 타일 스파크라인 — 카드 하단 풀블리드, vector-effect로 늘려도 선 굵기·끝점 왜곡 없음 */
-  .spark{display:block;width:calc(100% + 36px);height:30px;margin:12px -18px -15px}
-  .spark .sp-area{fill:rgba(11,77,162,.07)}
-  .spark .sp-line{fill:none;stroke:var(--blue-600);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1}
-  .stats.stats-in .spark .sp-line{animation:drawline 1.2s ease .25s forwards}
-  .spark .sp-end{fill:none;stroke:var(--gold-500);stroke-width:5.5;stroke-linecap:round;vector-effect:non-scaling-stroke}
   .tile{
     background:var(--surface);border:1px solid var(--line);border-radius:14px;
     padding:15px 18px;position:relative;overflow:hidden;
@@ -309,7 +303,6 @@
     .cp-plot .draw-line{stroke-dasharray:none;stroke-dashoffset:0}
     .cp-plot .draw-area,.cp-plot .draw-dot,.cp-plot .mark-lbl{opacity:1}
     .cp-plot .mk{opacity:1;transform:none}
-    .spark .sp-line{stroke-dasharray:none;stroke-dashoffset:0}
     .cp-plot .bar{transform:none}
     .chart-in .cp-plot *{animation:none !important}
   }
@@ -1027,24 +1020,24 @@
     <div class="kicker reveal">Since 1986</div>
     <h2 class="sec-title reveal">숫자로 보는 40년</h2>
     <p class="sec-desc reveal">방금 보신 네 번의 물결을 포함해, IBK캐피탈의 오늘을 여덟 개의 숫자로 한눈에 모았습니다.</p>
-    <!-- 4+4 위계: 첫 줄 대표 4종(그래프 4페이지와 1:1, 스파크라인 포함) / 둘째 줄 파생 4종(보조 톤) -->
+    <!-- 4+4 위계: 첫 줄 대표 4종(그래프 4페이지와 1:1) / 둘째 줄 파생 4종(보조 톤, 같은 열 = 관련 지표) -->
     <div class="stat-grid">
-      <div class="tile t-pri reveal" data-spark="asset">
+      <div class="tile t-pri reveal">
         <div class="label">총자산</div>
         <div class="value" data-count="12.1" data-decimal="1">12.1<span class="unit">조 원</span></div>
         <div class="note">2025년 말 · 2006년 1.6조의 7.4배</div>
       </div>
-      <div class="tile t-pri reveal" data-spark="profit">
+      <div class="tile t-pri reveal">
         <div class="label">당기순이익</div>
         <div class="value" data-count="2456">2,456<span class="unit">억 원</span></div>
         <div class="note">2025년 · 창립 이래 역대 최대</div>
       </div>
-      <div class="tile t-pri reveal" data-spark="equity">
+      <div class="tile t-pri reveal">
         <div class="label">자기자본</div>
         <div class="value" data-count="20759" data-fmt="jo">2조 759억<span class="unit">원</span></div>
         <div class="note">2025년 · 2년 새 +28% · 2조 돌파</div>
       </div>
-      <div class="tile t-pri reveal" data-spark="people">
+      <div class="tile t-pri reveal">
         <div class="label">임직원</div>
         <div class="value" data-count="286">286<span class="unit">명</span></div>
         <div class="note">2025년 말 · 87명에서 3.3배</div>
@@ -1305,7 +1298,6 @@
   if(statsSec){
     const io2 = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
-        statsSec.classList.toggle('stats-in',e.isIntersecting); // 스파크라인 드로잉 재생/리셋
         if(!e.isIntersecting || reduceMotion) return;
         statsSec.querySelectorAll('.value[data-count]').forEach(animateTile);
       });
@@ -1688,20 +1680,6 @@
       </div>`;
     sec.querySelector('.cp-plot').appendChild(renderChart(c));
     sec.querySelectorAll('.reveal').forEach(n=>io.observe(n));
-  });
-
-  // 통계 대표 타일 스파크라인 — 각 성장 차트의 20년 데이터를 그대로 축약(페이지 진입 시 stats-in으로 드로잉)
-  document.querySelectorAll('#stats .tile[data-spark]').forEach(tile=>{
-    const c=CHARTS.find(k=>k.key===tile.dataset.spark); if(!c) return;
-    const vs=c.data.map(d=>d.v), min=Math.min(...vs), max=Math.max(...vs);
-    const W2=100,H2=30,px=2,pt=5; // 면은 카드 바닥까지 플러시, 끝점은 우측에서 살짝 안쪽
-    const pts=vs.map((v,i)=>[((i/(vs.length-1))*(W2-2*px)+px).toFixed(1), (pt+(1-(v-min)/(max-min))*(H2-pt-2)).toFixed(1)]);
-    const svg=el('svg',{class:'spark',viewBox:`0 0 ${W2} ${H2}`,'aria-hidden':'true',preserveAspectRatio:'none'});
-    svg.appendChild(el('polygon',{points:pts.map(q=>q.join(',')).join(' ')+` ${W2-px},${H2} ${px},${H2}`,class:'sp-area'}));
-    svg.appendChild(el('polyline',{points:pts.map(q=>q.join(',')).join(' '),class:'sp-line',pathLength:1}));
-    const lp=pts[pts.length-1];
-    svg.appendChild(el('path',{d:`M${lp[0]} ${lp[1]} l.01 0`,class:'sp-end'})); // 라운드캡 스트로크 = 왜곡 없는 원형 점
-    tile.appendChild(svg);
   });
 
   // 키오스크 자동 데이터 스윕 — 드로잉 완료 후 이정표 연도의 점/막대를 순차 하이라이트하며 상세 표출
