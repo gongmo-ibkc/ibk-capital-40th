@@ -1580,7 +1580,8 @@
         hit.addEventListener('mouseleave',()=>{bar.style.opacity=1;hideTip();});
         svg.appendChild(bar);svg.appendChild(hit);
         if(last){
-          const lb=el('text',{x:Math.min(cx,W-32),y:y-8,'text-anchor':'middle',class:'mark-lbl',fill:'var(--gold-500)'});
+          // 끝값은 푸른 계열 — 골드는 이정표 전용으로 남겨 위계 분리(2026-08-04)
+          const lb=el('text',{x:Math.min(cx,W-32),y:y-8,'text-anchor':'middle',class:'mark-lbl',fill:'var(--blue-600)'});
           lb.textContent=fmtChart(c,d.v); svg.appendChild(lb);
         }
       });
@@ -1600,7 +1601,7 @@
         svg.appendChild(dot);svg.appendChild(hit);
         if(last||i===0){
           const lb=el('text',{x:pts[i][0]+(last?-8:8),y:pts[i][1]+(last?-13:20),'text-anchor':last?'end':'start',class:'mark-lbl'});
-          if(last) lb.setAttribute('fill','var(--gold-500)');
+          if(last) lb.setAttribute('fill','var(--blue-600)'); // 끝값은 푸른 계열(골드는 이정표 전용)
           lb.textContent=fmtChart(c,d.v); svg.appendChild(lb);
         }
       });
