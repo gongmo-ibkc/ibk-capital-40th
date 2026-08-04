@@ -225,12 +225,12 @@
   .stat-grid .t-pri .value{font-size:clamp(26px,2.9vw,36px)} /* .tile .value보다 특이성 높여야 적용됨 */
   .stat-grid .t-sec .label{font-size:12.5px}
   .stat-grid .t-sec .value{font-size:clamp(19px,1.8vw,24px);color:#2A4A73}
-  /* 대표 타일 스파크라인 — 해당 성장 차트의 20년 추이 축약(파란 선 + 금색 끝점) */
-  .spark{display:block;width:100%;height:34px;margin-top:12px;overflow:visible}
+  /* 대표 타일 스파크라인 — 카드 하단 풀블리드, vector-effect로 늘려도 선 굵기·끝점 왜곡 없음 */
+  .spark{display:block;width:calc(100% + 36px);height:30px;margin:12px -18px -15px}
   .spark .sp-area{fill:rgba(11,77,162,.07)}
-  .spark .sp-line{fill:none;stroke:var(--blue-600);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+  .spark .sp-line{fill:none;stroke:var(--blue-600);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1}
   .stats.stats-in .spark .sp-line{animation:drawline 1.2s ease .25s forwards}
-  .spark .sp-end{fill:var(--gold-500)}
+  .spark .sp-end{fill:none;stroke:var(--gold-500);stroke-width:5.5;stroke-linecap:round;vector-effect:non-scaling-stroke}
   .tile{
     background:var(--surface);border:1px solid var(--line);border-radius:14px;
     padding:15px 18px;position:relative;overflow:hidden;
@@ -1050,14 +1050,14 @@
         <div class="note">2025년 말 · 87명에서 3.3배</div>
       </div>
       <div class="tile t-sec reveal">
-        <div class="label">누적 당기순이익</div>
-        <div class="value" data-count="1.8" data-decimal="1">1.8<span class="unit">조 원</span></div>
-        <div class="note">2006~2025 합산 1조 8,306억 원</div>
-      </div>
-      <div class="tile t-sec reveal">
         <div class="label">1인당 총자산</div>
         <div class="value" data-count="422">422<span class="unit">억 원</span></div>
         <div class="note">2006년 187억 원의 2.3배</div>
+      </div>
+      <div class="tile t-sec reveal">
+        <div class="label">누적 당기순이익</div>
+        <div class="value" data-count="1.8" data-decimal="1">1.8<span class="unit">조 원</span></div>
+        <div class="note">2006~2025 합산 1조 8,306억 원</div>
       </div>
       <div class="tile t-sec reveal">
         <div class="label">총자산 연평균 성장률</div>
@@ -1694,12 +1694,13 @@
   document.querySelectorAll('#stats .tile[data-spark]').forEach(tile=>{
     const c=CHARTS.find(k=>k.key===tile.dataset.spark); if(!c) return;
     const vs=c.data.map(d=>d.v), min=Math.min(...vs), max=Math.max(...vs);
-    const W2=100,H2=30,p=3;
-    const pts=vs.map((v,i)=>[((i/(vs.length-1))*(W2-2*p)+p).toFixed(1), (H2-p-((v-min)/(max-min))*(H2-2*p)).toFixed(1)]);
+    const W2=100,H2=30,px=2,pt=5; // 면은 카드 바닥까지 플러시, 끝점은 우측에서 살짝 안쪽
+    const pts=vs.map((v,i)=>[((i/(vs.length-1))*(W2-2*px)+px).toFixed(1), (pt+(1-(v-min)/(max-min))*(H2-pt-2)).toFixed(1)]);
     const svg=el('svg',{class:'spark',viewBox:`0 0 ${W2} ${H2}`,'aria-hidden':'true',preserveAspectRatio:'none'});
-    svg.appendChild(el('polygon',{points:pts.map(q=>q.join(',')).join(' ')+` ${W2-p},${H2-p} ${p},${H2-p}`,class:'sp-area'}));
+    svg.appendChild(el('polygon',{points:pts.map(q=>q.join(',')).join(' ')+` ${W2-px},${H2} ${px},${H2}`,class:'sp-area'}));
     svg.appendChild(el('polyline',{points:pts.map(q=>q.join(',')).join(' '),class:'sp-line',pathLength:1}));
-    svg.appendChild(el('circle',{cx:pts[pts.length-1][0],cy:pts[pts.length-1][1],r:2.6,class:'sp-end'}));
+    const lp=pts[pts.length-1];
+    svg.appendChild(el('path',{d:`M${lp[0]} ${lp[1]} l.01 0`,class:'sp-end'})); // 라운드캡 스트로크 = 왜곡 없는 원형 점
     tile.appendChild(svg);
   });
 
