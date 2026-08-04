@@ -345,10 +345,10 @@
   .cp-sub{margin-top:8px;color:var(--ink-secondary);font-size:15px}
   .cp-plot{margin-top:26px}
   .cp-plot svg{display:block;width:100%;height:auto}
-  .axis-txt{font-size:11px;fill:var(--ink-muted)}
+  .axis-txt{font-size:12.5px;fill:var(--ink-muted)}
   .grid-ln{stroke:var(--line);stroke-width:1}
   .bar{transition:opacity .15s}
-  .mark-lbl{font-size:12px;font-weight:700;fill:var(--ink-secondary)}
+  .mark-lbl{font-size:13.5px;font-weight:700;fill:var(--ink-secondary)}
   .cp-foot{font-size:11.5px;color:var(--ink-muted);margin-top:16px;line-height:1.6;max-width:760px}
   .chart-page details{margin-top:10px}
   .chart-page summary{font-size:12.5px;color:var(--blue-600);cursor:pointer;user-select:none}
@@ -613,10 +613,10 @@
 
   /* ---------- 차트 강조 연출 ---------- */
   .draw-line{filter:drop-shadow(0 3px 8px rgba(11,77,162,.3))}
-  .band-lbl{font-size:10px;font-weight:600;fill:rgba(90,105,125,.55)}
+  .band-lbl{font-size:11.5px;font-weight:600;fill:rgba(90,105,125,.55)}
   .mk{opacity:0;transition:opacity .5s 1.1s}
   .chart-page.chart-in .mk{opacity:1}
-  .mk-lbl{font-size:10.5px;font-weight:700;fill:var(--gold-500)}
+  .mk-lbl{font-size:12px;font-weight:700;fill:var(--gold-500)}
   .cv-pulse{fill:none;stroke:var(--gold-500);stroke-width:2;opacity:0}
   .chart-page.chart-in .cv-pulse{animation:pt-pulse 2.4s ease-out .9s infinite}
   @keyframes pt-pulse{0%{r:6;opacity:.8}70%{opacity:0}100%{r:24;opacity:0}}
@@ -1424,7 +1424,7 @@
     {
       key:'profit', label:'당기순이익', unit:'억 원', dec:0, step:'Growth 2 / 4',
       current:'2,456', delta:'역대 최대 경신', sub:'2008년 글로벌 금융위기의 골짜기(114억 원)를 지나 2025년 2,456억 원 — 수익성의 파고가 해마다 높아지고 있습니다.',
-      type:'bar', bands:[{y:2008,label:'글로벌 금융위기'}],
+      type:'bar', bands:[{y:2008,label:'글로벌 금융위기'}], marks:[{y:2019,label:'1,000억 돌파'},{y:2021,label:'2,000억 돌파'}],
       data:[
         {y:2006,v:252},{y:2007,v:325},{y:2008,v:114,note:'글로벌 금융위기'},{y:2009,v:207},{y:2010,v:248,note:'K-GAAP 기준'},
         {y:2011,v:357},{y:2012,v:428},{y:2013,v:429},{y:2014,v:433},{y:2015,v:493},
@@ -1437,7 +1437,7 @@
       key:'equity', label:'자기자본', unit:'억 원', dec:0, step:'Growth 3 / 4',
       current:'20,759', display:'2조 759억', displayUnit:'원', eokjo:true,
       delta:'20년 새 12.6배', sub:'2006년 1,643억 원의 자본으로 출발했던 항해가 이제는 2조 원이 되었습니다. 2009년 800억·2020년 1,000억 증자가 도약의 돛이 되었습니다.',
-      type:'line', marks:[{y:2009,label:'800억 증자'},{y:2020,label:'1,000억 증자'}],
+      type:'line', marks:[{y:2009,label:'800억 증자'},{y:2020,label:'1조 돌파|(1,000억 증자)'}],
       data:[
         {y:2006,v:1643},{y:2007,v:1937},{y:2008,v:2129,note:'5월 200억 유상증자'},{y:2009,v:3152,note:'8월 800억 유상증자'},{y:2010,v:3447,note:'K-GAAP 기준'},
         {y:2011,v:3639},{y:2012,v:4020},{y:2013,v:4418},{y:2014,v:4851},{y:2015,v:5367},
@@ -1449,7 +1449,7 @@
     {
       key:'people', label:'임직원 수', unit:'명', dec:0, step:'Growth 4 / 4',
       current:'286', delta:'20년 새 3.3배', sub:'2006년 87명이었던 선원은 이제 286명이 되었습니다 — 성장의 파도를 함께 넘어온 사람들입니다.',
-      type:'line', withNote:true,
+      type:'line', withNote:true, marks:[{y:2007,label:'100명 돌파'},{y:2012,label:'200명 돌파'}],
       data:[
         {y:2006,v:87},{y:2007,v:122},{y:2008,v:145},{y:2009,v:175},{y:2010,v:191},
         {y:2011,v:194},{y:2012,v:202},{y:2013,v:205},{y:2014,v:202},{y:2015,v:202},
@@ -1589,19 +1589,22 @@
           lb.textContent=fmtChart(c,d.v); svg.appendChild(lb);
         }
       });
-      // 이정표 온차트 주석 (금색 다이아몬드 + 라벨)
-      (c.marks||[]).forEach(mk=>{
-        const idx=c.data.findIndex(x=>x.y===mk.y); if(idx<0) return;
-        const x=pts[idx][0], y=pts[idx][1];
-        const above=y>m.t+58;
-        const my=above? y-18 : y+18;
-        const g2=el('g',{class:'mk'});
-        g2.appendChild(el('path',{d:`M${x} ${my-5} l5 5 -5 5 -5 -5 Z`,fill:'var(--gold-500)'}));
-        const t=el('text',{x:x,y:above? my-10 : my+19,'text-anchor':'middle',class:'mk-lbl'});
-        t.textContent=mk.label; g2.appendChild(t);
-        svg.appendChild(g2);
-      });
     }
+
+    // 이정표 온차트 주석 (금색 다이아몬드 + 라벨) — 선·막대 공용 (막대는 막대 상단 기준)
+    (c.marks||[]).forEach(mk=>{
+      const dd=c.data.find(x=>x.y===mk.y); if(!dd) return;
+      const x=xSc(dd.y), y=ySc(dd.v);
+      const above=y>m.t+58;
+      const my=above? y-18 : y+18;
+      const g2=el('g',{class:'mk'});
+      g2.appendChild(el('path',{d:`M${x} ${my-5} l5 5 -5 5 -5 -5 Z`,fill:'var(--gold-500)'}));
+      const lines=mk.label.split('|'); // '|'로 줄바꿈 — 긴 라벨이 이웃 데이터 점을 덮는 것 방지
+      const t=el('text',{x:x,y:(above? my-10-(lines.length-1)*13 : my+19),'text-anchor':'middle',class:'mk-lbl'});
+      lines.forEach((ln,li)=>{const ts=el('tspan',{x:x,dy:li?13:0});ts.textContent=ln;t.appendChild(ts);});
+      g2.appendChild(t);
+      svg.appendChild(g2);
+    });
 
     const defs=el('defs',{});
     const g=el('linearGradient',{id:'gold-'+c.key,x1:0,y1:0,x2:0,y2:1});
